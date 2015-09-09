@@ -12,6 +12,8 @@ import com.spacecraft.game.GameManager;
  */
 public class SpaceCraft implements Unit
 {
+    private final LaserWeapon laser = new LaserWeapon(100, 5, 4, "Bom bom Bitch");
+
     private final float SCALE = 1.0f;
 
     private final Sprite sprite = new Sprite(GameManager.spaceCraftTexture());
