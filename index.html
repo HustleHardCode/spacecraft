@@ -13,7 +13,7 @@
             position: fixed;
             top: 0;
             right: 0;
-            bottom: 50%;
+            bottom: 20%;
             left: 50%;
             border-bottom: solid #282A2E 5px;
             border-bottom-left-radius: 4px;
@@ -37,59 +37,94 @@
 
 <div id="editor">
     function foo(items) {
-    var x = "All this is syntax highlighted";
-    return x;
+        var x = "All this is syntax highlighted";
+        return x;
     }
 </div>
 
 <script type="text/javascript">
 
     var editor = ace.edit("editor");
-    var spaceCraft;
 
     editor.setTheme("ace/theme/tomorrow_night");
     editor.getSession().setMode("ace/mode/javascript");
 
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {init: init, preload: preload, create: create, update: update});
+    var starCraft;
+    var cursors;
+    var game = new Phaser.Game(window.innerWidth, window.innerWidth, Phaser.CANVAS, 'game', {
+        init: init,
+        preload: preload,
+        create: create,
+        update: update,
+        render: render
+    });
 
     function init()
     {
-//        game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+        game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
     }
 
     function preload()
     {
         game.load.image('starField', 'assets/starField.png');
-        game.load.image('spaceCraft', 'assets/spaceCraft.png');
+        game.load.image('starCraft', 'assets/spaceCraft.png');
     }
 
     function create()
     {
-        game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.add.tileSprite(0, 0, 1920, 1920, 'starField');
+        game.world.setBounds(0, 0, 1920, 1920);
 
-        //  Resize our game world to be a 2000 x 2000 square
-        game.world.setBounds(-1000, -1000, 2000, 2000);
+        game.scale.pageAlignVertically = true;
+        game.scale.pageAlignHorizontally = true;
 
-        var starField = game.add.tileSprite(0, 0, 800, 600, 'starField');
-        starField.fixedToCamera = true;
+        game.physics.startSystem(Phaser.Physics.P2JS);
 
-        //  The base of our spacecraft
-        spaceCraft = game.add.sprite(0, 0, 'spaceCraft');
-        spaceCraft.anchor.setTo(0.5, 0.5);
-        spaceCraft.scale.setTo(0.5, 0.5);
+        starCraft = game.add.sprite(game.world.centerX, game.world.centerY, 'starCraft');
+//        starCraft.scale.setTo(0.5, 0.5);
 
-        //  We need to enable physics on the player
-        game.physics.arcade.enable(spaceCraft);
+        game.physics.p2.enable(starCraft);
 
-        game.camera.follow(spaceCraft);
-        game.camera.deadzone = new Phaser.Rectangle(150, 150, 500, 300);
-        game.camera.focusOnXY(0, 0);
+        game.camera.follow(starCraft);
+        game.camera.deadzone = new Phaser.Rectangle(100, 100, 500, 500);
+
+        cursors = game.input.keyboard.createCursorKeys();
     }
 
     function update()
     {
-        //  Move to the left
-        spaceCraft.body.velocity.x = -50;
+        if (cursors.left.isDown)
+        {
+            starCraft.body.rotateLeft(1);
+        }
+        else if (cursors.right.isDown)
+        {
+            starCraft.body.rotateRight(1);
+        }
+        else
+        {
+            starCraft.body.setZeroRotation();
+        }
+
+        if (cursors.up.isDown)
+        {
+            starCraft.body.thrust(10);
+        }
+        else if (cursors.down.isDown)
+        {
+            starCraft.body.reverse(10);
+        }
+    }
+
+    function render()
+    {
+        var zone = game.camera.deadzone;
+
+        game.context.fillStyle = 'rgba(255,255,255,0.1)';
+        game.context.fillRect(zone.x, zone.y, zone.width, zone.height);
+
+        game.debug.cameraInfo(game.camera, 32, 32);
+        game.debug.spriteCoords(starCraft, 32, 500);
     }
 
 </script>
