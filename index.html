@@ -2,7 +2,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Phaser - Making your first game, part 8</title>
-<<<<<<< HEAD
     <script type="text/javascript" src="libs/ace/ace.js" charset="utf-8"></script>
     <script type="text/javascript" src="libs/phaser.min.js" charset="utf-8"></script>
     <style type="text/css">
@@ -38,8 +37,8 @@
 
 <div id="editor">
     function foo(items) {
-        var x = "All this is syntax highlighted";
-        return x;
+    var x = "All this is syntax highlighted";
+    return x;
     }
 </div>
 
@@ -57,21 +56,6 @@
     {
 //        game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
     }
-=======
-    <script type="text/javascript" src="libs/phaser.min.js"></script>
-    <style type="text/css">
-        body
-        {
-            margin: 0;
-        }
-    </style>
-</head>
-<body style="overflow: hidden;">
-
-<script type="text/javascript">
-
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {preload: preload, create: create, update: update});
->>>>>>> 2ee3880fc7a29d92082e8774692c3eafa8505239
 
     function preload()
     {
@@ -81,47 +65,31 @@
 
     function create()
     {
-<<<<<<< HEAD
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
-=======
->>>>>>> 2ee3880fc7a29d92082e8774692c3eafa8505239
         //  Resize our game world to be a 2000 x 2000 square
         game.world.setBounds(-1000, -1000, 2000, 2000);
 
         var starField = game.add.tileSprite(0, 0, 800, 600, 'starField');
         starField.fixedToCamera = true;
 
-<<<<<<< HEAD
         //  The base of our spacecraft
-=======
-        //  The base of our tank
->>>>>>> 2ee3880fc7a29d92082e8774692c3eafa8505239
         spaceCraft = game.add.sprite(0, 0, 'spaceCraft');
         spaceCraft.anchor.setTo(0.5, 0.5);
         spaceCraft.scale.setTo(0.5, 0.5);
 
-<<<<<<< HEAD
         //  We need to enable physics on the player
         game.physics.arcade.enable(spaceCraft);
 
         game.camera.follow(spaceCraft);
         game.camera.deadzone = new Phaser.Rectangle(150, 150, 500, 300);
         game.camera.focusOnXY(0, 0);
-=======
-        game.camera.follow(spaceCraft);
-        game.camera.deadzone = new Phaser.Rectangle(150, 150, 500, 300);
->>>>>>> 2ee3880fc7a29d92082e8774692c3eafa8505239
     }
 
     function update()
     {
-<<<<<<< HEAD
         //  Move to the left
         spaceCraft.body.velocity.x = -50;
-=======
-
->>>>>>> 2ee3880fc7a29d92082e8774692c3eafa8505239
     }
 
 </script>
