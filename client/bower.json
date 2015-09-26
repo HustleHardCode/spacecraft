@@ -22,6 +22,8 @@
   ],
   "dependencies": {
     "angular": "~1.5.0",
-    "phaser": "~2.4.3"
+    "phaser": "~2.4.3",
+    "angular-ui-router": "~0.2.15",
+    "ace-builds": "~1.2.0"
   }
 }

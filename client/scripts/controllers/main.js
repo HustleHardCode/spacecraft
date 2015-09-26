@@ -8,10 +8,8 @@
  * Controller of the spacecraft
  */
 angular.module('spacecraft')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+    .controller('GameController', function ()
+    {
+        var ctrl = this;
+        // Define our controller here
+    });
