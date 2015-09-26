@@ -1,0 +1,27 @@
+{
+  "name": "spacecraft",
+  "version": "0.0.0",
+  "homepage": "http://spacecraft.launchrock.com",
+  "authors": [
+    "Skurishin Vladislav <vskurishin@marathonbet.ru>"
+  ],
+  "description": "Learn how to code your own spacecraft and fight against other players online!",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "spacecraft"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.5.0",
+    "phaser": "~2.4.3"
+  }
+}
