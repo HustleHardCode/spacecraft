@@ -5,11 +5,11 @@ body {
 
 #editorButtons {
     position: fixed;
-    top: 80%;
+    top: 95%;
     right: 0;
     background-color: #25282C;
     color: #C5C8C6;
-    bottom: 15%;
+    bottom: 0;
     left: 50%;
     display: inline-flex;
 }
@@ -18,7 +18,7 @@ body {
     position: fixed;
     top: 0;
     right: 0;
-    bottom: 20%;
+    bottom: 5%;
     left: 50%;
 }
 
@@ -35,3 +35,112 @@ body {
     background: #35383C;
     text-decoration: none;
 }
+
+.bounceInDown {
+    -webkit-animation-name: bounceInDown;
+    animation-name: bounceInDown;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.bounceOutUp {
+    -webkit-animation-name: bounceOutUp;
+    animation-name: bounceOutUp;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.bounceOutDown {
+    -webkit-animation-name: bounceOutDown;
+    animation-name: bounceOutDown;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes bounceInDown {
+    0% {
+        -webkit-transform: translateY(-2000px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes bounceInDown {
+    0% {
+        transform: translateY(-2000px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@-webkit-keyframes bounceOutUp {
+    0% {
+        -webkit-transform: translateY(0);
+    }
+    100% {
+        -webkit-transform: translateY(-2000px);
+    }
+}
+@keyframes bounceOutUp {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-2000px);
+    }
+}
+
+@-webkit-keyframes bounceOutDown {
+    0% {
+        -webkit-transform: translateY(0);
+    }
+    100% {
+        -webkit-transform: translateY(2000px);
+    }
+}
+@keyframes bounceOutDown {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(2000px);
+    }
+}
+
+
+@-webkit-keyframes bounceInUp {
+    0% {
+        -webkit-transform: translateY(2000px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes bounceInUp {
+    0% {
+        transform: translateY(2000px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.bounceInUp {
+    -webkit-animation-name: bounceInUp;
+    animation-name: bounceInUp;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+

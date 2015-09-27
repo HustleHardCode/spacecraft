@@ -13,8 +13,7 @@ angular.module('spacecraft')
         {
             var spaceCraft,
                 cursors,
-                code,
-                runnable;
+                code;
 
             // Build the game object
             //var height  = parseInt(element.css('height'), 10),
@@ -80,7 +79,7 @@ angular.module('spacecraft')
 
             function runUserScript()
             {
-                if (runnable)
+                if (code != null)
                 {
                     var userFunction = new Function('spaceCraft', code);
                     userFunction(spaceCraft.getUserAPI());
@@ -136,14 +135,7 @@ angular.module('spacecraft')
 
             scope.$watch('code', function (n)
             {
-                console.log("code " + n);
                 code = n;
-            });
-
-            scope.$watch('runnable', function (n)
-            {
-                console.log("runnable " + n);
-                runnable = n;
             });
         };
 
