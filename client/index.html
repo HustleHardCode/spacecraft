@@ -2,18 +2,21 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>SpaceCraft</title>
+
+    <script type="text/javascript" src="bower_components/ace-builds/src-min/ace.js"></script>
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-ace/ui-ace.min.js"></script>
     <script type="text/javascript" src="bower_components/phaser/build/phaser.min.js"></script>
-    <script type="text/javascript" src="bower_components/ace-builds/src-min/ace.js"></script>
 
-    <script type="text/javascript" src="scripts/game/game.js"></script>
-    <script type="text/javascript" src="scripts/app.js"></script>
     <script type="text/javascript" src="scripts/controllers/main.js"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+    <script type="text/javascript" src="scripts/directives/game-canvas.js"></script>
 
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="stylesheet" href="resources/styles/main.css">
 </head>
@@ -23,34 +26,7 @@
     your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<!-- Add your site or application content here -->
-<div class="header">
-
-</div>
-
-<div class="container">
-
-    <div ui-view></div>
-
-    <div id="game"></div>
-
-    <div id="editor">spaceCraft.thrust();</div>
-
-</div>
-
-<div class="footer">
-
-</div>
-
-<script type="text/javascript">
-
-    var editor = ace.edit("editor");
-
-    editor.setTheme("ace/theme/tomorrow_night");
-    editor.getSession().setMode("ace/mode/javascript");
-
-</script>
-
+<div ui-view></div>
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>

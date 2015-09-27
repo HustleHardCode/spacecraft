@@ -3,7 +3,18 @@ body {
     overflow: hidden;
 }
 
-#editor {
+#editorButtons {
+    position: fixed;
+    top: 80%;
+    right: 0;
+    background-color: #25282C;
+    color: #C5C8C6;
+    bottom: 15%;
+    left: 50%;
+    display: inline-flex;
+}
+
+.ace_editor {
     position: fixed;
     top: 0;
     right: 0;
@@ -14,10 +25,16 @@ body {
     border-bottom-right-radius: 4px;
 }
 
-#game {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+#editorButtons button {
+    width: 50%;
+    color: #ffffff;
+    background: #25282C;
+    text-decoration: none;
+    border: 0;
+    outline: none;
+}
+
+#editorButtons button:hover {
+    background: #35383C;
+    text-decoration: none;
 }

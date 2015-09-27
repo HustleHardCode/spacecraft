@@ -1,1 +1,11 @@
-<div>ASD</div>
+<div ui-ace="{
+  useWrapMode : true,
+  showGutter: true,
+  theme:'tomorrow_night',
+  mode: 'javascript',
+  firstLineNumber: 5,
+  onLoad: aceLoaded,
+  onChange: aceChanged
+}">spaceCraft.thrust();</div>
+
+<div game-canvas></div>
