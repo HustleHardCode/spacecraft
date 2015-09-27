@@ -3,9 +3,16 @@
   showGutter: true,
   theme:'tomorrow_night',
   mode: 'javascript',
-  firstLineNumber: 5,
+  firstLineNumber: 1,
   onLoad: aceLoaded,
   onChange: aceChanged
-}">spaceCraft.thrust();</div>
+}"></div>
 
-<div game-canvas></div>
+<div game-canvas
+     code="code"
+     runnable="runnable"></div>
+
+<div id="editorButtons">
+    <button type="button" ng-click="run()">Run</button>
+    <button type="button" ng-click="stop()">Stop</button>
+</div>

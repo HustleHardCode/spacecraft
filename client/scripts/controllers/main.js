@@ -23,14 +23,31 @@ angular.module('spacecraft.main', [])
         var editorSession,
             editorRenderer;
 
+        $scope.code = "spaceCraft.thrust();";
+        $scope.runnable = false;
+
         $scope.aceLoaded = function (editor)
         {
             editorSession = editor.getSession();
             editorRenderer = editor.renderer;
+
+            editor.$blockScrolling = Infinity;
+
+            editorSession.setValue($scope.code);
         };
 
         $scope.aceChanged = function ()
         {
-            console.log(editorSession.getDocument().getValue());
+            $scope.code = editorSession.getDocument().getValue();
+        };
+
+        $scope.run = function ()
+        {
+            $scope.runnable = true;
+        };
+
+        $scope.stop = function ()
+        {
+            $scope.runnable = false;
         };
     }]);
