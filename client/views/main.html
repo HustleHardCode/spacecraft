@@ -10,9 +10,10 @@
 
 <div id="editorButtons">
     <button type="button" ng-click="toggleCodeRun()">{{isCodeRunning ? "Stop" : "Run"}}</button>
-    <button type="button" ng-click="toggleEditorOpen()">Hide</button>
+    <button type="button" ng-click="toggleEditorOpen()">{{hideEditor ? "Show" : "Hide"}}</button>
 </div>
 
 <div game-canvas
-     code="code"></div>
+     code="code"
+     is-running="isCodeRunning"></div>
 

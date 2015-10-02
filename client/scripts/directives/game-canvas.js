@@ -13,7 +13,9 @@ angular.module('spacecraft')
         {
             var spaceCraft,
                 cursors,
-                code;
+                isRunning,
+                userCode,
+                userObject;
 
             // Build the game object
             //var height  = parseInt(element.css('height'), 10),
@@ -79,10 +81,9 @@ angular.module('spacecraft')
 
             function runUserScript()
             {
-                if (code != null)
+                if (isRunning)
                 {
-                    var userFunction = new Function('spaceCraft', code);
-                    userFunction(spaceCraft.getUserAPI());
+                    userObject.run(spaceCraft.getUserAPI());
                 }
             }
 
@@ -135,14 +136,24 @@ angular.module('spacecraft')
 
             scope.$watch('code', function (n)
             {
-                code = n;
+                userCode = n;
+            });
+
+            scope.$watch('isRunning', function (n)
+            {
+                isRunning = n;
+
+                if (n)
+                {
+                    userObject = new Function(userCode)();
+                }
             });
         };
 
         return {
             scope: {
                 code: '=',
-                runnable: '='
+                isRunning: '='
             },
             template: '<div id="gameCanvas"></div>',
             link: linkFn
