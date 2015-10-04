@@ -5,20 +5,22 @@ body {
 
 #editorButtons {
     position: fixed;
-    top: 95%;
+    top: 0;
     right: 0;
     background-color: #25282C;
     color: #C5C8C6;
-    bottom: 0;
+    bottom: 95%;
     left: 50%;
     display: inline-flex;
+    height: 5%;
+    width: 50%;
 }
 
 .ace_editor {
     position: fixed;
-    top: 0;
+    top: 5%;
     right: 0;
-    bottom: 5%;
+    bottom: 0;
     left: 50%;
 }
 
@@ -29,12 +31,16 @@ body {
     text-decoration: none;
     border: 0;
     outline: none;
+    float: left;
 }
+.logo{
 
+}
 #editorButtons button:hover {
-    background: #35383C;
     text-decoration: none;
 }
+
+
 
 .bounceInDown {
     -webkit-animation-name: bounceInDown;

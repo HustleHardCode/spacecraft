@@ -14,7 +14,7 @@ angular.module('spacecraft.main', [])
         $stateProvider
             .state('game', {
                 url: '',
-                templateUrl: '/views/main.html',
+                templateUrl: 'views/main.html',
                 controller: 'MainController as ctrl'
             });
     }])
