@@ -25,6 +25,7 @@
     "phaser": "~2.4.3",
     "angular-ui-router": "~0.2.15",
     "ace-builds": "~1.2.0",
-    "angular-ui-ace": "~0.2.3"
+    "angular-ui-ace": "~0.2.3",
+    "bootstrap": "~3.3.5"
   }
 }
