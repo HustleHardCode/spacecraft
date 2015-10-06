@@ -11,15 +11,19 @@
 <div id="toolbar">
 
     <div class="box">
-        <img class="logo" src="resources/assets/logo3.png" >
+        <img class="logo" src="resources/assets/logo3.png">
     </div>
 
     <div class="box">
-        <button type="button" ng-click="toggleEditorOpen()" ><span
-                class="{{hideEditor ? 'glyphicon glyphicon-chevron-down' : 'glyphicon glyphicon-chevron-up'}}"></span>
+        <button type="button" ng-click="toggleEditorOpen()">
+            <span class="glyphicon"
+                  ng-class="{'glyphicon-chevron-down' : hideEditor, 'glyphicon-chevron-up' : !hideEditor}">
+            </span>
         </button>
-        <button type="button" ng-click="toggleCodeRun()" ><span
-                class="{{isCodeRunning ? 'glyphicon glyphicon-stop' : 'glyphicon glyphicon-play'}}"></span>
+        <button type="button" ng-click="toggleCodeRun()">
+            <span class="glyphicon"
+                  ng-class="{'glyphicon-stop' : isCodeRunning, 'glyphicon glyphicon-play' : !isCodeRunning}">
+            </span>
         </button>
     </div>
 
