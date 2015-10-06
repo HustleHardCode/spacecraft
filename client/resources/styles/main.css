@@ -12,27 +12,27 @@ body {
     bottom: 95%;
     left: 50%;
     display: inline-flex;
-    height: 5%;
     width: 50%;
+    height: 50px;
 }
 
 .ace_editor {
     position: fixed;
-    top: 5%;
+    top: 50px;
     right: 0;
     bottom: 0;
     left: 50%;
 }
 
 #editorButtons button {
-    width: 50%;
+    width: 45%;
     color: #ffffff;
     background: #25282C;
     text-decoration: none;
     border: 0;
     outline: none;
     float: left;
-    padding-top: 5%;
+    padding-top: 10px;
 }
 .logo{
 
