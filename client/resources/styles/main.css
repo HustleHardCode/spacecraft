@@ -3,7 +3,7 @@ body {
     overflow: hidden;
 }
 
-#editorButtons {
+#toolbar {
     position: fixed;
     top: 0;
     right: 0;
@@ -16,6 +16,27 @@ body {
     height: 50px;
 }
 
+#toolbar button {
+    color: #ffffff;
+    background: #25282C;
+    height: 50px;
+    text-decoration: none;
+    border: 0;
+    outline: none;
+    float: right;
+    padding-top: 5px;
+}
+
+#toolbar .box {
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#toolbar button:hover {
+    text-decoration: none;
+}
+
 .ace_editor {
     position: fixed;
     top: 50px;
@@ -24,24 +45,11 @@ body {
     left: 50%;
 }
 
-#editorButtons button {
-    width: 45%;
-    color: #ffffff;
-    background: #25282C;
-    text-decoration: none;
-    border: 0;
-    outline: none;
-    float: left;
-    padding-top: 10px;
+.logo {
+    height: 50px;
+    width: 220px;
+    display: inline-block;
 }
-.logo{
-
-}
-#editorButtons button:hover {
-    text-decoration: none;
-}
-
-
 
 .bounceInDown {
     -webkit-animation-name: bounceInDown;
@@ -96,6 +104,7 @@ body {
         -webkit-transform: translateY(-2000px);
     }
 }
+
 @keyframes bounceOutUp {
     0% {
         transform: translateY(0);
@@ -113,6 +122,7 @@ body {
         -webkit-transform: translateY(2000px);
     }
 }
+
 @keyframes bounceOutDown {
     0% {
         transform: translateY(0);
@@ -121,7 +131,6 @@ body {
         transform: translateY(2000px);
     }
 }
-
 
 @-webkit-keyframes bounceInUp {
     0% {
