@@ -34,14 +34,17 @@ body {
     float: left;
     padding-top: 10px;
 }
-.logo{
 
+.red {
+    color: #EE0000;
+}
+
+.green{
+    color: #228B22;
 }
 #editorButtons button:hover {
     text-decoration: none;
 }
-
-
 
 .bounceInDown {
     -webkit-animation-name: bounceInDown;
@@ -96,6 +99,7 @@ body {
         -webkit-transform: translateY(-2000px);
     }
 }
+
 @keyframes bounceOutUp {
     0% {
         transform: translateY(0);
@@ -113,6 +117,7 @@ body {
         -webkit-transform: translateY(2000px);
     }
 }
+
 @keyframes bounceOutDown {
     0% {
         transform: translateY(0);
@@ -121,7 +126,6 @@ body {
         transform: translateY(2000px);
     }
 }
-
 
 @-webkit-keyframes bounceInUp {
     0% {
