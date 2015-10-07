@@ -8,16 +8,24 @@
   onChange: aceChanged
 }" ng-class="{'bounceOutUp' : hideEditor, 'bounceInDown' : !hideEditor}"></div>
 
-<div id="editorButtons">
+<div id="toolbar">
 
-        <img class="logo" src="resources/assets/logo3.png" style="padding-left: 25px;height: 50px;width: 250px">
-        <div style="padding-left: 330px;">
-        <button type="button" ng-click="toggleCodeRun()" ><span
-                class="{{isCodeRunning ? 'glyphicon glyphicon-stop red' : 'glyphicon glyphicon-play green'}}"></span></button>
-        <button type="button" ng-click="toggleEditorOpen()" ><span
-                class="{{hideEditor ? 'glyphicon glyphicon-chevron-down' : 'glyphicon glyphicon-chevron-up'}}"></span>
+    <div class="box">
+        <img class="logo" src="resources/assets/logo3.png">
+    </div>
+
+    <div class="box">
+        <button type="button" ng-click="toggleEditorOpen()">
+            <span class="glyphicon"
+                  ng-class="{'glyphicon-chevron-down' : hideEditor, 'glyphicon-chevron-up' : !hideEditor}">
+            </span>
         </button>
-        </div>
+        <button type="button" ng-click="toggleCodeRun()">
+            <span class="glyphicon"
+                  ng-class="{'glyphicon-stop' : isCodeRunning, 'glyphicon-play' : !isCodeRunning}">
+            </span>
+        </button>
+    </div>
 
 </div>
 

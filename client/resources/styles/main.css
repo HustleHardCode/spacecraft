@@ -3,7 +3,7 @@ body {
     overflow: hidden;
 }
 
-#editorButtons {
+#toolbar {
     position: fixed;
     top: 0;
     right: 0;
@@ -16,23 +16,21 @@ body {
     height: 50px;
 }
 
-.ace_editor {
-    position: fixed;
-    top: 50px;
-    right: 0;
-    bottom: 0;
-    left: 50%;
-}
-
-#editorButtons button {
-    width: 45%;
+#toolbar button {
     color: #ffffff;
     background: #25282C;
+    height: 50px;
     text-decoration: none;
     border: 0;
     outline: none;
-    float: left;
-    padding-top: 10px;
+    float: right;
+    padding-top: 5px;
+}
+
+#toolbar .box {
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .red {
@@ -42,8 +40,23 @@ body {
 .green{
     color: #228B22;
 }
-#editorButtons button:hover {
+
+#toolbar button:hover {
     text-decoration: none;
+}
+
+.ace_editor {
+    position: fixed;
+    top: 50px;
+    right: 0;
+    bottom: 0;
+    left: 50%;
+}
+
+.logo {
+    height: 50px;
+    width: 220px;
+    display: inline-block;
 }
 
 .bounceInDown {
