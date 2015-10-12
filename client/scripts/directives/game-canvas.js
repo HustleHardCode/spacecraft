@@ -124,13 +124,13 @@ angular.module('spacecraft')
 
             function render()
             {
-                var zone = game.camera.deadzone;
-
-                game.context.fillStyle = 'rgba(255,255,255,0.1)';
-                game.context.fillRect(zone.x, zone.y, zone.width, zone.height);
-
-                game.debug.cameraInfo(game.camera, 32, 32);
-                game.debug.spriteCoords(spaceCraft.sprite(), 32, 500);
+                //var zone = game.camera.deadzone;
+                //
+                //game.context.fillStyle = 'rgba(255,255,255,0.1)';
+                //game.context.fillRect(zone.x, zone.y, zone.width, zone.height);
+                //
+                //game.debug.cameraInfo(game.camera, 32, 32);
+                //game.debug.spriteCoords(spaceCraft.sprite(), 32, 500);
             }
 
             scope.$watch('code', function (n)
