@@ -23,8 +23,8 @@ angular.module('spacecraft.main', [])
         var editorSession,
             editorRenderer;
 
-        $scope.code = "spaceCraft.thrust();";
-        $scope.isCodeRunning = true;
+        $scope.code = "return { run : function(spaceCraft) { spaceCraft.thrust(); } }";
+        $scope.isCodeRunning = false;
         $scope.hideEditor = false;
 
         $scope.aceLoaded = function (editor)
@@ -39,7 +39,7 @@ angular.module('spacecraft.main', [])
 
         $scope.aceChanged = function ()
         {
-            $scope.tmpCode = editorSession.getDocument().getValue();
+            $scope.code = editorSession.getDocument().getValue();
         };
 
         $scope.toggleEditorOpen = function ()
@@ -50,14 +50,5 @@ angular.module('spacecraft.main', [])
         $scope.toggleCodeRun = function ()
         {
             $scope.isCodeRunning = !$scope.isCodeRunning;
-
-            if ($scope.isCodeRunning)
-            {
-                $scope.code = $scope.tmpCode;
-            }
-            else
-            {
-                $scope.code = null;
-            }
         };
     }]);
