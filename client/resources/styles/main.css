@@ -3,6 +3,10 @@ body {
     overflow: hidden;
 }
 
+#gameCanvas {
+    margin-top: 25px;
+}
+
 #toolbar {
     position: fixed;
     top: 0;
@@ -13,6 +17,10 @@ body {
     display: inline-flex;
     width: 100%;
     height: 25px;
+}
+
+canvas {
+    margin-top: 25px;
 }
 
 #toolbar button {
