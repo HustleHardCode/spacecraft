@@ -66,7 +66,6 @@ app.controller('GameController', ['$scope', '$storage', 'autocompleter',
 
 	$scope.aceLoaded = function (editor)
 	{
-		localEditor = editor;
 		editorSession = editor.getSession();
 		editor.$blockScrolling = Infinity;
 		editorSession.setValue($scope.ep.code);

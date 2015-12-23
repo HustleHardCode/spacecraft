@@ -15,7 +15,6 @@ var PlayState = function (spec)
 	var isRunning;
 	var userCode;
 	var userObject;
-	var toSpaceCraft;
 
 	//===================================
 	//============== HELP ===============
@@ -69,10 +68,14 @@ var PlayState = function (spec)
 			game.camera.x += 4;
 		}
 
-		if (toSpaceCraft.isDown)
+		if (game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).isDown)
 		{
 			followFor(scope.spaceCraft.sprite);
 		}
+
+		// Удаляем прослушку, так как наш редактор кода, тоже прослушивает
+		// Нажатие клавиш
+		game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
 	}
 
 	function gameInit(bounds)
@@ -81,8 +84,6 @@ var PlayState = function (spec)
 		game.world.setBounds(bounds.x, bounds.y, bounds.width, bounds.height);
 
 		cursors = game.input.keyboard.createCursorKeys();
-		toSpaceCraft = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
 		game.paused = true;
 	}
 
