@@ -23,6 +23,7 @@ app.service('autocompleter', function ()
 					{regExps: [' *enemy.$'], name: 'enemy'},
 					{regExps: [' *bonus.$'], name: 'bonus'},
 					{regExps: [' *enemy.weapon.$'], name: 'enemyWeapon'},
+					{regExps: [' *spaceCraft.keyboardListener.$'], name: 'KeyboardListener'},
 					{
 						regExps: [
 							' *spaceCraft.engine.moveSpeed.$',

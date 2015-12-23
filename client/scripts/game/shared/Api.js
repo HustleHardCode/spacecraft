@@ -84,6 +84,9 @@ var SpaceCraftApi = function (spaceCraft)
     api.engine = api.e = EngineBlockApi(spaceCraft.engine);
     api.protection = api.p = ProtectionBlockApi(spaceCraft.protection);
 
+	api.keyboardListener = spaceCraft.keyboardListener;
+	api.keyboard = spaceCraft.keyboardListener.keyboard;
+
     api.getId = spaceCraft.getId;
 
     api.getHealth = api.p.getHealth;
