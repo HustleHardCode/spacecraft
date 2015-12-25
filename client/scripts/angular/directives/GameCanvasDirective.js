@@ -8,7 +8,7 @@
  */
 var app = angular.module('spacecraft.gameCanvas', []);
 
-app.directive('gameCanvas', ['statistics', '$state', function (statistics, $state)
+app.directive('gameCanvas', ['statistics', '$state', '$stateParams', function (statistics, $state, $stateParams)
 {
 	var linkFn = function ($scope)
 	{
@@ -22,13 +22,29 @@ app.directive('gameCanvas', ['statistics', '$state', function (statistics, $stat
 			$state.go('result');
 		};
 
-		var game = SpaceCraftGame({
-			scope: $scope,
-			callers:
+		var game = CreateGame();
+
+		function CreateGame ()
+		{
+			var args =
 			{
-				result: resultCall
+				scope: $scope,
+				callers:
+				{
+					result: resultCall
+				}
+			};
+
+			if ($state.current.name == 'lesson')
+			{
+				args.lessonId = $stateParams.id;
+				return LessonGame(args);
 			}
-		});
+			else
+			{
+				return OnlineGame(args);
+			}
+		}
 
 		//===================================
 		//============== SCOPE ==============
@@ -58,7 +74,7 @@ app.directive('gameCanvas', ['statistics', '$state', function (statistics, $stat
 			editorParams: '=',
 			player: '='
 		},
-		templateUrl: 'views/game/game-canvas.html',
+		templateUrl: 'views/directives/game-canvas.html',
 		link: linkFn
 	};
 

@@ -32,12 +32,16 @@
 
 	<!-- build:js scripts/spacecraft.min.js -->
 	<script type="text/javascript" src="scripts/game/SpaceCraftGame.js"></script>
+	<script type="text/javascript" src="scripts/game/LessonGame.js"></script>
+	<script type="text/javascript" src="scripts/game/OnlineGame.js"></script>
 	<script type="text/javascript" src="scripts/game/Utils.js"></script>
 
 	<script type="text/javascript" src="scripts/game/states/Boot.js"></script>
 	<script type="text/javascript" src="scripts/game/states/Menu.js"></script>
-	<script type="text/javascript" src="scripts/game/states/Play.js"></script>
-	<script type="text/javascript" src="scripts/game/states/Preload.js"></script>
+	<script type="text/javascript" src="scripts/game/states/online/Play.js"></script>
+	<script type="text/javascript" src="scripts/game/states/online/Preload.js"></script>
+	<script type="text/javascript" src="scripts/game/states/lesson1/LessonPlay.js"></script>
+	<script type="text/javascript" src="scripts/game/states/lesson1/LessonPreload.js"></script>
 
 	<script type="text/javascript" src="scripts/game/modules/Module.js"></script>
 	<script type="text/javascript" src="scripts/game/modules/ModulesManager.js"></script>
@@ -70,9 +74,13 @@
 	<script type="text/javascript" src="scripts/angular/game/Config.js"></script>
 	<script type="text/javascript" src="scripts/angular/game/Controller.js"></script>
 
-	<script type="text/javascript" src="scripts/angular/learn/Index.js"></script>
-	<script type="text/javascript" src="scripts/angular/learn/Config.js"></script>
-	<script type="text/javascript" src="scripts/angular/learn/Controller.js"></script>
+	<script type="text/javascript" src="scripts/angular/lessons/Index.js"></script>
+	<script type="text/javascript" src="scripts/angular/lessons/Config.js"></script>
+	<script type="text/javascript" src="scripts/angular/lessons/Controller.js"></script>
+
+	<script type="text/javascript" src="scripts/angular/lesson/Index.js"></script>
+	<script type="text/javascript" src="scripts/angular/lesson/Config.js"></script>
+	<script type="text/javascript" src="scripts/angular/lesson/Controller.js"></script>
 
 	<script type="text/javascript" src="scripts/angular/result/Index.js"></script>
 	<script type="text/javascript" src="scripts/angular/result/Config.js"></script>
@@ -84,6 +92,7 @@
 
 	<script type="text/javascript" src="scripts/angular/directives/GameCanvasDirective.js"></script>
 	<script type="text/javascript" src="scripts/angular/directives/ErrorBoardDirective.js"></script>
+	<script type="text/javascript" src="scripts/angular/directives/LessonBoardDirective.js"></script>
 	<script type="text/javascript" src="scripts/angular/directives/TipsDirective.js"></script>
 	<script type="text/javascript" src="scripts/angular/directives/DocumentationDirective.js"></script>
 

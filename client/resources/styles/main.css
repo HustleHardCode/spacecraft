@@ -16,12 +16,13 @@ body {
     position: fixed;
     top: 0;
     right: 0;
-    background-color: #25282C;
+    background-color: #152B39;
     color: #C5C8C6;
     bottom: 95%;
     display: inline-flex;
     width: 100%;
     height: 25px;
+	border-bottom: 1px solid rgba(0,0,0,0.45);
 }
 
 .toolbar-min {
@@ -29,11 +30,12 @@ body {
 	top: 0;
 	right: 100px;
 	left: 100px;
-	background-color: #25282C;
+	background-color: #152B39;
 	color: #C5C8C6;
 	bottom: 95%;
 	display: inline-flex;
 	height: 25px;
+	border-bottom: 1px solid rgba(0,0,0,0.45);
 }
 
 .kineticjs-content {
@@ -177,7 +179,7 @@ body {
 
 .toolbar button {
     color: #ffffff;
-    background: #25282C;
+    background: #152B39;
     height: 25px;
     width: 25px;
     text-decoration: none;
@@ -186,12 +188,13 @@ body {
     float: right;
     padding-top: 3px;
     margin-right: 10px;
+	border-bottom: 1px solid rgba(0,0,0,0.45);
 }
 
 .toolbar button:hover {
     color: #fff;
     text-decoration: none;
-    background: #7B7B7B;
+    background: #1D3C50;
 }
 
 .toolbar .box {
@@ -297,8 +300,9 @@ body {
 	top: auto;
 	left: 100px;
 	right: 100px;
-	background-color: #25282C;
+	background-color: #152B39;
 	bottom: 0;
+	border-top: 1px solid rgba(0,0,0,0.45);
 }
 
 .pages-footer-text {
@@ -402,7 +406,7 @@ body {
     color: rgb(255, 255, 255);
     text-align: center;
     padding: 20px;
-    border: 1px solid rgba(37, 40, 44, 0.1);
+    border-bottom: 1px solid rgba(37, 40, 44, 0.1);
     border-bottom: 0;
 }
 
@@ -411,12 +415,11 @@ body {
     font-size: 18px;
     letter-spacing: 1px;
     word-wrap: break-word;
-    /*white-space: pre-wrap;*/
     background: rgb(255, 255, 255);
     min-height: 46px;
     color: rgb(80, 80, 80);
     text-align: left;
-    border: 1px solid rgba(37, 40, 44, 0.1);
+    border-top: 1px solid rgba(37, 40, 44, 0.1);
     padding: 0 25px 20px;
 }
 
@@ -473,15 +476,15 @@ body {
 }
 
 .left-toolbar .tutorial-button {
-    top: 50px;
+    top: 70px;
 }
 
 .left-toolbar .feedback-button {
-    top: 75px;
+    top: 95px;
 }
 
 .left-toolbar .tips-button {
-    top: 100px;
+    top: 120px;
 }
 
 .left-toolbar * {
@@ -500,7 +503,7 @@ body {
     position: fixed;
     border: 0;
     width: 25px;
-    background: #25282C;
+    background: #152B39;
     color: #fff;
     height: 25px;
     outline: 0;
@@ -514,20 +517,39 @@ body {
     position: fixed;
     border: 0;
     width: 25px;
-    background: #7B7B7B;
+    background: #1D3C50;
     color: #fff;
     height: 25px;
     outline: 0;
 }
 
-.documentation {
-    overflow-y: auto;
-    background: #1D1F21;
-    color: #C5C8C6;
-	position: absolute;
+.ace-tomorrow-night .ace_gutter {
+	background: #152B39 !important;
+}
+
+.ace-tomorrow-night .ace_gutter-active-line {
+	background: #1D3C50 !important;
+}
+
+.ace_gutter-layer {
+	border-left: 1px solid rgba(0, 0, 0, 0.45) !important;
+	border-right: 1px solid rgba(0, 0, 0, 0.45) !important;
+}
+
+.lesson-board {
+	background: #fff;
+	color: #152B39;
 	bottom: 0;
+	height: 100%;
 	width: 100%;
-	top: 0;
+}
+
+.documentation {
+	background: #fff;
+	color: #152B39;
+	bottom: 0;
+	height: 100%;
+	width: 100%;
 }
 
 .documentation h3,
@@ -536,23 +558,26 @@ body {
 }
 
 .documentation ul {
-    list-style-type: square;
+    list-style-type: circle;
 }
 
 .documentation ul {
     font-style: italic;
     font-family: Georgia, Times, serif;
     font-size: 24px;
-    color: #39C139;
+    color: #152B39;
+	border-bottom: 1px solid #E1E2E2;
+	background-color: #F6F6F6;
 }
 
 .documentation ul li p {
     margin: 0;
+	background-color: #fff;
     padding: 8px;
     font-family: Arial, serif;
     font-size: 13px;
-    color: #C5C8C6;
-    border-left: 1px solid #999;
+    color: rgb(80, 80, 80);
+    border-left: 1px solid #E1E2E2;
     font-style: normal;
 }
 
@@ -664,7 +689,7 @@ body {
 	top: 85%;
 	width: 100%;
 	height: 100%;
-	border-left: 41px solid #25282C;
+	border-left: 41px solid #152B39;
 	bottom: 0;
 	background: #1D1F21;
 	color: #C5C8C6;
@@ -673,7 +698,7 @@ body {
 .error-board .close-button {
     border: 0;
     width: 100%;
-    background: #25282C;
+    background: #152B39;
     color: #fff;
     height: 25px;
     outline: 0;
@@ -681,7 +706,7 @@ body {
 
 .close-button button {
     color: #ffffff;
-    background: #25282C;
+    background: #152B39;
     height: 25px;
     width: 25px;
     text-decoration: none;
@@ -695,7 +720,7 @@ body {
 .close-button button:hover {
     color: #fff;
     text-decoration: none;
-    background: #7B7B7B;
+    background: #1D3C50;
 }
 
 .error-board .error-msg {
@@ -720,6 +745,14 @@ body {
 
 .text-indent {
     text-indent: 1.2em;
+}
+
+.astrogirl-img {
+	height: 150px;
+	width: 170px;
+	background-image: url(../assets/pages/astro1.png);
+	background-repeat: no-repeat;
+	overflow: hidden;
 }
 
 .send-img {
@@ -824,4 +857,168 @@ body {
 	position:absolute;
 	background: rgba(100, 100, 200, 0.5);
 	z-index: 40
+}
+
+.pane-title {
+	background: #F6F6F6;
+	color: #969696;
+	width: 100%;
+	top: 25px;
+	height: 40px;
+	padding: 10px;
+	font-weight: 600;
+	border-bottom: 1px solid rgba(37, 40, 44, 0.1);
+}
+
+.pane-title-inner {
+	margin: auto;
+	max-width: none;
+	width: 80%;
+}
+
+.content-overflow {
+	height: 100%;
+	overflow-y: auto;
+	padding-bottom: 40px;
+}
+
+
+.content-description {
+	height: 100%;
+}
+
+.content-center {
+	max-width: none;
+	width: 85%;
+	margin: 30px auto 0;
+}
+
+.lesson-title {
+	font-size: 30px;
+	font-weight: 500;
+}
+
+.lesson-content {
+	margin-top: 15px;
+	font-size: 15px;
+	line-height: 20px;
+}
+
+.lesson-instructions {
+	font-family: "Courier New", serif;
+	color: white;
+	background-color: #1D1F21;
+	border-bottom: 1px solid #E1E2E2;
+	border-top: 1px solid #E1E2E2;
+	margin-top: 35px;
+	padding-bottom: 20px;
+}
+
+.lesson-instructions .lesson-content {
+	background-color: #1D1F21;
+}
+
+.lesson-content-overflow {
+	top: 40px;
+	bottom: 175px;
+	height: initial;
+	width: 100%;
+	position: absolute;
+}
+
+div.thought {
+	position: relative;
+	width: 130px;
+	height: 100px;
+	text-align: center;
+	line-height: 100px;
+	background-color: #fff;
+	border: 8px solid #666;
+	-webkit-border-radius: 58px;
+	-moz-border-radius: 58px;
+	border-radius: 58px;
+	-webkit-box-shadow: 2px 2px 4px #888;
+	-moz-box-shadow: 2px 2px 4px #888;
+	box-shadow: 2px 2px 4px #888;
+}
+
+div.thought:before, p.thought:after {
+	left: 10px;
+	top: 70px;
+	width: 40px;
+	height: 40px;
+	background-color: #fff;
+	border: 8px solid #666;
+	-webkit-border-radius: 28px;
+	-moz-border-radius: 28px;
+	border-radius: 28px;
+}
+
+div.thought:after {
+	width: 20px;
+	height: 20px;
+	left: 5px;
+	top: 100px;
+	-webkit-border-radius: 18px;
+	-moz-border-radius: 18px;
+	border-radius: 18px;
+}
+
+div.helper {
+	border-top: 5px solid #1D1F21;
+	position: absolute;
+	bottom: 0;
+	background-color: #152B39;
+	width: 100%;
+}
+
+div.helper .astrogirl-img {
+	margin-top: 20px;
+}
+
+div.helper:before {
+	border-color: #1D1F21 transparent;
+	display: block;
+	width: 0;
+	content: "";
+	position: absolute;
+	left: 40px;
+	border-width: 20px 20px 0;
+	border-style: solid;
+}
+
+div.helper:after {
+	content: "";
+	position: absolute;
+	top: -5px;
+	left: 43px;
+	border-width: 17px 17px 0;
+	border-style: solid;
+	border-color: #FFFFFF transparent;
+	display: block;
+	width: 0;
+}
+
+.helper .button-block {
+	position: absolute;
+	right: 0;
+	left: 150px;
+	bottom: 0;
+	height: 170px;
+}
+
+.button-block > div {
+	height: 50px;
+	max-width: none;
+	width: 85%;
+	margin: 30px auto 0;
+}
+
+.button-block > div > div {
+	text-align: center;
+	border: 5px solid rgb(11, 10, 12);
+	background-color: #FFFFFF;
+	color: #1D1F21;
+	padding: 10px;
+	text-decoration: none;
 }

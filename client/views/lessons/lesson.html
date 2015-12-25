@@ -1,11 +1,11 @@
-<div ng-class="{'hidden' : hideEditor && (hideDoc || ep.isCodeRunning), 'visible' : !hideEditor && !hideDoc}">
+<div ng-class="{'hidden' : hideEditor && (hideLesson || ep.isCodeRunning), 'visible' : !hideEditor && !hideLesson}">
     <div ui-layout="{ flow : 'column',  dividerSize: 4}">
 
 		<!-- Директива докуменации -->
 		<div ui-layout-container
 			 min-size="30%"
 			 max-size="70%">
-			<documentation ng-hide="hideDoc || ep.isCodeRunning"/>
+			<lesson-board ng-hide="hideLesson || ep.isCodeRunning"/>
 		</div>
 
         <div ui-layout-container
@@ -40,9 +40,6 @@
      editor-params="ep"
      player="player"></div>
 
-<!-- Директива подсказки -->
-<div tips object="tipsAndTricks"></div>
-
 <div class="toolbar">
     <div class="box">
 		<img ui-sref="welcome"
@@ -65,20 +62,11 @@
 
 <div class="left-toolbar">
 	<button type="button"
-			ng-click="toggleDocOpen()"
+			ng-click="toggleLessonOpen()"
 			class="tutorial-button"
 			ng-hide = "ep.isCodeRunning" >
                 <span class="glyphicon question-toggle"
-                      ng-class="{'glyphicon-question-sign': hideDoc, 'glyphicon-chevron-left': !hideDoc}">
+					  ng-class="{'glyphicon-question-sign': hideLesson, 'glyphicon-chevron-left': !hideLesson}">
                 </span>
-    </button>
-    <a href="https://vk.com/im?media=&sel=-105816682" target="_blank" class="feedback-button">
-        <button type="button" class="feedback-button">
-                <span class="glyphicon glyphicon-comment comment-toggle">
-                </span>
-        </button>
-    </a>
-    <button type="button" ng-click="toggleTipsAndTricks()" class="tips-button">
-        <span class="glyphicon glyphicon-info-sign"></span>
-    </button>
+	</button>
 </div>

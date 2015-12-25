@@ -3,8 +3,7 @@
  */
 var app = angular.module('spacecraft.tips', []);
 
-app.directive('tips', ['$sce', '$storage',
-	function ($sce, $storage)
+app.directive('tips', ['$sce', '$storage', function ($sce, $storage)
 {
 	var link = function ($scope)
 	{
@@ -100,7 +99,7 @@ app.directive('tips', ['$sce', '$storage',
 		scope: {
 			object: '='
 		},
-		templateUrl: 'views/game/tips.html',
+		templateUrl: 'views/directives/tips.html',
 		link: link
 	};
 }]);

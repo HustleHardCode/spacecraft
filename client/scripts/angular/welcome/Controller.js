@@ -12,7 +12,7 @@ app.controller('WelcomeController', ['$scope', '$storage', '$state',
 			height: "345",
 			color1: 'FFFFFF',
 			color2: '25282C',
-			color3: '2E3435'
+			color3: '152B39'
 		}, 105816682);
 
 		$scope.goToTricks = function ()

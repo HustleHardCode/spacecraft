@@ -1,0 +1,65 @@
+<div class="documentation"
+	 ng-class="{'hidden' : hide, 'visible' : !hide}">
+
+	<div class="objects content-description" ng-show="!functionDocOpen">
+		<div class="pane-title">
+			<div class="pane-title-inner">
+				Доступные объекты управления
+			</div>
+		</div>
+
+		<div class="content-overflow">
+			<ul>
+				<li ng-click="openFunctionDoc('world')"><p><em>World</em>Объект, отвечающий за информацию о
+					мире,
+					его
+					объектах.</p></li>
+				<li ng-click="openFunctionDoc('spaceCraft')"><p><em>SpaceCraft</em>Объект управления
+					космическим
+					кораблем</p></li>
+				<li ng-click="openFunctionDoc('weaponBlock')"><p><em>WeaponBlock</em>Объект управления оружием
+					космического
+					корабля</p></li>
+				<li ng-click="openFunctionDoc('engineBlock')"><p><em>EngineBlock</em>Блок управления
+					двигателями
+					космического
+					корабля</p></li>
+				<li ng-click="openFunctionDoc('protectionBlock')"><p><em>ProtectionBlock</em>Блок управления
+					защитными
+					системами космического
+					корабля</p></li>
+				<li ng-click="openFunctionDoc('bonus')"><p><em>Bonus</em>Объект обломков уничтоженного корабля
+					(Бонус)
+				</p></li>
+				<li ng-click="openFunctionDoc('enemy')"><p><em>Enemy</em>Объект, отвечающий за информацию о
+					вражеском
+					корабле</p></li>
+				<li ng-click="openFunctionDoc('enemyWeapon')"><p><em>EnemyWeapon</em>Объект, отвечающий за
+					информацию о
+					оружии вражеского корабля</p></li>
+				<li ng-click="openFunctionDoc('module')"><p><em>Module</em>Объект, отвечающий за информацию о
+					модуле
+					корабля</p></li>
+				<li ng-click="openFunctionDoc('KeyboardListener')"><p><em>KeyboardListener</em>Объект, отвечающий за
+					взаимодействие с клавиатурой</p></li>
+			</ul>
+		</div>
+	</div>
+	<div ng-show="functionDocOpen" class="content-description">
+		<div class="pane-title">
+			<div class="pane-title-inner">
+				{{functionDoc.title}}
+			</div>
+		</div>
+		<div class="content-overflow">
+			<ul>
+				<li ng-repeat="obj in functionDoc.functions">
+					<p>
+						<em>{{obj.name}}</em>
+						<span ng-repeat="str in obj.description">{{str}}<br></span>
+					</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

@@ -87,7 +87,7 @@ var PlayState = function (spec)
 		game.paused = true;
 	}
 
-	function entitiesInit()
+	that.entitiesInit = function ()
 	{
 		var factory = sc.world.factory;
 
@@ -112,7 +112,7 @@ var PlayState = function (spec)
 			});
 		});
 
-	}
+	};
 
 
 	//===================================
@@ -122,7 +122,7 @@ var PlayState = function (spec)
 	that.create = function ()
 	{
 		gameInit(sc.world.getBounds());
-		entitiesInit();
+		that.entitiesInit();
 		followFor(scope.spaceCraft.sprite);
 
 
