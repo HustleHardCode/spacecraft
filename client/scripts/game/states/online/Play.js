@@ -133,14 +133,7 @@ var PlayState = function (spec)
 
 		scope.$watch('editorParams.editorOnFocus', function (editorOnFocus)
 		{
-			if (editorOnFocus)
-			{
-				game.input.keyboard.stop();
-			}
-			else
-			{
-				game.input.keyboard.start();
-			}
+			editorOnFocus? game.input.keyboard.stop() : game.input.keyboard.start();
 		});
 
 		scope.$watch('editorParams.isCodeRunning', function (n)
