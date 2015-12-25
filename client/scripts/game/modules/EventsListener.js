@@ -26,10 +26,10 @@ var KeyboardListener = function(game)
 		if (!that.isClose)
 		{
 			that.isClose = true;
-			for (var i = 0; i < that.events.length; ++i) {
+			for (var i = 0; i < that.events.length; ++i)
+			{
 				game.input.keyboard.addKey(that.events[i].key).onDown.add(events[i].callback, this);
 				game.input.keyboard.removeKeyCapture(that.events[i].key);
-
 			}
 		}
 	};

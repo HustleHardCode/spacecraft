@@ -16,7 +16,8 @@ app.controller('GameController', ['$scope', '$storage', 'autocompleter',
 	{
 		isCodeRunning: false,
 		code: code,
-		error: null
+		error: null,
+		editorOnFocus: false
 	};
 
 	$scope.toggleCodeRun = function ()
@@ -81,6 +82,16 @@ app.controller('GameController', ['$scope', '$storage', 'autocompleter',
 		});
 
 		langTools.addCompleter(spaceCraftCompleter);
+
+		editor.on("blur", function()
+		{
+			$scope.ep.editorOnFocus = false;
+		});
+
+		editor.on("focus", function()
+		{
+			$scope.ep.editorOnFocus = true;
+		});
 
 		$storage.local.setItem('code', $scope.ep.code);
 	};
