@@ -131,6 +131,11 @@ var PlayState = function (spec)
 			userCode = n;
 		});
 
+		scope.$watch('editorParams.editorOnFocus', function (editorOnFocus)
+		{
+			editorOnFocus? game.input.keyboard.stop() : game.input.keyboard.start();
+		});
+
 		scope.$watch('editorParams.isCodeRunning', function (n)
 		{
 			isRunning = n;

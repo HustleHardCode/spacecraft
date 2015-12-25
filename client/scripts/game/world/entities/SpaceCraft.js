@@ -55,6 +55,8 @@ var SpaceCraft = function (spec)
     // Поварачиваем корабль на init-угол
     !spec.angle || (sprite.body.angle = spec.angle);
 
+	var keyboardListener = that.keyboardListener = KeyboardListener(game);
+
     var engine = that.engine = EngineBlock({
         modulesManager: modulesManager,
         spaceCraft: that,
