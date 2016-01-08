@@ -22,7 +22,7 @@ var tips = [
 	},
 	{
 		title: 'Текущая стадия',
-		description: '<p>Текущий функционал далек от совершенства (сейчас перед вами первый прототип), но мы упорно работаем над проектом и надеемся реализовать все наши идеи и задумки.</p>'
+		description: '<p>Текущий функционал далек от совершенства, но мы упорно работаем над проектом и надеемся реализовать все наши идеи и задумки.</p>'
 		+ '<div class="img-small-center">'
 		+ '<a href="https://vk.com/spacecrafter" target="_blank">'
 		+ '<img src="resources/assets/pages/astronaut6.png">'
@@ -47,6 +47,7 @@ var tips = [
 		+ '<img src="resources/assets/pages/gamePlay2.png">'
 		+ '</div>'
 		+ '<p>Вы можете убрать редактор кода, нажав на <i class="glyphicon glyphicon-chevron-up"></i> в верхнем правом углу</p>'
+		+ '<p>Редактор кода, легко меняет свой размер, подведите курсор в левому краю и измените размер до удобного вам.</p>'
 		+ '<p>Для запуска кода нажмите на <i class="glyphicon glyphicon-play green"></i></p>'
 		+ '<p>Для остановки кода нажмите на <i class="glyphicon glyphicon-stop red"></i></p>',
 		hint: [
