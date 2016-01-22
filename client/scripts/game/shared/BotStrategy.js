@@ -15,6 +15,9 @@ var botStrategy = function (spec)
         || spaceCraft.getY() + 200 > bounds.y + bounds.height)
     {
         tryMoveForward = spaceCraft.engine.rotateLeft;
+		tryMoveForward();
+		tryMoveForward = spaceCraft.engine.moveForward;
+		tryMoveForward();
     }
 
 
