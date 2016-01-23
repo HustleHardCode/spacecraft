@@ -16,7 +16,7 @@ app.directive('bbotBoard', ['$sce', function ($sce)
 
 		$scope.getText = function ()
 		{
-			return $sce.trustAsHtml($scope.textBot);
+			return $scope.textBot && $sce.trustAsHtml($scope.textBot);
 		};
 	};
 

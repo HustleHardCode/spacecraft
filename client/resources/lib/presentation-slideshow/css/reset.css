@@ -1,0 +1,127 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+.quick-wrapper div,
+.quick-wrapper span,
+.quick-wrapper applet,
+.quick-wrapper object,
+.quick-wrapper iframe,
+.quick-wrapper h1,
+.quick-wrapper h2,
+.quick-wrapper h3,
+.quick-wrapper h4,
+.quick-wrapper h5,
+.quick-wrapper h6,
+.quick-wrapper p,
+.quick-wrapper blockquote,
+.quick-wrapper pre,
+.quick-wrapper a,
+.quick-wrapper abbr,
+.quick-wrapper acronym,
+.quick-wrapper address,
+.quick-wrapper big,
+.quick-wrapper cite,
+.quick-wrapper code,
+.quick-wrapper del,
+.quick-wrapper dfn,
+.quick-wrapper em,
+.quick-wrapper img,
+.quick-wrapper ins,
+.quick-wrapper kbd,
+.quick-wrapper q,
+.quick-wrapper s,
+.quick-wrapper samp,
+.quick-wrapper small,
+.quick-wrapper strike,
+.quick-wrapper strong,
+.quick-wrapper sub,
+.quick-wrapper sup,
+.quick-wrapper tt,
+.quick-wrapper var,
+.quick-wrapper b,
+.quick-wrapper u,
+.quick-wrapper i,
+.quick-wrapper center,
+.quick-wrapper dl,
+.quick-wrapper dt,
+.quick-wrapper dd,
+.quick-wrapper ol,
+.quick-wrapper ul,
+.quick-wrapper li,
+.quick-wrapper fieldset,
+.quick-wrapper form,
+.quick-wrapper label,
+.quick-wrapper legend,
+.quick-wrapper table,
+.quick-wrapper caption,
+.quick-wrapper tbody,
+.quick-wrapper tfoot,
+.quick-wrapper thead,
+.quick-wrapper tr,
+.quick-wrapper th,
+.quick-wrapper td,
+.quick-wrapper article,
+.quick-wrapper aside,
+.quick-wrapper canvas,
+.quick-wrapper details,
+.quick-wrapper embed,
+.quick-wrapper figure,
+.quick-wrapper figcaption,
+.quick-wrapper footer,
+.quick-wrapper header,
+.quick-wrapper hgroup,
+.quick-wrapper menu,
+.quick-wrapper nav,
+.quick-wrapper output,
+.quick-wrapper ruby,
+.quick-wrapper section,
+.quick-wrapper summary,
+.quick-wrapper time,
+.quick-wrapper mark,
+.quick-wrapper audio,
+.quick-wrapper video {
+	padding: 0;
+}
+
+/* HTML5 display-role reset for older browsers */
+.quick-wrapper article,
+.quick-wrapper aside,
+.quick-wrapper details,
+.quick-wrapper figcaption,
+.quick-wrapper figure,
+.quick-wrapper footer,
+.quick-wrapper header,
+.quick-wrapper hgroup,
+.quick-wrapper menu,
+.quick-wrapper nav,
+.quick-wrapper section,
+.quick-wrapper main {
+	display: block;
+}
+
+.quick-wrapper {
+	line-height: 1;
+}
+
+.quick-wrapper ol, ul {
+	list-style: none;
+}
+
+.quick-wrapper blockquote, .quick-wrapper q {
+	quotes: none;
+}
+
+.quick-wrapper blockquote:before,
+.quick-wrapper blockquote:after,
+.quick-wrapper q:before,
+.quick-wrapper q:after {
+	content: '';
+	content: none;
+}
+
+.quick-wrapper table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}

@@ -1,0 +1,54 @@
+<div class="quick-wrapper cd-slideshow-wrapper">
+
+	<div class="close-button-wrapper">
+		<button type="button" class="close-button" ui-sref="welcome">
+			<span aria-hidden="true"></span>
+		</button>
+	</div>
+
+	<nav class="cd-slideshow-nav">
+		<button class="cd-nav-trigger">
+			Open Nav
+			<span aria-hidden="true"></span>
+		</button>
+
+		<div class="cd-nav-items">
+			<ol>
+				<li ng-repeat="t in slidesQuick">
+					<a href="#slide-{{$index}}">{{t.title}}</a>
+					<ol class="sub-nav">
+						<li ng-repeat="s in t.subSlides">
+							<a href="#subslide-{{s.num}}-{{$index}}">{{s.title}}</a>
+						</li>
+					</ol>
+				</li>
+			</ol>
+		</div>
+	</nav>
+
+	<ol class="cd-slideshow">
+		<li class="visible" id="slide-{{$index}}" ng-repeat="t in slidesQuick" repeat-finished>
+			<ol class="sub-slides">
+				<li>
+					<div class="cd-slider-content">
+						<div class="content-wrapper">
+							<h2>{{t.title}}</h2>
+							<div ng-bind-html="trustAsHtml(t.description)">
+							</div>
+						</div>
+					</div>
+				</li>
+				<li  id="subslide-{{s.num}}-{{$index}}" ng-repeat="s in t.subSlides">
+					<div class="cd-slider-content">
+						<div class="content-wrapper">
+							<h2>{{s.title}}</h2>
+							<div ng-bind-html="trustAsHtml(s.description)">
+							</div>
+						</div>
+					</div>
+				</li>
+			</ol>
+		</li>
+	</ol> <!-- .cd-slideshow -->
+</div> <!-- .cd-slideshow-wrapper -->
+
