@@ -14,10 +14,17 @@ var botStrategy = function (spec)
 		|| spaceCraft.getX() + 200 > bounds.x + bounds.width
 		|| spaceCraft.getY() + 200 > bounds.y + bounds.height)
 	{
-		tryMoveForward = spaceCraft.engine.rotateLeft;
-		tryMoveForward();
-		tryMoveForward = spaceCraft.engine.moveForward;
-		tryMoveForward();
+		if (spaceCraft.getX().toFixed() - 200 === bounds.x
+			|| spaceCraft.getY().toFixed() - 200 === bounds.y
+			|| spaceCraft.getX().toFixed() + 200 === bounds.x + bounds.width
+			|| spaceCraft.getY().toFixed() + 200 === bounds.y + bounds.height)
+		{
+			spaceCraft.engine.moveBackward();
+		} else
+		{
+			spaceCraft.engine.rotateLeft();
+			spaceCraft.engine.moveForward();
+		}
 	}
 
 
