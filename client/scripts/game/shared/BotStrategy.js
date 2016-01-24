@@ -9,20 +9,20 @@ var botStrategy = function (spec)
 
 	var tryMoveForward = spaceCraft.engine.moveForward;
 
-	if (spaceCraft.getX() - 200 < bounds.x
-		|| spaceCraft.getY() - 200 < bounds.y
-		|| spaceCraft.getX() + 200 > bounds.x + bounds.width
-		|| spaceCraft.getY() + 200 > bounds.y + bounds.height)
+	if (spaceCraft.getX() - 300 < bounds.x
+		|| spaceCraft.getY() - 300 < bounds.y
+		|| spaceCraft.getX() + 300 > bounds.x + bounds.width
+		|| spaceCraft.getY() + 300 > bounds.y + bounds.height)
 	{
 		tryMoveForward = spaceCraft.engine.rotateLeft;
 		tryMoveForward();
 		tryMoveForward = spaceCraft.engine.moveForward;
 		tryMoveForward();
 
-		if (spaceCraft.getX().toFixed() - 200 === bounds.x
-			|| spaceCraft.getY().toFixed() - 200 === bounds.y
-			|| spaceCraft.getX().toFixed() + 200 === bounds.x + bounds.width
-			|| spaceCraft.getY().toFixed() + 200 === bounds.y + bounds.height)
+		if (spaceCraft.getX().toFixed() === bounds.x
+			|| spaceCraft.getY().toFixed() === bounds.y
+			|| spaceCraft.getX().toFixed() === bounds.x + bounds.width
+			|| spaceCraft.getY().toFixed() === bounds.y + bounds.height)
 		{
 			tryMoveForward = spaceCraft.engine.moveBackward;
 			tryMoveForward();
