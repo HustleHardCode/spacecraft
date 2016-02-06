@@ -1,0 +1,55 @@
+<div>
+    <div ui-layout="{ flow : 'column',  dividerSize: 4, disableToggle: true}">
+
+		<!-- Директива урока -->
+		<div ui-layout-container
+			 min-size="30%"
+			 max-size="70%"
+			 size="50%">
+			<lesson-board
+				lesson="lesson.sub[subIndex]"
+				text="lesson.text"/>
+		</div>
+
+        <div ui-layout-container
+            min-size="30%"
+            max-size="70%">
+
+			<div class="main-editor"
+			 	ui-ace="{
+			 	useWrapMode : true,
+				showGutter: true,
+				theme:'tomorrow_night',
+				mode: 'javascript',
+				firstLineNumber: 1,
+				onLoad: aceLoaded,
+				onChange: aceChanged
+				}">
+			</div>
+
+			<!-- Директива ошибки -->
+			<bbot-board
+				text-bot="textBot"
+				quote="lesson.quote"
+				lesson="true"
+				next="nextSubLesson"/>
+
+		</div>
+    </div>
+</div>
+
+
+<div class="toolbar">
+    <div class="box">
+		<img ui-sref="welcome"
+			 class="logo"
+			 src="images/logo3.png"/>
+    </div>
+    <div class="box">
+        <button class="hint-play" type="button" ng-click="run()">
+            <span class="glyphicon play-toggle glyphicon-play green"
+                  ng-class="{'glyphicon-stop red' : editorOptions.isCodeRunning, 'glyphicon-play green' : !editorOptions.isCodeRunning}">
+            </span>
+        </button>
+    </div>
+</div>

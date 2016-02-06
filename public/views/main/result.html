@@ -1,0 +1,54 @@
+<div class="result-background">
+	<ul class="white-board">
+		<li class="white-board-title">
+
+            <span>
+                Взгляните на свой результат
+            </span>
+
+			<i class="glyphicon glyphicon-repeat first-icon" ng-click="reload()"></i>
+		</li>
+
+		<li class="white-board-description">
+			<table>
+				<tr>
+					<td><span class="glyphicon glyphicon-remove-circle red"></span></td>
+					<td><span class="glyphicon glyphicon-screenshot green"></span></td>
+					<td><span class="glyphicon glyphicon-record blue"></span></td>
+					<td><span class="glyphicon glyphicon-star yellow"></span></td>
+					<td><span class="glyphicon glyphicon-flag orange"></span></td>
+				</tr>
+				<tr>
+					<td>Убитых кораблей</td>
+					<td>Нанесено урона</td>
+					<td>Получено урона</td>
+					<td>Собранно бонусов</td>
+					<td>Количество набранных очков</td>
+				</tr>
+				<tr>
+					<td>{{player.getKillEnemy()}}</td>
+					<td>{{player.getAcceptDamage()}}</td>
+					<td>{{player.getTakenDamage()}}</td>
+					<td>{{player.getTakenBonus()}}</td>
+					<td>{{player.getTotalScore()}}</td>
+				</tr>
+			</table>
+		</li>
+
+		<li class="white-board-social">
+			<div>Расскажи друзьям о своих результатах:</div>
+			<a ng-href="https://twitter.com/home?status=%D0%9C%D0%BE%D0%B9%20%D1%80%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%20%D0%BD%D0%B0%20SpaceCraft%3A%20{{player.getTotalScore()}}%20%D0%BE%D1%87%D0%BA%D0%BE%D0%B2%0Aspacecraft.launchrock.com%0A%23SpaceCraft" target="_blank">
+				<img src="images/social-network/twitter.png"/>
+			</a>
+			<a ng-href="http://vk.com/share.php?url=http://spacecraft.launchrock.com&description=Мой результат: {{player.getTotalScore()}} очков" target="_blank">
+				<img src="images/social-network/vk.png" />
+			</a>
+		</li>
+
+		<!-- VK Widget -->
+		<li class="white-board-subscribe">
+			<div id="vk_groups"></div>
+		</li>
+	</ul>
+</div>
+

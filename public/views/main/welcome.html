@@ -1,0 +1,62 @@
+<div class="pages-background">
+
+	<div class="pages-board">
+		<div class="container-25" ui-sref="game">
+			<div class="container-inside">
+				<div class="pages-img  game-img"></div>
+				<div class="pages-label">Соревнуйся с другими игроками</div>
+				<div class="pages-text">Играть</div>
+			</div>
+		</div>
+		<div class="container-25" ui-sref="lessons">
+			<div class="container-inside">
+				<div class="pages-img learn-img"></div>
+				<div class="pages-label">Изучите JavaScript</div>
+				<div class="pages-text">Начать обучение</div>
+			</div>
+		</div>
+		<div class="container-25">
+			<a href="https://vk.com/im?media=&sel=-105816682">
+				<div class="container-inside">
+					<div class="pages-img send-img"></div>
+					<div class="pages-label">Есть вопросы или пожелания?</div>
+					<div class="pages-text">Напишите нам</div>
+				</div>
+			</a>
+		</div>
+		<div class="container-25">
+			<div class="container-inside">
+				<div id="vk_groups"></div>
+			</div>
+		</div>
+		<div class="container-25" ui-sref="quick" >
+			<div class="container-inside">
+				<div class="pages-img quick-img"></div>
+				<div class="pages-label">Краткий экскурс</div>
+				<div class="pages-text">Начать просмотр</div>
+			</div>
+		</div>
+		<div class="container-50">
+			<div class="container-inside">
+				<uib-carousel interval="interval" no-wrap="false">
+					<uib-slide ng-repeat="slide in carousel" active="slide.active">
+						<img ng-src="{{slide.image}}"
+						style="height: 360px">
+					</uib-slide>
+				</uib-carousel>
+			</div>
+		</div>
+	</div>
+
+	<div class="rocket-white-img pages-footer-img "></div>
+
+	<div class="pages-footer"></div>
+	<div class="pages-footer-text">Доступны новые уроки!</div>
+
+	<div class="toolbar-min">
+		<img class="logo"
+			 ui-sref="welcome"
+			 src="images/logo3.png"/>
+	</div>
+
+</div>

@@ -1,0 +1,80 @@
+<div ng-class="{'hidden' : hideEditor && (hideDoc || options.isCodeRunning), 'visible' : !hideEditor && !hideDoc}">
+    <div ui-layout="{ flow : 'column',  dividerSize: 4}">
+
+		<!-- Директива докуменации -->
+		<div ui-layout-container
+			 min-size="30%"
+			 max-size="70%">
+			<documentation
+				hide="hideDoc"
+				ng-hide="options.isCodeRunning"/>
+		</div>
+
+        <div ui-layout-container
+            min-size="30%"
+            max-size="70%"
+			ng-class="{'hidden' : hideEditor, 'visible' : !hideEditor}">
+
+			<div class="main-editor"
+			 	ui-ace="{
+			 	useWrapMode : true,
+				showGutter: true,
+				theme:'tomorrow_night',
+				mode: 'javascript',
+				firstLineNumber: 1,
+				onLoad: aceLoaded,
+				onChange: aceChanged
+				}">
+			</div>
+
+			<!-- Директива ошибки -->
+			<bbot-board text-bot="textBot"/>
+		</div>
+    </div>
+</div>
+
+
+<!-- Директива игры -->
+<div game-canvas
+     editor-options="options"
+     player="player"></div>
+
+<!-- Директива подсказки -->
+<div tips object="tipsAndTricks"></div>
+
+<div class="toolbar">
+    <div class="box">
+		<img ui-sref="welcome"
+			 class="logo"
+			 src="images/logo3.png"/>
+    </div>
+    <div class="box">
+        <button type="button" ng-click="toggleEditorOpen()">
+            <span class="glyphicon editor-toggle"
+                  ng-class="{'glyphicon-chevron-down' : hideEditor, 'glyphicon-chevron-up' : !hideEditor}">
+            </span>
+        </button>
+        <button type="button" ng-click="toggleCodeRun()">
+            <span class="glyphicon play-toggle"
+                  ng-class="{'glyphicon-stop red' : options.isCodeRunning, 'glyphicon-play green' : !options.isCodeRunning}">
+            </span>
+        </button>
+    </div>
+</div>
+
+<div class="left-toolbar">
+	<button type="button"
+			ng-click="toggleDocOpen()"
+			class="tutorial-button"
+			ng-hide = "options.isCodeRunning" >
+                <span class="glyphicon question-toggle"
+                      ng-class="{'glyphicon-question-sign': hideDoc, 'glyphicon-chevron-left': !hideDoc}">
+                </span>
+    </button>
+    <a href="https://vk.com/im?media=&sel=-105816682" target="_blank" class="feedback-button">
+        <button type="button" class="feedback-button">
+                <span class="glyphicon glyphicon-comment comment-toggle">
+                </span>
+        </button>
+    </a>
+</div>
