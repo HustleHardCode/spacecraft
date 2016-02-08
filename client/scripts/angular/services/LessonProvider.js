@@ -75,6 +75,9 @@ app.service('lessonProvider', ['$storage', function ($storage)
 
 	var lessons =
 	[
+	/**
+	 * Урок 1
+	 */
 		{
 			text: 'Поступление в академию',
 			label: 'Основы JavaScript',
@@ -142,7 +145,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value)
+					result: function (value, code)
 					{
 						var botText = BBotText(
 						{
@@ -218,7 +221,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value)
+					result: function (value, code)
 					{
 						var botText = BBotText(
 						{
@@ -274,7 +277,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value)
+					result: function (value, code)
 					{
 						var message = value && value.message;
 
@@ -321,7 +324,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value)
+					result: function (value, code)
 					{
 						var botText = BBotText(
 						{
@@ -359,7 +362,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value)
+					result: function (value, code)
 					{
 						var botText = BBotText(
 						{
@@ -410,7 +413,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value)
+					result: function (value, code)
 					{
 						var botText = BBotText(
 						{
@@ -461,7 +464,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value)
+					result: function (value, code)
 					{
 						var botText = BBotText(
 						{
@@ -543,7 +546,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value)
+					result: function (value, code)
 					{
 						var botText = BBotText(
 						{
@@ -613,7 +616,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value)
+					result: function (value, code)
 					{
 						var botText = BBotText(
 						{
@@ -665,6 +668,225 @@ app.service('lessonProvider', ['$storage', function ($storage)
 					}
 				}
 			]
+		},
+	/**
+	 * Урок 2
+	 */
+		{
+			text: 'Анти-паттерны программирования',
+			label: 'Анти-паттерны программирования',
+			quote: 'Пишите код так, как будто сопровождать его будет склонный к насилию психопат, который знает, где вы живёте',
+			startCode: '',
+			sub:
+				[
+					{
+						title: 'Анти-паттерны',
+						content: function ()
+						{
+							return '<p>Здраствуй кадет! Рад снова тебя видеть. Судя по твоему личному делу, ты делаешь большие успехи.</p>' +
+								   '<p>По этому, пришло узнать о том, чего стоит избегать в программирование, а именно анти-паттернов.</p>' +
+								   '<p>Анти-паттерн - решение типово задачи наиболее неэффективным или непродуктивным способом.' +
+								   ' Известно большое множество анти-паттернов и о самых из них мы поговорим чуть позже.' +
+								   ' Прежде взгляни на редактор с кодом. В нем представлен код, который содержит множество анти-паттернов.</p>' +
+								   '<p>Теперь будь храбр и не оглядывайся назад.</p>'
+						},
+						instructions: '<ul>' +
+						              	'<li>Запусти код</li>' +
+						              '</ul>',
+						hint: [
+							{
+							'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
+							'nextButton': false,
+							'showSkip': false
+							}
+						],
+
+						result: function (value, code)
+						{
+							var botText = BBotText(
+								{
+									correct: 'Бип-бип-биииип. Запуск механизмов экстренного охлаждения. Операция выполнена. Транслирую:<br>' + value
+								});
+
+							return botText.resultCorrect();
+						}
+					},
+					{
+						title: 'Комментарии.',
+						content: function ()
+						{
+							return '<p>Получилось разобраться в прошлом примере?</p>' +
+								   '<p> Ничего страшного если нет. Взгляни еще на один пример кода. ' +
+								   'Этот код функционально аналогичен предыдущему, однако он значительно проще и лаконичней.' +
+								   ' Однако в нем есть одно опущение - нахватает комментариев. А в реалиях космоса наличие комментариев может стоить жизни.' +
+								   ' Например во время нападения космических пиратов, срочно потребовалось изменить код и наличие хороших' +
+								   ' комментариев позволит сделать это максимально быстро и эффективно.</p>' +
+								   '<p>Хороший комментарий обладает следующими качествами:</p>' +
+								   '<ul>' +
+								  	 '<li>Лаконичность</li>' +
+								     '<li>Информативность</li>' +
+								     '<li>Уместность</li>' +
+								   '</ul>' +
+								   '<p>Это означает, что комментарий должен быть краток, не нанося при этом ущерб содержащейся в нем информации.' +
+								   ' А так-же наличие комментария должно быть обоснованно(Нет необходимсти комментировать каждую строчку,' +
+								   ' только сложные или не очевидные места в коде).</p>' +
+								   '<p>Чем лучше написан код, тем меньше нужно комментариев.</p>';
+						},
+						instructions: '<ul>' +
+						              	'<li>Исправить комментарии</li>' +
+									    '<li>Запустить код</li>' +
+									  '</ul>',
+						hint: [
+							{
+								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
+								'nextButton': false,
+								'showSkip': false
+							}
+						],
+						result: function (value, code)
+						{
+							var botText = BBotText(
+								{
+									correct: 'BBot доволен, такой код ему нраbится б0льше.<br>' + value,
+									unknownError: 'Ошибка, ошибка обнаруженна ошибка.',
+									manyCommentsError: 'Ошибка, ошибка этот чел0век слишком много гов0рит.'
+								});
+
+							if (value.exception)
+							{
+								return botText.unknownError();
+							}
+							var flag = 0;
+
+							code.split('\n').forEach(function(value)
+							{
+								if (value[0] == '/' && value.length >= 5)
+								{
+									flag += 1;
+								}
+							});
+
+							if (flag  >= 10)
+							{
+								return botText.resultNotCorrect('manyCommentsError');
+							}
+							else if (flag >= 3)
+							{
+								return botText.resultCorrect();
+							}
+
+
+							return botText.unknownError();
+						}
+					},
+					{
+						title: 'Наименнование переменных.',
+						content: function ()
+						{
+							return '<p>Сложно представить достаточно большую программу, в которой нет переменных.' +
+								' А неверное или не точное наименнование переменных являеться одним из расспрастранненых' +
+								' анти-паттернов программирования.</p>' +
+								'<p>И для того, что бы это избегать при именнование переменных следует соблюдать следующие правила:' +
+								'<ul>' +
+									'<li>Имя должно отражать суть содержимого</li>' +
+								    '<li>Имя не должно быть слишком длинным</li>' +
+								    '<li>Имя должно быть понятным, то есть не следует использовать сокращения</li>' +
+								'</ul>' +
+								'</p>';
+						},
+						instructions: '<ul>' +
+										'<li>Исправте наименнование переменных.</li>' +
+									  '</ul>',
+						hint: [
+							{
+								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
+								'nextButton': false,
+								'showSkip': false
+							}
+						],
+						result: function (value, code)
+						{
+							var botText = BBotText(
+								{
+									correct: 'Хорошая работа, желание BBota убивать чел0веков снизилось на 5%.',
+									unknownError: 'Чел0век не знает нужных слов? Чел0веку следует подарить словарь?'
+								});
+
+							var flag = true;
+							var rule = new RegExp(' |\n', 'g');
+
+							var checkSize = 'var p = 3.14159265;'.replace(rule, '').length;
+
+							code.replace(rule, '').split(';').forEach(function(string)
+							{
+								var len = string.length;
+								flag &= (len >= checkSize || len == 0);
+							});
+
+							return botText.result(flag);
+						}
+					},
+					{
+						title: 'Велосипед.',
+						content: function ()
+						{
+							return '<p>Велосипед - разработка собственного решения задачи, для которой уже существует' +
+								' готовое решение. К примеру когда требуеться возвести число в степень программист пишет' +
+								' кучу строк, в место того что бы использовать уже готовую функцию.</p>';
+						},
+						instructions: '<ul>' +
+										'<li>Исправте код так, что бы он не соответсвовал анти-паттерну магические числа.</li>' +
+									  '</ul>',
+						hint: [
+							{
+								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
+								'nextButton': false,
+								'showSkip': false
+							}
+						],
+						result: function (value, code)
+						{
+							var botText = BBotText(
+								{
+									correct: 'BBot любит велосипеды, не то что зануды чел0веки.Транслирую:<br>' + value,
+									unknownError: 'Велосипеды, всем велосипеды.'
+								});
+							//TODO прочекать использование pow и min
+
+							return botText.result(true);
+						}
+					},
+					{
+						title: 'Божественный объект.',
+						content: function ()
+						{
+							return '<p>Божественный объект - анти-паттерн соответствующий ситуции, когда одна одна сущость выполняет несколько ролей.' +
+								' Например, сущность собака, которая может гавкать, скулить, закапывать кость в саду, расчитывать налоги.' +
+								' Разве собаки считают налоги.</p>';
+						},
+						instructions: '<ul>' +
+						               '<li>Исправить код, так что бы код не соовтветствовал анти-паттерну божественный объект.</li>' +
+						               '<li>Не нужный код можно удалить.</li>' +
+									  '</ul>',
+						hint: [
+							{
+								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
+								'nextButton': false,
+								'showSkip': false
+							}
+						],
+						result: function (value, code)
+						{
+							var botText = BBotText(
+								{
+									correct: 'Чел0век справляется, BBot испытывает притворную радость. Транслирую:<br>' + value
+								});
+							// TODO Как то чекать что чувак действитолько исправляет ошибки в коде.
+							return botText.resultCorrect();
+						}
+					}
+
+				]
 		}
 	];
 

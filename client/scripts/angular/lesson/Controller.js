@@ -118,7 +118,7 @@ app.controller('LessonController', ['$scope', '$stateParams', '$state', '$http',
 
 		options.result = interpreter.execute(options.code);
 
-		var result = current().result(options.result);
+		var result = current().result(options.result, options.code);
 
 		if (result.status)
 		{
