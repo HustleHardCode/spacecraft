@@ -8,31 +8,33 @@ app.controller('ResultController', ['$scope', '$state', 'statistics', '$storage'
 	{
 		$scope.player = statistics.getPlayer();
 
-		var stat = $scope.stat = $storage.local.getItem("statistic") || [];
-		//$scope.labels = ["Kill enemy", "Death", "Total score"];
-        //
-		//var kill = 0;
-		//var total = 0;
+		// Получаем статистику из хранилища,  если нет то нулл( первый раз  играет)
+		// В хранилище храниятся строка из JSON объектов
+		var stat = $scope.stat = $storage.local.getItem("statistic") || null;
 
-		if ((typeof stat == "object") && (stat instanceof Array))
+		// Создаем новый JSON
+		var str;
+		var newStat = {
+			killEnemy: $scope.player.getKillEnemy(),
+			takenBonus: $scope.player.getTakenBonus(),
+			totalScore: $scope.player.getTotalScore(),
+			acceptDamage: $scope.player.getAcceptDamage(),
+			takenDamage: $scope.player.getTakenDamage()
+		};
+
+		// Проверка на первую игру
+		if (stat === null)
 		{
-			stat.push($scope.player);
-			$storage.local.setItem("statistic", stat);
-
-			//stat.forEach(function (s, i, atat)
-			//{
-			//	kill += s.getKillEnemy();
-			//	total += s.getTotalScore();
-			//});
-
+			// Превращаем JSON в строку и глядем в хранилище
+			str = JSON.stringify(newStat);
+			$storage.local.setItem("statistic", str);
 		} else
 		{
-			var newmas = [stat, $scope.player];
-			$storage.local.setItem("statistic", newmas);
+			// Соединяем хранидище и новую  статистику
+			// Разделяем объекты ; для дальнейшей сериализации
+			str = stat + ";" + JSON.stringify(newStat);
+			$storage.local.setItem("statistic", str);
 		}
-
-		//$scope.data = [kill, stat.length, total];
-
 
 		VK.Widgets.Group("vk_groups", {
 			mode: 0,
