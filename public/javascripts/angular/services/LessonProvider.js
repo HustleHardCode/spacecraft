@@ -12,12 +12,12 @@ app.service('lessonProvider', ['$storage', function ($storage)
 		return !isNaN(parseFloat(n)) && isFinite(n);
 	}
 
-	function isHaveDebug(value, len)
+	function checkDebugLen(value, len)
 	{
 		return value == null || value.length != len;
 	}
 
-	function isHaveUndString(string, undString)
+	function isContainString(string, undString)
 	{
 		return string.indexOf(undString) == -1;
 	}
@@ -862,7 +862,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 									notHaveDebug: 'BBot растроен, тем что чел0век забыл про BBotDebug.'
 								});
 
-							if (isHaveDebug(value, 2))
+							if (checkDebugLen(value, 2))
 							{
 								return botText.resultNotCorrect('notHaveDebug');
 							}
@@ -899,12 +899,12 @@ app.service('lessonProvider', ['$storage', function ($storage)
 									notHaveDebug: 'BBot растроен, тем что чел0век забыл про BBotDebug.'
 								});
 
-							if (isHaveDebug(value, 3))
+							if (checkDebugLen(value, 3))
 							{
 								return botText.resultNotCorrect('notHaveDebug');
 							}
 
-							return botText.result(isHaveUndString(code, 'goToShop') && code.indexOf('calculateNumber') == -1);
+							return botText.result(isContainString(code, 'goToShop') && code.indexOf('calculateNumber') == -1);
 						}
 					},
 					{
@@ -934,13 +934,13 @@ app.service('lessonProvider', ['$storage', function ($storage)
 									notHaveDebug: 'BBot растроен, тем что чел0век забыл про BBotDebug.'
 								});
 
-							if (isHaveDebug(value, 1))
+							if (checkDebugLen(value, 1))
 							{
 								return botText.resultNotCorrect('notHaveDebug');
 							}
 
-							return botText.result(isHaveUndString(code, 'calculateNumber') &&
-								                  isHaveUndString(code, 'sumMinMax'));
+							return botText.result(isContainString(code, 'calculateNumber') &&
+								                  isContainString(code, 'sumMinMax'));
 						}
 					}
 				]
