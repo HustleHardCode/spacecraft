@@ -12,6 +12,16 @@ app.service('lessonProvider', ['$storage', function ($storage)
 		return !isNaN(parseFloat(n)) && isFinite(n);
 	}
 
+	function isHaveDebug(value, len)
+	{
+		return value == null || value.length != len;
+	}
+
+	function isHaveUndString(string, undString)
+	{
+		return string.indexOf(undString) == -1;
+	}
+
 	/**
 	 * Local storage
 	 */
@@ -145,7 +155,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value, code)
+					result: function (value)
 					{
 						var botText = BBotText(
 						{
@@ -221,7 +231,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value, code)
+					result: function (value)
 					{
 						var botText = BBotText(
 						{
@@ -277,7 +287,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value, code)
+					result: function (value)
 					{
 						var message = value && value.message;
 
@@ -324,7 +334,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value, code)
+					result: function (value)
 					{
 						var botText = BBotText(
 						{
@@ -362,7 +372,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value, code)
+					result: function (value)
 					{
 						var botText = BBotText(
 						{
@@ -413,7 +423,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value, code)
+					result: function (value)
 					{
 						var botText = BBotText(
 						{
@@ -464,7 +474,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value, code)
+					result: function (value)
 					{
 						var botText = BBotText(
 						{
@@ -546,7 +556,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value, code)
+					result: function (value)
 					{
 						var botText = BBotText(
 						{
@@ -616,7 +626,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 						}
 					],
-					result: function (value, code)
+					result: function (value)
 					{
 						var botText = BBotText(
 						{
@@ -700,8 +710,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							'showSkip': false
 							}
 						],
-
-						result: function (value, code)
+						result: function (value)
 						{
 							var botText = BBotText(
 								{
@@ -849,11 +858,16 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							var botText = BBotText(
 								{
 									correct: 'BBot любит велосипеды, не то что зануды чел0веки.Транслирую:<br>' + value,
-									unknownError: 'Велосипеды, всем велосипеды.'
+									unknownError: 'Велосипеды, всем велосипеды, все же любят велосипеды?',
+									notHaveDebug: 'BBot растроен, тем что чел0век забыл про BBotDebug.'
 								});
-							//TODO прочекать использование pow и min
 
-							return botText.result(true);
+							if (isHaveDebug(value, 2))
+							{
+								return botText.resultNotCorrect('notHaveDebug');
+							}
+
+							return botText.result(code.indexOf('Math.pow') != -1 && code.indexOf('Math.min') != -1);
 						}
 					},
 					{
@@ -861,8 +875,8 @@ app.service('lessonProvider', ['$storage', function ($storage)
 						content: function ()
 						{
 							return '<p>Божественный объект - анти-паттерн соответствующий ситуции, когда одна одна сущость выполняет несколько ролей.' +
-								' Например, сущность собака, которая может гавкать, скулить, закапывать кость в саду, расчитывать налоги.' +
-								' Разве собаки считают налоги.</p>';
+								' Например, сущность собака, которая может гавкать, скулить, закапывать кость в саду и расчитывать налоги.' +
+								' Разве собаки считают налоги?</p>';
 						},
 						instructions: '<ul>' +
 						               '<li>Исправить код, так что бы код не соовтветствовал анти-паттерну божественный объект.</li>' +
@@ -879,13 +893,56 @@ app.service('lessonProvider', ['$storage', function ($storage)
 						{
 							var botText = BBotText(
 								{
-									correct: 'Чел0век справляется, BBot испытывает притворную радость. Транслирую:<br>' + value
+									correct: 'Чел0век справляется, BBot испытывает притворную радость. Транслирую:<br>' + value,
+									unknownError: 'BBot рад, что чел0век признает божественную природу BBot\'a, однако это не повод делать' +
+									'задание не правильно.',
+									notHaveDebug: 'BBot растроен, тем что чел0век забыл про BBotDebug.'
 								});
-							// TODO Как то чекать что чувак действитолько исправляет ошибки в коде.
-							return botText.resultCorrect();
+
+							if (isHaveDebug(value, 3))
+							{
+								return botText.resultNotCorrect('notHaveDebug');
+							}
+
+							return botText.result(isHaveUndString(code, 'goToShop') && code.indexOf('calculateNumber') == -1);
+						}
+					},
+					{
+						title: 'Лодочный якорь.',
+						content: function ()
+						{
+							return '<p>Лодочный якорь - анти-паттерн соответствующий ситуации, когда программист оставляет' +
+								' код, который не используеться.</p>';
+						},
+						instructions: '<ul>' +
+										'<li>Исправте код так, что бы он не соответсвовал анти-паттерну лодочный якорь</li>' +
+						              '</ul>',
+						hint: [
+							{
+								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
+								'nextButton': false,
+								'showSkip': false
+							}
+						],
+						result: function (value, code)
+						{
+							var botText = BBotText(
+								{
+									correct: 'Чел0век справляется, BBot испытывает притворную радость. Транслирую:<br>' + value,
+									unknownError: 'BBot рад, что чел0век признает божественную природу BBot\'a, однако это не повод делать' +
+									'задание не правильно.',
+									notHaveDebug: 'BBot растроен, тем что чел0век забыл про BBotDebug.'
+								});
+
+							if (isHaveDebug(value, 1))
+							{
+								return botText.resultNotCorrect('notHaveDebug');
+							}
+
+							return botText.result(isHaveUndString(code, 'calculateNumber') &&
+								                  isHaveUndString(code, 'sumMinMax'));
 						}
 					}
-
 				]
 		}
 	];
