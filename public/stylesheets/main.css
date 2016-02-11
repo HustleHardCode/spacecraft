@@ -3,6 +3,13 @@ body {
 	overflow: hidden;
 }
 
+.grafics{
+	z-index: 1000;
+	margin: 10px;
+	height: 90%;
+	width: 90%;
+}
+
 #game-canvas {
 	position: fixed;
 	top: 25px;

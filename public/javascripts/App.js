@@ -32,8 +32,18 @@ var app = angular.module('spacecraft', [
 	'spacecraft.repeatFinished'
 ]);
 
-app.config(['$urlRouterProvider', function ($urlRouterProvider)
+app.config(['$urlRouterProvider','ChartJsProvider', function ($urlRouterProvider, ChartJsProvider)
 {
 	// For any unmatched url, send to ''
 	$urlRouterProvider.otherwise('/');
+
+	// Configure all charts
+	ChartJsProvider.setOptions({
+		colours: ['#FF5252', '#FF8A80'],
+		responsive: false
+	});
+	// Configure all line charts
+	ChartJsProvider.setOptions('Line', {
+		datasetFill: false
+	});
 }]);

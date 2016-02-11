@@ -6,20 +6,20 @@ var carousel =
 	[
 		{
 			title: 'Уничтоженные корабли',
-			code: '<canvas id="line" class="chart chart-line" chart-data="killSpaceCraft"'
-			+ 'chart-labels="labels" chart-legend="true" chart-series="Уничтоженные корабли">'
-			+ '</canvas> '
+			code: '<canvas id="line" class="chart chart-line grafics" chart-data="killSpaceCraft"'
+			+'chart-labels="labels" chart-legend="true" chart-series="series">'
+			+'</canvas>'
 		},
 		{
 			title: 'Собранные бонусы',
-			code: '<canvas id="line" class="chart chart-line" chart-data="takeBonus"'
-			+ 'chart-labels="labels" chart-legend="true" chart-series="Собранные бонусы">'
-			+ '</canvas> '
+			code: '<canvas id="bar" class="chart chart-bar grafics" chart-data="takeBonus"'
+			+'chart-labels="labels" chart-legend="true" chart-series="series">'
+			+'</canvas>'
 		},
 		{
 			title: 'Общие количество набранных очков',
-			code: '<canvas id="line" class="chart chart-line" chart-data="totaleScore"'
-			+ 'chart-labels="labels" chart-legend="true" chart-series="Общие количество набранных очков">'
-			+ '</canvas> '
+			code: '<canvas id="radar" class="chart chart-radar grafics" chart-data="totaleScore"'
+			+'chart-labels="labels" chart-legend="true" chart-series="series">'
+			+'</canvas>'
 		}
 	];
