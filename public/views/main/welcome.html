@@ -39,9 +39,10 @@
 		<div class="container-50">
 			<div class="container-inside">
 				<uib-carousel interval="interval" no-wrap="false">
-					<uib-slide ng-repeat="slide in carousel" active="slide.active">
-						<img ng-src="{{slide.image}}"
-						style="height: 360px">
+					<uib-slide ng-repeat="slide in carouselWelcome" active="slide.active">
+						<h4>{{slide.title}}</h4>
+						<div ng-bind-html="trustAsHtml(slide.code)">
+						</div>
 					</uib-slide>
 				</uib-carousel>
 			</div>
