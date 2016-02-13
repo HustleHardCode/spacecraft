@@ -7,6 +7,8 @@ for (var i = 0; i < y; ++i)
 	degree *= x;
 
 BBotDebug(degree);
+// Нахождение масимального числа из двух
+BBotDebug(Math.max(x, y));
 
 // нахождение минимального числа
 var min;
@@ -19,4 +21,5 @@ else {
 }
 
 BBotDebug(min);
+
 

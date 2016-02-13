@@ -16,9 +16,12 @@ var cat =
 	{
 		return this.sayMeow() + this.sayMeow();
 	},
-	calculateNumber : function (x, y)
+	calculateNumber: function (x, y)
 	{
 		return x + y;
+	},
+	sayWoof: function () {
+		return 'Гав';
 	}
 };
 
@@ -27,4 +30,5 @@ BBotDebug(cat.goToShop());
 BBotDebug(cat.sleep());
 BBotDebug(cat.beggingFood());
 BBotDebug(cat.calculateNumber(5 + 3));
+BBotDebug(cat.sayWoof());
 

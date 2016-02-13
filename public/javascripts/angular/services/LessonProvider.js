@@ -17,7 +17,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 		return value == null || value.length != len;
 	}
 
-	function isContainString(string, undString)
+	function isNotContainString(string, undString)
 	{
 		return string.indexOf(undString) == -1;
 	}
@@ -62,6 +62,10 @@ app.service('lessonProvider', ['$storage', function ($storage)
 		that.unknownError = function()
 		{
 			return that.resultNotCorrect('unknownError');
+		};
+
+		that.syntaxError = function () {
+			return that.resultNotCorrect('syntaxError');
 		};
 
 		that.resultNotCorrect = function(messageType)
@@ -693,10 +697,9 @@ app.service('lessonProvider', ['$storage', function ($storage)
 						title: 'Анти-паттерны',
 						content: function ()
 						{
-							return '<p>Здраствуй кадет! Рад снова тебя видеть. Судя по твоему личному делу, ты делаешь большие успехи.</p>' +
+							return '<p>Здравствуй кадет! Рад снова тебя видеть. Судя по твоему личному делу, ты делаешь большие успехи.</p>' +
 								   '<p>По этому, пришло узнать о том, чего стоит избегать в программирование, а именно анти-паттернов.</p>' +
-								   '<p>Анти-паттерн - решение типово задачи наиболее неэффективным или непродуктивным способом.' +
-								   ' Известно большое множество анти-паттернов и о самых из них мы поговорим чуть позже.' +
+								'<p>Анти-паттерн - решение типовой задачи наиболее неэффективным или непродуктивным способом.' +
 								   ' Прежде взгляни на редактор с кодом. В нем представлен код, который содержит множество анти-паттернов.</p>' +
 								   '<p>Теперь будь храбр и не оглядывайся назад.</p>'
 						},
@@ -736,9 +739,6 @@ app.service('lessonProvider', ['$storage', function ($storage)
 								     '<li>Информативность</li>' +
 								     '<li>Уместность</li>' +
 								   '</ul>' +
-								   '<p>Это означает, что комментарий должен быть краток, не нанося при этом ущерб содержащейся в нем информации.' +
-								   ' А так-же наличие комментария должно быть обоснованно(Нет необходимсти комментировать каждую строчку,' +
-								   ' только сложные или не очевидные места в коде).</p>' +
 								   '<p>Чем лучше написан код, тем меньше нужно комментариев.</p>';
 						},
 						instructions: '<ul>' +
@@ -757,7 +757,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							var botText = BBotText(
 								{
 									correct: 'BBot доволен, такой код ему нраbится б0льше.<br>' + value,
-									unknownError: 'Ошибка, ошибка обнаруженна ошибка.',
+									unknownError: 'Ошибка, ошибка обнаружена ошибка.',
 									manyCommentsError: 'Ошибка, ошибка этот чел0век слишком много гов0рит.'
 								});
 
@@ -765,8 +765,12 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							{
 								return botText.unknownError();
 							}
+
 							var flag = 0;
 
+							// Разбиваем код на строки, проверяем являеться ли
+							// строка комментарием, и чекаем ее длинну,
+							// если строка достаточна длинная больше 5 символов, считаем что все норм
 							code.split('\n').forEach(function(value)
 							{
 								if (value[0] == '/' && value.length >= 5)
@@ -789,13 +793,13 @@ app.service('lessonProvider', ['$storage', function ($storage)
 						}
 					},
 					{
-						title: 'Наименнование переменных.',
+						title: 'Наименование переменных.',
 						content: function ()
 						{
 							return '<p>Сложно представить достаточно большую программу, в которой нет переменных.' +
-								' А неверное или не точное наименнование переменных являеться одним из расспрастранненых' +
+								' А неверное или не точное наименование переменных является одним из распространенных' +
 								' анти-паттернов программирования.</p>' +
-								'<p>И для того, что бы это избегать при именнование переменных следует соблюдать следующие правила:' +
+								'<p>И для того, что бы это избегать при именование переменных следует соблюдать следующие правила:' +
 								'<ul>' +
 									'<li>Имя должно отражать суть содержимого</li>' +
 								    '<li>Имя не должно быть слишком длинным</li>' +
@@ -804,7 +808,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 								'</p>';
 						},
 						instructions: '<ul>' +
-										'<li>Исправте наименнование переменных.</li>' +
+						'<li>Исправьте наименование переменных</li>' +
 									  '</ul>',
 						hint: [
 							{
@@ -818,12 +822,20 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							var botText = BBotText(
 								{
 									correct: 'Хорошая работа, желание BBota убивать чел0веков снизилось на 5%.',
-									unknownError: 'Чел0век не знает нужных слов? Чел0веку следует подарить словарь?'
+									unknownError: 'Чел0век не знает нужных слов? Чел0веку следует подарить словарь?',
+									syntaxError: 'Чел0век допустил синтаксическую ошибку.'
 								});
+
+							if (value != null && value.exception) {
+								return botText.syntaxError();
+							}
 
 							var flag = true;
 							var rule = new RegExp(' |\n', 'g');
 
+							// длинна этой строки что-то вроде эталона, все остальные строки
+							// при корректном выполнении задания должны быть не меньше этой длинны
+							// TODO исправить на вытаскивание именни переменной и оценки ее длинны.
 							var checkSize = 'var p = 3.14159265;'.replace(rule, '').length;
 
 							code.replace(rule, '').split(';').forEach(function(string)
@@ -840,11 +852,21 @@ app.service('lessonProvider', ['$storage', function ($storage)
 						content: function ()
 						{
 							return '<p>Велосипед - разработка собственного решения задачи, для которой уже существует' +
-								' готовое решение. К примеру когда требуеться возвести число в степень программист пишет' +
-								' кучу строк, в место того что бы использовать уже готовую функцию.</p>';
+								' готовое решение. К примеру когда требуется возвести число в степень программист пишет' +
+								' кучу строк, в место того что бы использовать уже готовую функцию.</p>' +
+								'<p>Чаще всего необходимые функции входят в состав стандартных механизмов языка программирования.' +
+								' Например стандартный объект языка JavaScript' +
+								' <a href="https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math">Math</a>' +
+								' поможет в этом задании.</p>' +
+								'<p>Например:' +
+								'<ul>' +
+								'<li>pow</li>' +
+								'<li>max</li>' +
+								'<li>min</li>' +
+								'</ul></p>';
 						},
 						instructions: '<ul>' +
-										'<li>Исправте код так, что бы он не соответсвовал анти-паттерну магические числа.</li>' +
+						'<li>Исправьте код так, что бы он не соответствовал анти-паттерну велосипед.</li>' +
 									  '</ul>',
 						hint: [
 							{
@@ -859,27 +881,28 @@ app.service('lessonProvider', ['$storage', function ($storage)
 								{
 									correct: 'BBot любит велосипеды, не то что зануды чел0веки.Транслирую:<br>' + value,
 									unknownError: 'Велосипеды, всем велосипеды, все же любят велосипеды?',
-									notHaveDebug: 'BBot растроен, тем что чел0век забыл про BBotDebug.'
+									notHaveDebug: 'BBot расстроен, тем что чел0век забыл про BBotDebug.'
 								});
 
-							if (checkDebugLen(value, 2))
+							if (checkDebugLen(value, 3))
 							{
 								return botText.resultNotCorrect('notHaveDebug');
 							}
 
-							return botText.result(code.indexOf('Math.pow') != -1 && code.indexOf('Math.min') != -1);
+							// Проверяем добавил ли пользователь использование необходимых методов
+							return botText.result(!isNotContainString(code, 'Math.pow') && !isNotContainString(code, 'Math.min'));
 						}
 					},
 					{
 						title: 'Божественный объект.',
 						content: function ()
 						{
-							return '<p>Божественный объект - анти-паттерн соответствующий ситуции, когда одна одна сущость выполняет несколько ролей.' +
-								' Например, сущность собака, которая может гавкать, скулить, закапывать кость в саду и расчитывать налоги.' +
+							return '<p>Божественный объект - анти-паттерн соответствующий ситуации, когда одна одна сущность выполняет несколько ролей.' +
+								' Например, сущность собака, которая может гавкать, скулить, закапывать кость в саду и рассчитывать налоги.' +
 								' Разве собаки считают налоги?</p>';
 						},
 						instructions: '<ul>' +
-						               '<li>Исправить код, так что бы код не соовтветствовал анти-паттерну божественный объект.</li>' +
+						'<li>Исправить код, так что бы код не соответствовал анти-паттерну божественный объект.</li>' +
 						               '<li>Не нужный код можно удалить.</li>' +
 									  '</ul>',
 						hint: [
@@ -896,7 +919,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 									correct: 'Чел0век справляется, BBot испытывает притворную радость. Транслирую:<br>' + value,
 									unknownError: 'BBot рад, что чел0век признает божественную природу BBot\'a, однако это не повод делать' +
 									'задание не правильно.',
-									notHaveDebug: 'BBot растроен, тем что чел0век забыл про BBotDebug.'
+									notHaveDebug: 'BBot расстроен, кажется чел0век о чем-то забыл. Может быть про BBotDebug?'
 								});
 
 							if (checkDebugLen(value, 3))
@@ -904,7 +927,10 @@ app.service('lessonProvider', ['$storage', function ($storage)
 								return botText.resultNotCorrect('notHaveDebug');
 							}
 
-							return botText.result(isContainString(code, 'goToShop') && code.indexOf('calculateNumber') == -1);
+							// Проверяем удалил ли пользователь эти методы
+							return botText.result(isNotContainString(code, 'goToShop') &&
+								isNotContainString(code, 'calculateNumber') &&
+								isNotContainString(code, 'sayWoof'));
 						}
 					},
 					{
@@ -912,10 +938,10 @@ app.service('lessonProvider', ['$storage', function ($storage)
 						content: function ()
 						{
 							return '<p>Лодочный якорь - анти-паттерн соответствующий ситуации, когда программист оставляет' +
-								' код, который не используеться.</p>';
+								' код, который не используется.</p>';
 						},
 						instructions: '<ul>' +
-										'<li>Исправте код так, что бы он не соответсвовал анти-паттерну лодочный якорь</li>' +
+						'<li>Исправьте код так, что бы он не соответствовал анти-паттерну лодочный якорь</li>' +
 						              '</ul>',
 						hint: [
 							{
@@ -928,10 +954,9 @@ app.service('lessonProvider', ['$storage', function ($storage)
 						{
 							var botText = BBotText(
 								{
-									correct: 'Чел0век справляется, BBot испытывает притворную радость. Транслирую:<br>' + value,
-									unknownError: 'BBot рад, что чел0век признает божественную природу BBot\'a, однако это не повод делать' +
-									'задание не правильно.',
-									notHaveDebug: 'BBot растроен, тем что чел0век забыл про BBotDebug.'
+									correct: 'Всегда полезно избавляться от бесполезных вещей. Транслирую:<br>' + value,
+									unknownError: 'Кажется чел0век оставил что-то лишнее.',
+									notHaveDebug: 'BBot расстроен, тем что чел0век забыл про BBotDebug.'
 								});
 
 							if (checkDebugLen(value, 1))
@@ -939,8 +964,8 @@ app.service('lessonProvider', ['$storage', function ($storage)
 								return botText.resultNotCorrect('notHaveDebug');
 							}
 
-							return botText.result(isContainString(code, 'calculateNumber') &&
-								                  isContainString(code, 'sumMinMax'));
+							return botText.result(isNotContainString(code, 'calculateNumber') &&
+								isNotContainString(code, 'sumMinMax'));
 						}
 					}
 				]
