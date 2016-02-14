@@ -747,6 +747,21 @@ app.service('lessonProvider', ['$storage', function ($storage)
 									  '</ul>',
 						hint: [
 							{
+								'next .ace_scroller': 'Исправьте комментарий перед функцией \'say\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Добавьте комментарий перед объектом \'cat\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Исправьте комментарий перед объектом \'dog\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
 								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
 								'nextButton': false,
 								'showSkip': false
@@ -812,6 +827,31 @@ app.service('lessonProvider', ['$storage', function ($storage)
 									  '</ul>',
 						hint: [
 							{
+								'next .ace_scroller': 'Переменную \'a\' можно заменить на \'woof\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Переменную \'b\' можно заменить на \'meow\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Переменную \'c\' можно заменить на \'sum\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Переменную \'d\' можно заменить на \'result\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Переменную \'e\' можно заменить на \'pi\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
 								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
 								'nextButton': false,
 								'showSkip': false
@@ -870,6 +910,16 @@ app.service('lessonProvider', ['$storage', function ($storage)
 									  '</ul>',
 						hint: [
 							{
+								'next .ace_scroller': 'Код отвечающий за возведение в степень замените на Math.pow(x, y);',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Код отвечающий за нахождение минимального числа заменить на Math.min(x, y);',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
 								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
 								'nextButton': false,
 								'showSkip': false
@@ -903,9 +953,24 @@ app.service('lessonProvider', ['$storage', function ($storage)
 						},
 						instructions: '<ul>' +
 						'<li>Исправить код, так что бы код не соответствовал анти-паттерну божественный объект.</li>' +
-						               '<li>Не нужный код можно удалить.</li>' +
+						'<li>Не нужный код нужно удалить.</li>' +
 									  '</ul>',
 						hint: [
+							{
+								'next .ace_scroller': 'Функция \'goToShop\' лишняя.',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Функция \'calculateNumber\' лишняя.',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Функция \'sayWoof\' лишняя.',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
 							{
 								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
 								'nextButton': false,
@@ -944,6 +1009,16 @@ app.service('lessonProvider', ['$storage', function ($storage)
 						'<li>Исправьте код так, что бы он не соответствовал анти-паттерну лодочный якорь</li>' +
 						              '</ul>',
 						hint: [
+							{
+								'next .ace_scroller': 'Функция \'calculateNumber\' лишняя.',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Функция \'sumMinMax\' лишняя.',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
 							{
 								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
 								'nextButton': false,
