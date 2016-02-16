@@ -646,6 +646,15 @@ body {
 	cursor: default;
 }
 
+.lesson-board .code {
+	border: 3px solid black;
+	white-space: pre-wrap;
+	background-color: rgb(29, 31, 33);
+	color: #FFFFFF;
+	font-weight: 400;
+	padding: 2px;
+}
+
 .documentation {
 	background: #fff;
 	color: #152B39;

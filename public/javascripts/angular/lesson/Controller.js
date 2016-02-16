@@ -147,6 +147,9 @@ app.controller('LessonController', ['$scope', '$stateParams', '$state', '$http',
 	{
 		editorSession = editor.getSession();
 		editor.$blockScrolling = Infinity;
+		editor.setOption("scrollPastEnd", true);
+
+		// Скролл до конца. Т.е. скролл есть всегда.
 		editorSession.setValue(options.code);
 	};
 }]);

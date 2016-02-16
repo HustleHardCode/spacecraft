@@ -28,7 +28,6 @@
     "angular-ui-ace": "~0.2.3",
     "bootstrap": "~3.3.5",
     "enjoyhint": "~3.1.0",
-    "angular-ui-layout": "bower",
-    "angular-bootstrap": "~1.1.1"
+    "angular-ui-layout": "bower"
   }
 }

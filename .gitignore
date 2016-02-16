@@ -9,6 +9,7 @@ android/gen/
 *.iml
 out/
 build/
+node_modules/
 com_crashlytics_export_strings.xml
 
 ## OS Specific

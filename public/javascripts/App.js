@@ -12,7 +12,6 @@ var app = angular.module('spacecraft', [
 	'ui.router',
 	'ui.ace',
 	'ui.layout',
-	'ui.bootstrap',
 	'spacecraft.storage',
 	'spacecraft.autocompleter',
 	'spacecraft.statistics',

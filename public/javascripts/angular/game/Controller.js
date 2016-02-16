@@ -96,6 +96,9 @@ function ($scope, $storage, $http, autocompleter)
 		editor.$blockScrolling = Infinity;
 		editorSession.setValue($scope.options.code);
 
+		// Скролл до конца. Т.е. скролл есть всегда.
+		editor.setOption("scrollPastEnd", true);
+
 		var langTools = ace.require('ace/ext/language_tools');
 		var spaceCraftCompleter = autocompleter(editor);
 
