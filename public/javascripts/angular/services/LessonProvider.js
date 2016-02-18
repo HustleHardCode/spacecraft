@@ -328,7 +328,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 					'</ul>',
 					hint: [
 						{
-							'next .ace_active-line': 'Поставте в начале строки "//"',
+							'next .ace_active-line': 'Поставте в начале строки \'//\'',
 							'nextButton': {text: 'Далее'},
 							'showSkip': false
 						},
@@ -417,7 +417,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 					'</ul>',
 					hint: [
 						{
-							'next .ace_scroller': 'Введите 4 > 1',
+							'next .ace_scroller': 'Введите \'4 > 1\'',
 							'nextButton': {text: 'Далее'},
 							'showSkip': false
 						},
@@ -463,12 +463,12 @@ app.service('lessonProvider', ['$storage', function ($storage)
 					'</ul>',
 					hint: [
 						{
-							'next .ace_scroller': 'Введите в редактор строку: BBotDebug(5*3);',
+							'next .ace_scroller': 'Введите в редактор строку: \'BBotDebug(5*3);\'',
 							'nextButton': {text: 'Далее'},
 							'showSkip': false
 						},
 						{
-							'next .ace_scroller': 'На следующей строке: BBotDebug("SpaceCraft");',
+							'next .ace_scroller': 'На следующей строке: \'BBotDebug("SpaceCraft");\'',
 							'nextButton': {text: 'Далее'},
 							'showSkip': false
 						},
@@ -506,7 +506,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 					}
 				},
 				{
-					title: 'Нужнооо больше операторов!',
+					title: 'Нужно бооольше операторов!',
 					content: function ()
 					{
 						return '<p>Есть множество операторов сравнения:</p>' +
@@ -615,12 +615,12 @@ app.service('lessonProvider', ['$storage', function ($storage)
 					'</ul>',
 					hint: [
 						{
-							'next .ace_scroller': 'Поменяйте условие 2 === 2 на 2 === 3.',
+							'next .ace_scroller': 'Поменяйте условие \'2 === 2\' на \'2 === 3\'.',
 							'nextButton': {text: 'Далее'},
 							'showSkip': false
 						},
 						{
-							'next .ace_scroller': 'Поменяйте условие 5 < 3 на 5 > 3.',
+							'next .ace_scroller': 'Поменяйте условие \'5 < 3\' на \'5 > 3\'.',
 							'nextButton': {text: 'Далее'},
 							'showSkip': false
 						},
@@ -697,7 +697,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 					'</ul>',
 					hint: [
 						{
-							'next .ace_scroller': 'Поменяйте условие 3 <= 3 на 4 <= 3.',
+							'next .ace_scroller': 'Поменяйте условие \'3 <= 3\' на \'4 <= 3\'.',
 							'nextButton': {text: 'Далее'},
 							'showSkip': false
 						},
@@ -775,12 +775,12 @@ app.service('lessonProvider', ['$storage', function ($storage)
 					'</ul>',
 					hint: [
 						{
-							'next .ace_scroller': 'Измените код на: var enemies = 10;',
+							'next .ace_scroller': 'Измените код на: \'var enemies = 10;\'',
 							'nextButton': {text: 'Далее'},
 							'showSkip': false
 						},
 						{
-							'next .ace_scroller': 'Выведите значение enemies: BBotDebug(enemies);',
+							'next .ace_scroller': 'Выведите значение enemies: \'BBotDebug(enemies);\'',
 							'nextButton': {text: 'Далее'},
 							'showSkip': false
 						},
@@ -859,6 +859,56 @@ app.service('lessonProvider', ['$storage', function ($storage)
 						}
 
 						return botText.unknownError();
+					}
+				},
+				{
+					title: 'А какой итог?',
+					content: function ()
+					{
+						return '<p>Что ж, кадет, вы прошли подготовительный курс и показали себя достойным доверия управлять космическим кораблем!</p>' +
+							'<p>Давайте, перед тем как вы совершите свой первый полет, повторим уже пройденный материал.</p>' +
+							'<p><strong>Типы</strong></p>' +
+							'<ul>' +
+							'<li>string("Я есть BBot!", "Уря!")</li>' +
+							'<li>number (2015, 42)</li>' +
+							'<li>boolean (5 === 5, false)</li>' +
+							'</ul>' +
+							'<p><strong>BBotDebug</strong></p>' +
+							'<p>Выводит информацию, которая помещена между скобок, с помощью голограммы BBot\'а.</p>' +
+							'<p><strong>Операторы сравнения</strong></p>' +
+							'<ul>' +
+							'<li>больше / меньше чем (>, <)</li>' +
+							'<li>больше / меньше либо равно (>=, <=)</li>' +
+							'<li>равенство / неравенство (===, !==)</li>' +
+							'</ul>' +
+							'<p><strong>Условные оператор</strong></p>' +
+							'<p>Оператор if-else позволяет выполнять определенный блок кода в зависимости от значения условия.</p> ' +
+							'<p><strong>Переменные</strong></p>' +
+							'<p>Переменные используются для хранения информации.</p>'
+					},
+					instructions:
+					'<ul>' +
+					'<li>Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.</li>' +
+					'<li>Нажмите \'Далее\'.</li>' +
+					'</ul>',
+					hint: [
+						{
+							'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
+							'nextButton': false,
+							'showSkip': false
+						}
+					],
+					result: function (value)
+					{
+						var botText = BBotText(
+						{
+							correct: '<p>### ### Ну нак0нец-то зак0нчились эти легкие испыtания!</p>' +
+							'<p>### И мы п0летаем на реалbном фрегате!</p>' +
+							'<p>### Траслирую:</p>' +
+							'<p>' + value + '</p>'
+						});
+
+						return botText.resultCorrect();
 					}
 				}
 			]

@@ -36,8 +36,26 @@
 				<div class="pages-text">Начать просмотр</div>
 			</div>
 		</div>
-		<div class="container-50">
-			<div class="container-inside">
+		<div class="container-50" ng-show="stat">
+			<div class="container-inside" ng-show="index === 0" ng-click="changeChart()">
+				<canvas class="chart chart-line graphics"
+						chart-data="killSpaceCraft"
+						chart-labels="labels"
+						chart-legend="true"
+						chart-series="seriesC">
+				</canvas>
+			</div>
+
+			<div class="container-inside" ng-show="index === 1" ng-click="changeChart()">
+				<canvas class="chart chart-line graphics" chart-data="takeBonus"
+						chart-labels="labels" chart-legend="true" chart-series="seriesB">
+				</canvas>
+			</div>
+
+			<div class="container-inside" ng-show="index === 2" ng-click="changeChart()">
+				<canvas id="line" class="chart chart-line graphics" chart-data="totaleScore"
+						chart-labels="labels" chart-legend="true" chart-series="seriesT">
+				</canvas>
 			</div>
 		</div>
 	</div>
