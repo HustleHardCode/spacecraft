@@ -1,58 +1,45 @@
-// КОТЕЙКА, ВСЕМ КОТЕЕК
-var cat = function() {
+// Слишком пьян, исправить позже.
+var spaceCraft = function () {
 	var that = {};
 
-	that.sayWoof = function() {
-		return 'мяу-мяу'
+	that.fire = function () {
+		return 'SpaceCraft - fire'
 	};
 
-	that.sayWoof = function(n) {
+	that.fire = function (n) {
 		var msg = '';
-		// не знаю почему 3 и 2 но по другому вроде не работает.
+		// Магия. Не трогать.
 		for (var i = 3; i <= n + 2; ++i)
-			msg += 'мяу-мяу';
+			msg += 'SpaceCraft fire ';
 
 		return msg;
 	};
 
-	that.sleep = function () {
-		return 'спит...';
+	that.moveForward = function () {
+		return ' SpaceCraft move forward ';
 	};
 
-	that.sl = function(a, b) {
-		return a + b;
-	};
-
-	return that;
-};
-
-// Уточка
-var dog = function() {
-	var that = {};
-
-	that.sayWoof = function() {
-		return 'Гав-гав'
-	};
-
-	that.sayWoof = function(n) {
-		var msg = '';
-		// не знаю почему 3 и 2 но по другому вроде не работает.
-		for (var i = 3; i <= n + 2; ++i)
-			msg += 'гав-гав';
-
-		return msg;
-	};
-
-	that.findBone = function() {
-		return 'кость найдена'
+	that.min = function (a, b) {
+		return a > b ? b : a;
 	};
 
 	return that;
 };
+var BBot = {
+	rotateLeft: function () {
+		return ' SpaceCraft rotate right ';
+	},
+	rotateRight: function () {
+		return ' SpaceCraft rotate left ';
+	},
+	BBotDebug: function (say) {
+		return say;
+	}
+};
 
-var dog = dog();
-BBotDebug(dog.sayWoof(10));
-BBotDebug(dog.findBone());
-var cat = cat();
-BBotDebug(cat.sayWoof(cat.sl(2, 5)));
-BBotDebug(cat.sleep());
+BBotDebug(spaceCraft().moveForward());
+BBotDebug(spaceCraft().fire(spaceCraft().min(1, 3)));
+BBotDebug(BBot.rotateLeft());
+BBotDebug(BBot.BBotDebug(' BBot '));
+
+

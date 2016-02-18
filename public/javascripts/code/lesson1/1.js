@@ -1,37 +1,22 @@
-// сделать что то там
-function say (n, text) {
-	var message = '';
-
-	for (var i = 0; i < n; ++i) {
-		message += text;
-	}
-
-	return message;
-}
-//
-var cat = {
-	sayMeow: function (n) {
-		return say(n, ' Мяу ');
+// Когда я писал этот код, только Бог и я понимали, что он означает. Теперь понимает только Бог.
+var spaceCraft =
+{
+	fire: function () {
+		return 'SpaceCraft - fire'
 	},
-
-	sleep: function () {
-		return ' спит... ';
-	}
-};
-// кошка
-var dog = {
-	sayWoof: function(n) {
-		return say(n, ' Гав-гав ');
+	moveForward: function () {
+		return ' SpaceCraft move forward ';
 	},
-
-	findBone : function() {
-		return ' кость найдена '
+	rotateLeft: function () {
+		return ' SpaceCraft rotate right ';
+	},
+	rotateRight: function () {
+		return ' SpaceCraft rotate left ';
 	}
 };
 
-BBotDebug(dog.sayWoof(10));
-BBotDebug(dog.findBone());
-
-BBotDebug(cat.sayMeow(2 + 5));
-BBotDebug(cat.sleep());
-
+BBotDebug(spaceCraft.moveForward());
+for (var i = 0; i < Math.min(1, 3); ++i)
+	BBotDebug(spaceCraft.fire());
+BBotDebug(spaceCraft.rotateLeft());
+BBotDebug(' BBot ');

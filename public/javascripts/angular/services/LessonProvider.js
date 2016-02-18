@@ -977,17 +977,27 @@ app.service('lessonProvider', ['$storage', function ($storage)
 									  '</ul>',
 						hint: [
 							{
-								'next .ace_scroller': 'Исправьте комментарий перед функцией \'say\'',
+								'next .ace_scroller': 'Исправьте комментарий перед объектом \'spaceCraft\'',
 								'nextButton': {text: 'Далее'},
 								'showSkip': false
 							},
 							{
-								'next .ace_scroller': 'Добавьте комментарий перед объектом \'cat\'',
+								'next .ace_scroller': 'Добавьте комментарий перед функцией \'fire\'',
 								'nextButton': {text: 'Далее'},
 								'showSkip': false
 							},
 							{
-								'next .ace_scroller': 'Исправьте комментарий перед объектом \'dog\'',
+								'next .ace_scroller': 'Исправьте комментарий перед функцией \'moveForward\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Исправьте комментарий перед функцией \'rotateLeft\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Исправьте комментарий перед функцией \'rotateRight\'',
 								'nextButton': {text: 'Далее'},
 								'showSkip': false
 							},
@@ -1003,7 +1013,8 @@ app.service('lessonProvider', ['$storage', function ($storage)
 								{
 									correct: 'BBot доволен, такой код ему нраbится б0льше.<br>' + value,
 									unknownError: 'Ошибка, ошибка обнаружена ошибка.',
-									manyCommentsError: 'Ошибка, ошибка этот чел0век слишком много гов0рит.'
+									manyCommentsError: 'Ошибка, ошибка этот чел0век слишком много гов0рит.',
+									fewCommentsError: 'Ошибка, ошибка слишком мало комментариев.'
 								});
 
 							if (value.exception)
@@ -1018,23 +1029,25 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							// если строка достаточна длинная больше 5 символов, считаем что все норм
 							code.split('\n').forEach(function(value)
 							{
-								if (value[0] == '/' && value.length >= 5)
+								var newValue = value.replace(new RegExp('\t| ', 'g'), '');
+
+								if (newValue[0] == '/' && newValue.length >= 5)
 								{
 									flag += 1;
 								}
+
 							});
 
 							if (flag  >= 10)
 							{
 								return botText.resultNotCorrect('manyCommentsError');
 							}
-							else if (flag >= 3)
+							else if (flag >= 5)
 							{
 								return botText.resultCorrect();
 							}
 
-
-							return botText.unknownError();
+							return botText.resultNotCorrect('fewCommentsError');
 						}
 					},
 					{
@@ -1057,12 +1070,12 @@ app.service('lessonProvider', ['$storage', function ($storage)
 									  '</ul>',
 						hint: [
 							{
-								'next .ace_scroller': 'Переменную \'a\' можно заменить на \'woof\'',
+								'next .ace_scroller': 'Переменную \'a\' можно заменить на \'cadet\'',
 								'nextButton': {text: 'Далее'},
 								'showSkip': false
 							},
 							{
-								'next .ace_scroller': 'Переменную \'b\' можно заменить на \'meow\'',
+								'next .ace_scroller': 'Переменную \'b\' можно заменить на \'pirate\'',
 								'nextButton': {text: 'Далее'},
 								'showSkip': false
 							},
@@ -1101,12 +1114,12 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							}
 
 							var flag = true;
-							var rule = new RegExp(' |\n', 'g');
+							var rule = new RegExp(' |\n|\t', 'g');
 
 							// длинна этой строки что-то вроде эталона, все остальные строки
 							// при корректном выполнении задания должны быть не меньше этой длинны
 							// TODO исправить на вытаскивание именни переменной и оценки ее длинны.
-							var checkSize = 'var p = 3.14159265;'.replace(rule, '').length;
+							var checkSize = 'var a = \'кадет\';'.replace(rule, '').length;
 
 							code.replace(rule, '').split(';').forEach(function(string)
 							{
@@ -1178,8 +1191,9 @@ app.service('lessonProvider', ['$storage', function ($storage)
 						content: function ()
 						{
 							return '<p>Божественный объект - анти-паттерн соответствующий ситуации, когда одна одна сущность выполняет несколько ролей.' +
-								' Например, сущность собака, которая может гавкать, скулить, закапывать кость в саду и рассчитывать налоги.' +
-								' Разве собаки считают налоги?</p>';
+								' Например, объект космический корабль, который содержит методы: выстрелить, лететь вперед' +
+								' лететь направо, лететь налево, мяукнуть.' +
+								' Мяукующий космический корабль, серьезно?</p>';
 						},
 						instructions: '<ul>' +
 						'<li>Исправить код, так что бы код не соответствовал анти-паттерну божественный объект.</li>' +
@@ -1187,17 +1201,12 @@ app.service('lessonProvider', ['$storage', function ($storage)
 									  '</ul>',
 						hint: [
 							{
-								'next .ace_scroller': 'Функция \'goToShop\' лишняя.',
+								'next .ace_scroller': 'Функция \'sayMeow\' лишняя.',
 								'nextButton': {text: 'Далее'},
 								'showSkip': false
 							},
 							{
-								'next .ace_scroller': 'Функция \'calculateNumber\' лишняя.',
-								'nextButton': {text: 'Далее'},
-								'showSkip': false
-							},
-							{
-								'next .ace_scroller': 'Функция \'sayWoof\' лишняя.',
+								'next .ace_scroller': 'Функция \'sleep\' лишняя.',
 								'nextButton': {text: 'Далее'},
 								'showSkip': false
 							},
@@ -1223,9 +1232,8 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							}
 
 							// Проверяем удалил ли пользователь эти методы
-							return botText.result(isNotContainString(code, 'goToShop') &&
-								isNotContainString(code, 'calculateNumber') &&
-								isNotContainString(code, 'sayWoof'));
+							return botText.result(isNotContainString(code, 'sleep') &&
+								isNotContainString(code, 'sayMeow'));
 						}
 					},
 					{
@@ -1233,7 +1241,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 						content: function ()
 						{
 							return '<p>Лодочный якорь - анти-паттерн соответствующий ситуации, когда программист оставляет' +
-								' код, который не используется.</p>';
+								' код, который не используется. Кому нужен лишний груз в космосе?</p>';
 						},
 						instructions: '<ul>' +
 						'<li>Исправьте код так, что бы он не соответствовал анти-паттерну лодочный якорь</li>' +

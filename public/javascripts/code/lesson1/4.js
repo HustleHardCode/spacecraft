@@ -1,34 +1,33 @@
-var cat =
+var spaceCraft =
 {
+	fire: function () {
+		return 'SpaceCraft - fire'
+	},
 	sayMeow: function ()
 	{
 		return 'Мяу';
 	},
-	goToShop: function ()
+	moveForward: function () {
+		return ' SpaceCraft move forward ';
+	},
+	rotateLeft: function ()
 	{
-		return 'Иду в магазин';
+		return ' SpaceCraft rotate right ';
+	},
+	rotateRight: function ()
+	{
+		return ' SpaceCraft rotate left ';
 	},
 	sleep: function ()
 	{
-		return 'спит...';
-	},
-	beggingFood: function()
-	{
-		return this.sayMeow() + this.sayMeow();
-	},
-	calculateNumber: function (x, y)
-	{
-		return x + y;
-	},
-	sayWoof: function () {
-		return 'Гав';
+		return ' sleep ';
 	}
 };
 
-BBotDebug(cat.sayMeow());
-BBotDebug(cat.goToShop());
-BBotDebug(cat.sleep());
-BBotDebug(cat.beggingFood());
-BBotDebug(cat.calculateNumber(5 + 3));
-BBotDebug(cat.sayWoof());
+BBotDebug(spaceCraft.moveForward());
+for (var i = 0; i < Math.min(1, 3); ++i)
+	BBotDebug(spaceCraft.fire());
+BBotDebug(spaceCraft.sayMeow());
+BBotDebug(spaceCraft.rotateLeft());
+BBotDebug(spaceCraft.sleep());
 
