@@ -12,6 +12,32 @@ app.service('lessonProvider', ['$storage', function ($storage)
 		return !isNaN(parseFloat(n)) && isFinite(n);
 	}
 
+	function getDebug(value)
+	{
+		var text;
+
+		if(Object.prototype.toString.call(value) === '[object Array]')
+		{
+			value.forEach(function (v)
+			{
+				if (text)
+				{
+					text = text + v + '<br/>';
+				}
+				else
+				{
+					text = v + '<br/>';
+				}
+			});
+		}
+		else
+		{
+			text = value;
+		}
+
+		return text;
+	}
+
 	function checkDebugLen(value, len)
 	{
 		return value == null || value.length != len;
@@ -930,14 +956,14 @@ app.service('lessonProvider', ['$storage', function ($storage)
 						{
 							return '<p>Здравствуй кадет! Рада снова тебя видеть.</p>' +
 								'<p>Судя по твоему личному делу, ты делаешь большие успехи.</p>' +
-							    '<p>Поэтому, пришло узнать о том, чего стоит избегать в программировании, а именно анти-паттернов.' +
+							    '<p>Поэтому, пришло узнать о том, чего стоит избегать в программировании, а именно анти-паттернов. ' +
 								'Анти-паттерн - решение типовой задачи наиболее неэффективным или непродуктивным способом.</p>' +
 								'<p>Прежде взгляни на редактор с кодом. В нем представлен код, который содержит множество анти-паттернов.</p>' +
 								'<p>Теперь будь храбр и не оглядывайся назад.</p>'
 						},
 						instructions:
 						'<ul>' +
-						'<li>Запусти код</li>' +
+						'<li>Запустите код.</li>' +
 						'</ul>',
 						hint: [
 							{
@@ -952,7 +978,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 								{
 									correct: '<p>### Бип-бип-биииип. Запуск механизмов экстренного охлаждения.</p>' +
 									'<p>### Операция выполнена. Транслирую:</p>' +
-									'<p>' + value + '</p>'
+									'<p>' + getDebug(value) + '</p>'
 								});
 
 							return botText.resultCorrect();
@@ -977,9 +1003,9 @@ app.service('lessonProvider', ['$storage', function ($storage)
 								   '<p>Чем лучше написан код, тем меньше нужно комментариев.</p>';
 						},
 						instructions: '<ul>' +
-						              	'<li>Исправить комментарии</li>' +
-									    '<li>Запустить код</li>' +
-									  '</ul>',
+						'<li>Исправить или добавить комментарии перед объектами или функциями.</li>' +
+						'<li>Запустить код.</li>' +
+						'</ul>',
 						hint: [
 							{
 								'next .ace_scroller': 'Исправьте комментарий перед объектом \'spaceCraft\'',
@@ -1017,11 +1043,11 @@ app.service('lessonProvider', ['$storage', function ($storage)
 							var botText = BBotText(
 							{
 								correct: '<p>### BBot доволен, такой код ему нраbится б0льше.</p>' +
-									'<p>' + value + '</p>',
-
-								unknownError: '<p>### Ошибка, ошибка обнаружена ошибка.</p>',
-								manyCommentsError: '<p>### Ошибка, ошибка этот чел0век слишком много гов0рит.</p>',
-								fewCommentsError: '<p>### Ошибка, ошибка слишком мало комментариев.</p>'
+								'<p>### Транслирую:</p>' +
+								'<p>' + getDebug(value) + '</p>',
+								unknownError: '<p>### Ошибка, 0шибка, обнаружеHа 0шибка!</p>',
+								manyCommentsError: '<p>### Ошибка, 0шибка, этот чел0век слишком много гов0рит.</p>',
+								fewCommentsError: '<p>### Ошибка, ошибка, нужно б0льше понятных комментариев!</p>'
 							});
 
 							if (value.exception)
@@ -1074,7 +1100,7 @@ app.service('lessonProvider', ['$storage', function ($storage)
 						},
 						instructions: '<ul>' +
 						'<li>Исправьте наименование переменных</li>' +
-									  '</ul>',
+					    '</ul>',
 						hint: [
 							{
 								'next .ace_scroller': 'Переменную \'a\' можно заменить на \'cadet\'',

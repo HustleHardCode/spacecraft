@@ -26,5 +26,6 @@ for (var i = 0; i < 1; ++i)
 {
 	BBotDebug(spaceCraft.fire());
 }
+
 BBotDebug(spaceCraft.rotateLeft());
 BBotDebug(' BBot ');
