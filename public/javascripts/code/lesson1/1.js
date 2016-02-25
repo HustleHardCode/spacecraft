@@ -8,15 +8,15 @@ var spaceCraft =
 	},
 	moveForward: function ()
 	{
-		return ' SpaceCraft move forward ';
+		return 'SpaceCraft move forward';
 	},
 	rotateLeft: function ()
 	{
-		return ' SpaceCraft rotate right ';
+		return 'SpaceCraft rotate right';
 	},
 	rotateRight: function ()
 	{
-		return ' SpaceCraft rotate left ';
+		return 'SpaceCraft rotate left';
 	}
 };
 
@@ -28,4 +28,4 @@ for (var i = 0; i < 1; ++i)
 }
 
 BBotDebug(spaceCraft.rotateLeft());
-BBotDebug(' BBot ');
+BBotDebug('BBot');

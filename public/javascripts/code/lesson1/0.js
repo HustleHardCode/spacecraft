@@ -10,13 +10,13 @@ var spaceCraft = function () {
 		var msg = '';
 		// Магия. Не трогать.
 		for (var i = 3; i <= n + 2; ++i)
-			msg += 'SpaceCraft fire ';
+			msg += 'SpaceCraft fire';
 
 		return msg;
 	};
 
 	that.moveForward = function () {
-		return ' SpaceCraft move forward ';
+		return 'SpaceCraft move forward';
 	};
 
 	that.min = function (a, b) {
@@ -27,10 +27,10 @@ var spaceCraft = function () {
 };
 var BBot = {
 	rotateLeft: function () {
-		return ' SpaceCraft rotate right ';
+		return 'SpaceCraft rotate right';
 	},
 	rotateRight: function () {
-		return ' SpaceCraft rotate left ';
+		return 'SpaceCraft rotate left';
 	},
 	BBotDebug: function (say) {
 		return say;
@@ -40,6 +40,6 @@ var BBot = {
 BBotDebug(spaceCraft().moveForward());
 BBotDebug(spaceCraft().fire(spaceCraft().min(1, 3)));
 BBotDebug(BBot.rotateLeft());
-BBotDebug(BBot.BBotDebug(' BBot '));
+BBotDebug(BBot.BBotDebug('BBot'));
 
 
