@@ -12,6 +12,42 @@ app.service('lessonProvider', ['$storage', function ($storage)
 		return !isNaN(parseFloat(n)) && isFinite(n);
 	}
 
+	function getDebug(value)
+	{
+		var text;
+
+		if(Object.prototype.toString.call(value) === '[object Array]')
+		{
+			value.forEach(function (v)
+			{
+				if (text)
+				{
+					text = text + v + '<br/>';
+				}
+				else
+				{
+					text = v + '<br/>';
+				}
+			});
+		}
+		else
+		{
+			text = value;
+		}
+
+		return text;
+	}
+
+	function checkDebugLen(value, len)
+	{
+		return value == null || value.length != len;
+	}
+
+	function isNotContainString(string, undString)
+	{
+		return string.indexOf(undString) == -1;
+	}
+
 	/**
 	 * Local storage
 	 */
@@ -54,6 +90,10 @@ app.service('lessonProvider', ['$storage', function ($storage)
 			return that.resultNotCorrect('unknownError');
 		};
 
+		that.syntaxError = function () {
+			return that.resultNotCorrect('syntaxError');
+		};
+
 		that.resultNotCorrect = function(messageType)
 		{
 			return result(false, getText(messageType));
@@ -75,6 +115,9 @@ app.service('lessonProvider', ['$storage', function ($storage)
 
 	var lessons =
 	[
+	/**
+	 * Урок 1
+	 */
 		{
 			text: 'Поступление в академию',
 			label: 'Основы JavaScript',
@@ -906,6 +949,388 @@ app.service('lessonProvider', ['$storage', function ($storage)
 					}
 				}
 			]
+		},
+	/**
+	 * Урок 2
+	 * Зачем мы говорим об анти-паттернах
+	 * СЛОЖНО!
+	 * Скажем о том, что не нужно делать и уменьшим текст.
+	 * Соответственно уменьшиться размер текста.
+	 * Не нужно описывать каждый анти-паттерн.
+	 */
+		{
+			text: 'Программируйте правильно!',
+			label: 'Программируйте правильно!',
+			quote: 'Легче понять Вселенную, чем чужой код',
+			/* 'Пишите код так, как будто сопровождать его будет склонный к насилию психопат, который знает, где вы живёте' */
+			startCode: '',
+			sub:
+				[
+					{
+						title: 'Так делать не стоит!',
+						content: function ()
+						{
+							return '<p>Здравствуй кадет! Рада снова тебя видеть.</p>' +
+								'<p>Судя по твоему личному делу ты делаешь большие успехи.</p>' +
+							    '<p>Поэтому, пришло время дать пару советов по стилю программирования. ' +
+								'<p>Но прежде давай взглянем на редактор с кодом. В нем представлен код, который содержит множество примеров плохого стиля.</p>' +
+								'<p>Теперь будь храбр и не оглядывайся назад.</p>'
+						},
+						instructions:
+						'<ul>' +
+						'<li>Запустите код.</li>' +
+						'</ul>',
+						hint: [
+							{
+							'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
+							'nextButton': false,
+							'showSkip': false
+							}
+						],
+						result: function (value)
+						{
+							var botText = BBotText(
+							{
+								correct: '<p>### Бип-бип-биииип. Запуск механизмов экстренного охлаждения.</p>' +
+								'<p>### Операция выполнена. Транслирую:</p>' +
+								'<p>' + getDebug(value) + '</p>'
+							});
+
+							return botText.resultCorrect();
+						}
+					},
+					{
+						title: 'Комментарии.',
+						content: function ()
+						{
+							return '<p>Получилось разобраться в прошлом примере?</p>' +
+								   '<p>Ничего страшного, если нет. Взгляни еще раз на редактор кода.</p>' +
+								   '<p>Текущий код функционально аналогичен предыдущему, однако он значительно проще и лаконичней.</p>' +
+								   '<p>Однако, в нем есть одно опущение - нахватает комментариев. А в реалиях космоса наличие комментариев может стоить жизни.</p>' +
+								   '<p>Например во время нападения космических пиратов срочно потребовалось изменить код. Наличие хороших ' +
+								   'комментариев позволит сделать это максимально быстро и эффективно.</p>' +
+								   '<p>Хороший комментарий обладает следующими качествами:</p>' +
+								   '<ul>' +
+								  	 '<li>Лаконичность</li>' +
+								     '<li>Информативность</li>' +
+								     '<li>Уместность</li>' +
+								   '</ul>' +
+								   '<p>Чем лучше написан код, тем меньше нужно комментариев.</p>';
+						},
+						instructions: '<ul>' +
+						'<li>Исправить или добавить комментарии перед объектами или функциями.</li>' +
+						'<li>Запустить код.</li>' +
+						'</ul>',
+						hint: [
+							{
+								'next .ace_scroller': 'Исправьте комментарий перед объектом \'spaceCraft\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Добавьте комментарий перед функцией \'fire\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Добавьте комментарий перед функцией \'moveForward\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Добавьте комментарий перед функцией \'rotateLeft\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Добавьте комментарий перед функцией \'rotateRight\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
+								'nextButton': false,
+								'showSkip': false
+							}
+						],
+						result: function (value, code)
+						{
+							var botText = BBotText(
+							{
+								correct: '<p>### BBot доволен, такой код ему нраbится б0льше.</p>' +
+								'<p>### Транслирую:</p>' +
+								'<p>' + getDebug(value) + '</p>',
+								unknownError: '<p>### Ошибка, 0шибка, обнаружеHа 0шибка!</p>',
+								manyCommentsError: '<p>### Ошибка, 0шибка, этот чел0век слишком много гов0рит.</p>',
+								fewCommentsError: '<p>### Ошибка, ошибка, нужно б0льше понятных комментариев!</p>'
+							});
+
+							if (value.exception)
+							{
+								return botText.unknownError();
+							}
+
+							var flag = 0;
+
+							// Разбиваем код на строки, проверяем являеться ли
+							// строка комментарием, и чекаем ее длинну,
+							// если строка достаточна длинная больше 5 символов, считаем что все норм
+							code.split('\n').forEach(function(value)
+							{
+								var newValue = value.replace(new RegExp('\t| ', 'g'), '');
+
+								if (newValue[0] == '/' && newValue.length >= 5)
+								{
+									flag += 1;
+								}
+
+							});
+
+							if (flag  >= 10)
+							{
+								return botText.resultNotCorrect('manyCommentsError');
+							}
+							else if (flag >= 5)
+							{
+								return botText.resultCorrect();
+							}
+
+							return botText.resultNotCorrect('fewCommentsError');
+						}
+					},
+					{
+						title: 'Наименование переменных.',
+						content: function ()
+						{
+							return '<p>Сложно представить достаточно большую программу, в которой нет переменных.' +
+								' А неверное или неточное наименование переменных является одним из распространенных' +
+								' анти-паттернов программирования.</p>' +
+								'<p>И для того, что бы это избегать при именование переменных следует соблюдать следующие правила:' +
+								'<ul>' +
+									'<li>Имя должно отражать суть содержимого</li>' +
+								    '<li>Имя не должно быть слишком длинным</li>' +
+								    '<li>Имя должно быть понятным, то есть не следует использовать сокращения</li>' +
+								'</ul>' +
+								'</p>';
+						},
+						instructions: '<ul>' +
+						'<li>Исправьте наименование переменных, чтобы оно было локоничным и понятным.</li>' +
+					    '</ul>',
+						hint: [
+							{
+								'next .ace_scroller': 'Переменную \'a\' можно заменить на \'cadet\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Переменную \'b\' можно заменить на \'pirate\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Переменную \'c\' можно заменить на \'sum\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Переменную \'d\' можно заменить на \'result\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Переменную \'e\' можно заменить на \'pi\'',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
+								'nextButton': false,
+								'showSkip': false
+							}
+						],
+						result: function (value, code)
+						{
+							var botText = BBotText(
+							{
+								correct: '### Хор0шая работа, желание BBot\'a убивать чел0веков снизилось на 5%.',
+								unknownError: '### Челаик не знает нужных слов? Чел0веку следует подаритb словарb?',
+								syntaxError: '### Чел0век допустил синтаксическую ошибку.'
+							});
+
+							if (value != null && value.exception)
+							{
+								return botText.syntaxError();
+							}
+
+							var flag = true;
+							var rule = new RegExp(' |\n|\t', 'g');
+
+							// длинна этой строки что-то вроде эталона, все остальные строки
+							// при корректном выполнении задания должны быть не меньше этой длинны
+							// TODO исправить на вытаскивание именни переменной и оценки ее длинны.
+							var checkSize = 'var a = \'кадет\';'.replace(rule, '').length;
+
+							code.replace(rule, '').split(';').forEach(function(string)
+							{
+								var len = string.length;
+								flag &= (len >= checkSize || len == 0);
+							});
+
+							return botText.result(flag);
+						}
+					},
+					{
+						title: 'Велосипед.',
+						content: function ()
+						{
+							return '<p>Велосипед - разработка собственного решения задачи, для которой уже существует' +
+								' готовое решение. К примеру, когда требуется возвести число в степень, программист пишет' +
+								' кучу строк кода, вместо того чтобы использовать уже готовую функцию.</p>' +
+								'<p>Чаще всего необходимые функции входят в состав стандартных механизмов языка программирования.' +
+								' Например стандартный объект языка JavaScript' +
+								' <a href="https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math">Math</a>' +
+								' поможет в выполнении этого задания.</p>' +
+								'<p>Например методы:' +
+								'<ul>' +
+								'<li>Math.pow(base, exponent) - возведение числа base в степень exponent.</li>' +
+								'<li>Math.max(num1, num2) - получение наибольшего из чисел num1 и num2.</li>' +
+								'<li>Math.min(num1, num2) - получение наименьшего из чисел num1 и num2.</li>' +
+								'</ul></p>';
+						},
+						instructions: '<ul>' +
+						'<li>Исправьте код так, что бы он не соответствовал анти-паттерну велосипед.</li>' +
+					  	'</ul>',
+						hint: [
+							{
+								'next .ace_scroller': 'Код отвечающий за возведение в степень замените на Math.pow(x, y);',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Код отвечающий за нахождение минимального числа заменить на Math.min(x, y);',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
+								'nextButton': false,
+								'showSkip': false
+							}
+						],
+						result: function (value, code)
+						{
+							var botText = BBotText(
+								{
+									correct: 'BBot любит велосипеды, не то что зануды чел0веки.Транслирую:<br>' + value,
+									unknownError: 'Велосипеды, всем велосипеды, все же любят велосипеды?',
+									notHaveDebug: 'BBot расстроен, тем что чел0век забыл про BBotDebug.'
+								});
+
+							if (checkDebugLen(value, 3))
+							{
+								return botText.resultNotCorrect('notHaveDebug');
+							}
+
+							// Проверяем добавил ли пользователь использование необходимых методов
+							return botText.result(!isNotContainString(code, 'Math.pow') && !isNotContainString(code, 'Math.min'));
+						}
+					},
+					{
+						title: 'Божественный объект.',
+						content: function ()
+						{
+							return '<p>Божественный объект - анти-паттерн соответствующий ситуации, когда одна одна сущность выполняет несколько ролей.' +
+								' Например, объект космический корабль, который содержит методы: выстрелить, лететь вперед' +
+								' лететь направо, лететь налево, мяукнуть.' +
+								' Мяукующий космический корабль, серьезно?</p>';
+						},
+						instructions: '<ul>' +
+						'<li>Исправить код, так что бы код не соответствовал анти-паттерну божественный объект.</li>' +
+						'<li>Не нужный код нужно удалить.</li>' +
+									  '</ul>',
+						hint: [
+							{
+								'next .ace_scroller': 'Функция \'sayMeow\' лишняя.',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Функция \'sleep\' лишняя.',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
+								'nextButton': false,
+								'showSkip': false
+							}
+						],
+						result: function (value, code)
+						{
+							var botText = BBotText(
+								{
+									correct: 'Чел0век справляется, BBot испытывает притворную радость. Транслирую:<br>' + value,
+									unknownError: 'BBot рад, что чел0век признает божественную природу BBot\'a, однако это не повод делать' +
+									'задание не правильно.',
+									notHaveDebug: 'BBot расстроен, кажется чел0век о чем-то забыл. Может быть про BBotDebug?'
+								});
+
+							if (checkDebugLen(value, 3))
+							{
+								return botText.resultNotCorrect('notHaveDebug');
+							}
+
+							// Проверяем удалил ли пользователь эти методы
+							return botText.result(isNotContainString(code, 'sleep') &&
+								isNotContainString(code, 'sayMeow'));
+						}
+					},
+					{
+						title: 'Лодочный якорь.',
+						content: function ()
+						{
+							return '<p>Лодочный якорь - анти-паттерн соответствующий ситуации, когда программист оставляет' +
+								' код, который не используется. Кому нужен лишний груз в космосе?</p>';
+						},
+						instructions: '<ul>' +
+						'<li>Исправьте код так, что бы он не соответствовал анти-паттерну лодочный якорь</li>' +
+						              '</ul>',
+						hint: [
+							{
+								'next .ace_scroller': 'Функция \'calculateNumber\' лишняя.',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'next .ace_scroller': 'Функция \'sumMinMax\' лишняя.',
+								'nextButton': {text: 'Далее'},
+								'showSkip': false
+							},
+							{
+								'click .hint-play': 'Нажмите <i class="glyphicon glyphicon-play green"></i> для запуска кода.',
+								'nextButton': false,
+								'showSkip': false
+							}
+						],
+						result: function (value, code)
+						{
+							var botText = BBotText(
+								{
+									correct: 'Всегда полезно избавляться от бесполезных вещей. Транслирую:<br>' + value,
+									unknownError: 'Кажется чел0век оставил что-то лишнее.',
+									notHaveDebug: 'BBot расстроен, тем что чел0век забыл про BBotDebug.'
+								});
+
+							if (checkDebugLen(value, 1))
+							{
+								return botText.resultNotCorrect('notHaveDebug');
+							}
+
+							return botText.result(isNotContainString(code, 'calculateNumber') &&
+								isNotContainString(code, 'sumMinMax'));
+						}
+					}
+				]
 		}
 	];
 
