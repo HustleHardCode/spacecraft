@@ -3,8 +3,8 @@
  */
 var app = angular.module('spacecraft.game');
 
-app.controller('GameController', ['$scope', '$storage', '$http', 'autocompleter', 'audioManager',
-function ($scope, $storage, $http, autocompleter, audioManager)
+app.controller('GameController', ['$scope', '$storage', '$http', 'autocompleter', 'audioManager', 'gameservice',
+function ($scope, $storage, $http, autocompleter, audioManager, gameservice)
 {
 	//===================================
 	//============== CODE ===============
@@ -79,14 +79,7 @@ function ($scope, $storage, $http, autocompleter, audioManager)
 		// Сохраняем код только при нажатии на кнопку плей
 		if($scope.options.isCodeRunning)
 		{
-			$http({
-				method: 'POST',
-				url: '/statistic/code',
-				data:
-				{
-					code: $scope.options.code
-				}
-			});
+			gameservice.saveCode($scope.options.code);
 		}
 	};
 
@@ -157,19 +150,11 @@ function ($scope, $storage, $http, autocompleter, audioManager)
 	var Range = ace.require('ace/range').Range;
 	var markerID = null;
 
-	function errorWrapper(value)
-	{
-		return '<p>### Неисправность!! EГГ0Г!!</p> ' +
-			'<p>### Дроид BBot не может понятb к0д 4еловека.</p>' +
-			'<p class="red-label">### 0шибка: ' + value + '</p>' +
-			'<p>### Пожалуйста исправте ситуацию.</p>';
-	}
-
 	$scope.$watch('options.error', function (value)
 	{
 		if (value)
 		{
-			$scope.textBot = errorWrapper(value);
+			$scope.textBot = gameservice.errorWrapper(value);
 
 			var foundedStringNumb = $scope.options.error.stack.split(':')[3] - 1;
 
