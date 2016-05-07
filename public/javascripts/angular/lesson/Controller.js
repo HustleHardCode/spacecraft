@@ -4,40 +4,14 @@
 var app = angular.module('spacecraft.lesson');
 
 app.controller('LessonController', ['$scope', '$stateParams', '$state', '$http',
-	'$storage', 'lessonProvider', 'interpreter', 'audioManager',
-	function ($scope, $stateParams, $state, $http, $storage, lessonProvider, interpreter, audioManager)
+	'$storage', 'lessonProvider', 'interpreter', 'audioManager', 'lessonservice',
+	function ($scope, $stateParams, $state, $http, $storage, lessonProvider, interpreter, audioManager, lessonservice)
 {
 	var audio;
 	var audioIndex = 0;
 
 	$scope.starsHide = false;
 	$scope.idLesson = $stateParams.id;
-
-	/**
-	 * Local storage
-	 */
-	var st =
-	{
-		set: function(name, value)
-		{
-			$storage.local.setItem(name, JSON.stringify(value));
-		},
-		getCurrent: function(name)
-		{
-			var l = JSON.parse($storage.local.getItem('lessons'));
-
-			if (l && l[name])
-			{
-				return parseInt(l[name].current) - 1;
-			}
-
-			return 0;
-		},
-		getLessons: function ()
-		{
-			return JSON.parse($storage.local.getItem('lessons')) || [];
-		}
-	};
 
 	function current()
 	{
@@ -75,7 +49,7 @@ app.controller('LessonController', ['$scope', '$stateParams', '$state', '$http',
 				completed: completed
 			};
 
-			st.set('lessons', a);
+			lessonservice.st.set('lessons', a);
 		}
 
 		// Размер массива подуроков с 0
@@ -85,7 +59,7 @@ app.controller('LessonController', ['$scope', '$stateParams', '$state', '$http',
 		var i = $scope.subIndex;
 
 		// Текущий объект статистики уроков
-		var l = st.getLessons();
+		var l = lessonservice.st.getLessons();
 
 		if (i !== len)
 		{
@@ -94,14 +68,10 @@ app.controller('LessonController', ['$scope', '$stateParams', '$state', '$http',
 			// Устанавливаем текущий урок в хранилище
 			set(l, $scope.subIndex, len);
 
-			$http({
-				url: '/statistic/lessons',
-				method: 'POST',
-				data: {
-					lessonId: $stateParams.id,
-					size: len,
-					current: $scope.subIndex
-				}
+			lessonservice.saveStatisticLesson({
+				lessonId: $stateParams.id,
+				size: len,
+				current: $scope.subIndex
 			});
 
 			next();
@@ -111,15 +81,11 @@ app.controller('LessonController', ['$scope', '$stateParams', '$state', '$http',
 			// Устанавливаем текущий урок в хранилище
 			set(l, 0, len, true);
 
-			$http({
-				url: '/statistic/lessons',
-				method: 'POST',
-				data: {
+			lessonservice.saveStatisticLesson({
 					lessonId: $stateParams.id,
 					size: len,
 					current: 0,
 					completed: true
-				}
 			});
 
 			$scope.starsHide = true;
@@ -198,7 +164,7 @@ app.controller('LessonController', ['$scope', '$stateParams', '$state', '$http',
 	function initialize(id)
 	{
 		// Получаем урок из локального хранилища
-		var ls = st.getCurrent(id);
+		var ls = lessonservice.st.getCurrent(id);
 		$scope.subIndex = 0;
 
 		if(!ls)
@@ -373,14 +339,6 @@ app.controller('LessonController', ['$scope', '$stateParams', '$state', '$http',
 		// Скролл до конца. Т.е. скролл есть всегда.
 		editorSession.setValue(options.code);
 	};
-
-	function errorWrapper(value)
-	{
-		return '<p>### Неисправность!! EГГ0Г!!</p> ' +
-			'<p>### Дроид BBot не может понятb к0д 4еловека.</p>' +
-			'<p class="red-label">### 0шибка: ' + value + '</p>' +
-			'<p>### Пожалуйста исправте ситуацию.</p>';
-	}
 
 	var Range = ace.require('ace/range').Range;
 	var markerID = null;
