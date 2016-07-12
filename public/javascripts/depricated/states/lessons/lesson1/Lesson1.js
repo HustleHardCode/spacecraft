@@ -20,7 +20,8 @@ lessons[1] = function ()
 		'meteor7': 'images/sprites/meteor/meteor7.png',
 		'greenBeam': 'images/sprites/beam/greenBeam.png',
 		'userShield': 'images/sprites/shield2.png',
-		'base': 'images/sprites/base/base.png'
+		'base': 'images/sprites/base/base.png',
+		'fire': 'images/sprites/fire1.png'
 	};
 
 	that.lessonContent = {
