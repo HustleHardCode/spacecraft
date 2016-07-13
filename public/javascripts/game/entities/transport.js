@@ -36,16 +36,16 @@ function TransportUnit(game, x, y, player) {
 		angularVelocity: 0.5	// Скорость разворота
 	});
 
-	t.emmiterFire = game.add.emmiter(x, y, 400);
+	t.emitterFire = game.add.emitter(x, y, 400);
 
-	t.emmiterFire.gravity = 200;
-	t.emmiterFire.setAlpha(1, 0, 3000);
-	t.emmiterFire.setScale(0.8, 0, 0.8, 0, 3000);
+	t.emitterFire.gravity = 200;
+	t.emitterFire.setAlpha(1, 0, 3000);
+	t.emitterFire.setScale(0.8, 0, 0.8, 0, 3000);
 
-	t.emmiterFire.makeParticles(['fire1']);
+	t.emitterFire.makeParticles(['fire1']);
 
-	t.emmiterFire.start(false, 3000, 50);
-	
+	t.emitterFire.start(false, 3000, 50);
+
 	/**
 	 * Аудио менеджер.
 	 */
@@ -63,9 +63,9 @@ function TransportUnit(game, x, y, player) {
 		t.engine.update();
 
 		t.logic && t.logic(t);
-		
-		t.emmiterFire.x = t.sprite.x;
-		t.emmiterFire.y = t.sprite.y;
+
+		t.emitterFire.x = t.sprite.x;
+		t.emitterFire.y = t.sprite.y;
 	}
 
 }
