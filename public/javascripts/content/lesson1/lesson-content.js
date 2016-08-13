@@ -25,8 +25,9 @@ function Content() {
 		quote: 'Преодоление трудного начинается с легкого',
 		rules: require('./autocomplete.json'),
 		isGameLesson: true,
+		sub:   require('./sub'),
 		points: points,
-		sub:   require('./sub')
+		maxAttemptLessonCountForBonus: 3
 	};
 
 }

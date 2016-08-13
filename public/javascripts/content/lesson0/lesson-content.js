@@ -23,7 +23,8 @@ function Content() {
 		label: 'Основы JavaScript',
 		quote: 'Знания свет — путь укажет нам',
 		sub:   require('./sub'),
-		points: points
+		points: points,
+		maxAttemptLessonCountForBonus: 3
 	};
 
 }

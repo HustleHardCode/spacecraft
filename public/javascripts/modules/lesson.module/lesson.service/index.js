@@ -67,6 +67,15 @@ function LessonService(connection, audioManager, aceService) {
 	}
 
 	/**
+	 * Возвращает число подуроков в текущем уроке.
+	 */
+	function getSubLessonCount() {
+
+		return scope.lesson.sub.length;
+
+	}
+
+	/**
 	 * Формирование аудио и подсказок для следующего подурока.
 	 */
 	function initNextLessonContent() {
@@ -220,7 +229,29 @@ function LessonService(connection, audioManager, aceService) {
 	}
 
 	/**
-	 * Сохранение статистики
+	 * Обертка, которая знает в каком формате необходимо
+	 * сохранять статистику для текущего урока.
+	 * Была введена с целью сократить места явной инициализации объекта
+	 * статистики для его сохранения в хранилище через метод saveStatistics.
+	 *
+	 * @param currentSubLesson номер текущего подурока в уроке.
+	 * @param isLessonCompleted флаг завершение текущего урока (true - завершен, false - нет).
+	 */
+	function saveStatisticsWrapper(currentSubLesson, isLessonCompleted) {
+
+		saveStatistics({
+			currentSubLesson:       currentSubLesson,
+			lessonId:      			lessonId,
+			subLessonCount:         getSubLessonCount(),
+			completed:     			isLessonCompleted, // мы еще не закончили урок до конца, поэтому false.
+			statistics:    			currentStatistics
+		});
+
+	}
+
+	/**
+	 * Сохранение статистики.
+	 * Этот метод ничего не знает и НЕ ДОЛЖЕН знать о формате самой статистики.
 	 */
 	function saveStatistics(args) {
 
@@ -231,10 +262,19 @@ function LessonService(connection, audioManager, aceService) {
 	}
 
 	/**
-	 * По окончаниб подурока очищаем контект
-	 * и отнимаем штрафные очки.
+	 * Задача данного метода выполнить все действия, которые присуще ситуации
+	 * окончания текущего подурока.
 	 */
-	function endCurrentSubLesson() {
+	function endLastSubLesson() {
+
+		// Увеличиваем индекс текущего подурока на следующий,
+		// так как в saveStatisticsWrapper должен передавать индекс
+		// именно следующего урока, а не текущего, который пользователь прошел.
+		// Именно этим и обусловлено расположение этого выражения здесь.
+		++scope.subIndex;
+
+		// Сохраняем статистику текущего положения по уроку.
+		saveStatisticsWrapper(scope.subIndex , false);
 
 		CodeLauncher.stop();
 
@@ -258,43 +298,22 @@ function LessonService(connection, audioManager, aceService) {
 	 */
 	function nextSubLesson() {
 
-		endCurrentSubLesson();
-
-		// Размер массива подуроков
-		var size = scope.lesson.sub.length;
-
-		var lessonIsNotFinished = scope.subIndex !== size - 1;
+		var subLessonCountByIndex = getSubLessonCount() - 1;
+		var lessonIsNotFinished = scope.subIndex !== subLessonCountByIndex;
 
 		if (lessonIsNotFinished) {
+
+			// Если урок еще не окончен, завершаем текущий подурок,
+			// чтобы корректно перейти к следующему.
+			endLastSubLesson();
 
 			// Обновляем игровые объекты на начальные значения или нет?
 			currentSubLesson().gamePostUpdate && Game.restart();
 
-			++scope.subIndex;
-
 			initNextLesson();
-
-			saveStatistics({
-				currentSubLesson:       scope.subIndex,
-				lessonId:      			lessonId,
-				size:          			size,
-				completed:     			false, // мы еще не закончили урок до конца, поэтому false.
-				statistics:    			currentStatistics
-			});
 
 		}
 		else {
-
-			currentStatistics.updateBestResults();
-
-			// Также сохраняем очки за урок.
-			saveStatistics({
-				currentSubLesson:       LESSON_IS_FINISHED,
-				lessonId:      			lessonId,
-				size:          			size,
-				completed: 	  			true,
-				statistics:    			currentStatistics
-			});
 
 			// Вызываем метод обработки ситуации ОКОНЧАНИЯ урока.
 			endLesson();
@@ -321,6 +340,14 @@ function LessonService(connection, audioManager, aceService) {
 		// Очищаем подписичиков на вкладу
 		TabHandler.clear();
 
+		// В связи с окончанием урока - обновляем статистику по прохождению
+		// урока.
+		currentStatistics.incAttemptLessonCount();
+		currentStatistics.calculateScoreForLessonEnd();
+
+		// Сохраняем окончательную статистику за урок.
+		saveStatisticsWrapper( LESSON_IS_FINISHED, true );
+
 	}
 
 	/**
@@ -334,13 +361,10 @@ function LessonService(connection, audioManager, aceService) {
      */
 	function prepareLesson(currentLesson) {
 
+		// Инициализируем статистику по текущему уроку.
+		currentStatistics.initialize(lessonContent(lessonId), currentLesson);
+
 		if (currentLesson) {
-
-			var lessonPoints = lessonContent(lessonId).points;
-
-			// Реинициализируем текущую статистику по уроку с учетом только что
-			// выгруженных данных из хранилища.
-			currentStatistics.initialize(lessonPoints, currentLesson);
 
 			var size = scope.lesson.sub.length;
 
@@ -389,10 +413,6 @@ function LessonService(connection, audioManager, aceService) {
 
 		scope = args.scope;
 		lessonId = args.lessonId;
-
-		var lessonPoints = lessonContent(lessonId).points;
-
-		currentStatistics.initialize(lessonPoints);
 
 		scope.subIndex = 0;
 		audioWrapper.audioIndex = 0;
