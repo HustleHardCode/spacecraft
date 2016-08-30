@@ -37,7 +37,12 @@ app.use(session({
 	store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 
+
 if (app.get('env') === 'development')
+{
+	app.use(express.static(path.join(__dirname, 'public')));
+}
+else if(app.get('env') === 'production')
 {
 	app.use(express.static(path.join(__dirname, 'public')));
 }
@@ -45,6 +50,8 @@ else
 {
 	app.use(express.static(path.join(__dirname, 'build')));
 }
+
+
 
 app.use(require('./middlewares/sendHttpError'));
 app.use(require('./middlewares/loadUser'));
@@ -70,6 +77,11 @@ app.use(function (err, req, res, next)
 	}
 
 	if (app.get('env') === 'development')
+	{
+		logger.error(err);
+	}
+
+	if (app.get('env') === 'production')
 	{
 		logger.error(err);
 	}
