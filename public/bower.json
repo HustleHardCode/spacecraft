@@ -26,6 +26,7 @@
     "bootstrap": "~3.3.5",
     "enjoyhint": "~3.1.0",
     "angular-ui-layout": "bower",
-    "angular-chart.js": "^0.8.8"
+    "angular-chart.js": "^0.8.8",
+    "bLazy": "blazy#^1.6.2"
   }
 }

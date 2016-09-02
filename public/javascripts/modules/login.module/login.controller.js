@@ -16,34 +16,43 @@ function LoginController($scope, $state, authentication) {
 
 	// Переменная отвечающая за отображение нужной формы
 	$scope.isEnterForm = true;
-	
+
 	// По дефолту считаем, что человек согласен на рассылку
 	$scope.isSubscribeOnEmail = true;
-	
+
 	// Если пользователь авторизован,
 	// отправляем на welcome состояние.
 	authentication.isLoggedIn({
 		success: toWelcome
 	});
-	
-	$scope.changeForm = changeForm; 
+
+	$scope.changeForm = changeForm;
 	$scope.changeSubscribe = changeSubscribe;
 	$scope.loginByKey = loginByKey;
 	$scope.register = register;
 	$scope.login = function () { login(toWelcome); };
+	
+	$scope.bLazy = new Blazy({
+		success: function () {
+			console.log("It is blazy");
+			setTimeout(function(){
+				console.log("in time out");
+			},500)
+		}
+	});
 
 	// ==================================================
-	
+
 	function changeSubscribe() {
-		
+
 		$scope.isSubscribeOnEmail = !$scope.isSubscribeOnEmail;
-		
+
 	}
-	
+
 	function changeForm() {
-		
+
 		$scope.isEnterForm = !$scope.isEnterForm;
-		
+
 	}
 	// Переход на состояние welcome
 	function toWelcome() {
@@ -82,9 +91,9 @@ function LoginController($scope, $state, authentication) {
 		var email = $scope.email;
 
 		var pass = $scope.password;
-		
+
 		var subscribe = $scope.isSubscribeOnEmail;
-		
+
 		authentication.register({
 			email:    email,
 			password: pass,
