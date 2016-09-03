@@ -33,8 +33,9 @@ function LoginController($scope, $state, authentication) {
 	$scope.login = function () { login(toWelcome); };
 
 	$scope.bLazy = new Blazy({
-		success: function () {
+		success: function (element) {
 			setTimeout(function(){
+				element.className = element.className.replace('loaded-background','');
 			},200)
 		}
 	});
