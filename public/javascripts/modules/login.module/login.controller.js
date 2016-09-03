@@ -31,13 +31,11 @@ function LoginController($scope, $state, authentication) {
 	$scope.loginByKey = loginByKey;
 	$scope.register = register;
 	$scope.login = function () { login(toWelcome); };
-	
+
 	$scope.bLazy = new Blazy({
 		success: function () {
-			console.log("It is blazy");
 			setTimeout(function(){
-				console.log("in time out");
-			},500)
+			},200)
 		}
 	});
 

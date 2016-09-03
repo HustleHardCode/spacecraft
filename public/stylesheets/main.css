@@ -244,6 +244,10 @@ pre {
 	background-size: cover;
 }
 
+.loaded-background{
+	background-color: #5b5b5b;
+}
+
 .lesson-end-background {
 	z-index: 3000;
 	background-size: cover;

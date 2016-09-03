@@ -26,6 +26,13 @@ function WelcomeController($scope, $state, $sce, authentication, connection) {
 
 	$scope.openLessons = connection.metrics.hitOpenLesson();
 
+	$scope.bLazy = new Blazy({
+		success: function () {
+			setTimeout(function(){
+			},200)
+		}
+	});
+
 	/**
 	 * Формирование статистики по всем параметрам.
 	 */
