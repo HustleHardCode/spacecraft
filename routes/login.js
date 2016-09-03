@@ -19,6 +19,7 @@ function isEmail(email) {
 	}
 
 	return valid.isEmail(email);
+	
 }
 
 function isPassword(password) {
