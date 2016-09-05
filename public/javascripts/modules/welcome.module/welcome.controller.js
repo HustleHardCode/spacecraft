@@ -1,6 +1,6 @@
 'use strict';
 
-WelcomeController.$inject = ['$scope', '$state', '$sce', 'authentication', 'connection'];
+WelcomeController.$inject = ['$scope', '$state', '$sce', 'authentication', 'connection', 'slowLoaded'];
 
 module.exports = WelcomeController;
 
@@ -8,7 +8,7 @@ module.exports = WelcomeController;
  * @since 30.11.15
  * @author Skurishin Vladislav
  */
-function WelcomeController($scope, $state, $sce, authentication, connection) {
+function WelcomeController($scope, $state, $sce, authentication, connection, slowLoaded) {
 
 	$scope.usersLead = [];	// Лидеры игры
 	$scope.hideLead = true;	// Переключатель таблицы лидеров
@@ -26,13 +26,7 @@ function WelcomeController($scope, $state, $sce, authentication, connection) {
 
 	$scope.openLessons = connection.metrics.hitOpenLesson();
 
-	$scope.bLazy = new Blazy({
-		success: function (element) {
-			setTimeout(function(){
-				element.className = element.className.replace('loaded-background','');
-			},200)
-		}
-	});
+	$scope.bLazy = slowLoaded.initSlow();
 
 	/**
 	 * Формирование статистики по всем параметрам.
