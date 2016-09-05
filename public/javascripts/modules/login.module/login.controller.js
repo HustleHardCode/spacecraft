@@ -2,7 +2,7 @@
 
 var ENTER = 13;
 
-LoginController.$inject = ['$scope', '$state', 'authentication'];
+LoginController.$inject = ['$scope', '$state', 'authentication', 'loaded'];
 
 module.exports = LoginController;
 
@@ -12,7 +12,7 @@ module.exports = LoginController;
  * @since 30.11.15
  * @author Skurishin Vladislav
  */
-function LoginController($scope, $state, authentication) {
+function LoginController($scope, $state, authentication, loaded) {
 
 	// Переменная отвечающая за отображение нужной формы
 	$scope.isEnterForm = true;
@@ -32,13 +32,7 @@ function LoginController($scope, $state, authentication) {
 	$scope.register = register;
 	$scope.login = function () { login(toWelcome); };
 
-	$scope.bLazy = new Blazy({
-		success: function (element) {
-			setTimeout(function(){
-				element.className = element.className.replace('loaded-background','');
-			},200)
-		}
-	});
+	$scope.bLazy = loaded.initSlow();
 
 	// ==================================================
 
