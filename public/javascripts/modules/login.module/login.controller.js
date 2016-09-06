@@ -2,7 +2,9 @@
 
 var ENTER = 13;
 
-LoginController.$inject = ['$scope', '$state', 'authentication', 'loaded'];
+var loaded = require('../../utils/loaded');
+
+LoginController.$inject = ['$scope', '$state', 'authentication'];
 
 module.exports = LoginController;
 
@@ -12,8 +14,10 @@ module.exports = LoginController;
  * @since 30.11.15
  * @author Skurishin Vladislav
  */
-function LoginController($scope, $state, authentication, loaded) {
+function LoginController($scope, $state, authentication) {
 
+	var lazyLoaded = loaded();
+	
 	// Переменная отвечающая за отображение нужной формы
 	$scope.isEnterForm = true;
 
@@ -32,7 +36,7 @@ function LoginController($scope, $state, authentication, loaded) {
 	$scope.register = register;
 	$scope.login = function () { login(toWelcome); };
 
-	$scope.bLazy = loaded.initSlow();
+	$scope.bLazy = lazyLoaded.initLazy();
 
 	// ==================================================
 

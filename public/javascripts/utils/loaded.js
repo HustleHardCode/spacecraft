@@ -1,20 +1,21 @@
+
 /**
  * Created by Ivan on 05.09.2016.
  */
 
-module.exports = Loaded;
+module.exports = LazyLoaded;
 
-function Loaded(){
+function LazyLoaded(){
 
 	var t = {};
 	var delayTime = 200;
 
-	t.initSlow = initSlow;
+	t.initLazy = initLazy;
 
 	return t;
 
-	function initSlow() {
-		
+	function initLazy() {
+
 		return new Blazy({
 			success: function () {
 				console.log("before timeout");
