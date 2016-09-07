@@ -7,9 +7,7 @@
  */
 var angular = require('angular');
 
-require('angular-lazy-loader');
-
-var app = angular.module('spacecraft.login.module', ['angular-lazy-loader']);
+var app = angular.module('spacecraft.login.module');
 
 app.config(require('./login.config'));
 app.controller('LoginController', require('./login.controller'));
