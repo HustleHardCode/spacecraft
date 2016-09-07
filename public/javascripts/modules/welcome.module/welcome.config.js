@@ -1,13 +1,13 @@
 'use strict';
 
-WelcomeConfig.$inject = ['$stateProvider', 'ChartJsProvider'];
+WelcomeConfig.$inject = ['$stateProvider', 'ChartJsProvider', 'lazyImgConfigProvider'];
 
 module.exports = WelcomeConfig;
 
 /**
  * Инициализация состояния главной страницы.
  */
-function WelcomeConfig($stateProvider, ChartJsProvider) {
+function WelcomeConfig($stateProvider, ChartJsProvider, lazyImgConfigProvider) {
 
 	// Настройка всех графиков
 	ChartJsProvider.setOptions({
@@ -18,6 +18,12 @@ function WelcomeConfig($stateProvider, ChartJsProvider) {
 	// Конфигурация графиков линейных
 	ChartJsProvider.setOptions('Line', {
 		datasetFill: false
+	});
+
+	lazyImgConfigProvider.setOption({
+		offset: 1000,
+		errorClass: null, 
+		successClass: 'show'
 	});
 
 	$stateProvider.state('welcome', {
