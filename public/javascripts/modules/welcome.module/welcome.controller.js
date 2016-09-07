@@ -25,19 +25,7 @@ function WelcomeController($scope, $state, $sce, authentication, connection) {
 	$scope.trustAsHtml = trustAsHtml;
 
 	$scope.openLessons = connection.metrics.hitOpenLesson();
-
-	$scope.bLazy = new Blazy({
-
-		success: function (element) {
-
-			setTimeout(function(){
-
-				element.className = element.className.replace('loaded-background','');
-
-			}, 400)}
-	});
-
-
+	
 	/**
 	 * Формирование статистики по всем параметрам.
 	 */

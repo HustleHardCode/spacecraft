@@ -32,17 +32,6 @@ function LoginController($scope, $state, authentication) {
 	$scope.register = register;
 	$scope.login = function () { login(toWelcome); };
 
-	$scope.bLazy = new Blazy({
-
-		success: function (element) {
-
-			setTimeout(function(){
-
-				element.className = element.className.replace('loaded-background','');
-
-			}, 400)}
-	});
-
 	// ==================================================
 
 	function changeSubscribe() {
