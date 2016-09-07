@@ -2,8 +2,6 @@
 
 var ENTER = 13;
 
-var loaded = require('../../utils/loaded');
-
 LoginController.$inject = ['$scope', '$state', 'authentication'];
 
 module.exports = LoginController;
@@ -34,7 +32,16 @@ function LoginController($scope, $state, authentication) {
 	$scope.register = register;
 	$scope.login = function () { login(toWelcome); };
 
-	$scope.bLazy = loaded.initLazy();
+	$scope.bLazy = new Blazy({
+
+		success: function (element) {
+
+			setTimeout(function(){
+
+				element.className = element.className.replace('loaded-background','');
+
+			}, 400)}
+	});
 
 	// ==================================================
 
