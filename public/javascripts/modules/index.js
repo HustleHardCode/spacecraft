@@ -9,8 +9,10 @@ require('./login.module');
 require('./quick.module');
 require('./result.module');
 require('./welcome.module');
+require('./lazy.module');
 
 require('angular').module('spacecraft.modules', [
+	'spacecraft.lazy.module',
 	'spacecraft.lesson.module',
 	'spacecraft.lessons.module',
 	'spacecraft.login.module',

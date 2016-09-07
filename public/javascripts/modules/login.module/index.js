@@ -7,9 +7,7 @@
  */
 var angular = require('angular');
 
-require('../../../bower_components/angular-lazy-img/release/angular-lazy-img');
-
-var app = angular.module('spacecraft.login.module', ['angularLazyImg']);
+var app = angular.module('spacecraft.login.module', []);
 
 app.config(require('./login.config'));
 app.controller('LoginController', require('./login.controller'));
