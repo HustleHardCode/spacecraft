@@ -12,4 +12,3 @@ app.factory('audioManager', require('./audio.service'));
 app.factory('authentication', require('./authentication.service'));
 app.factory('connection', require('./connection.service'));
 app.factory('settings', require('./settings.service'));
-app.factory('slowLoaded', require('./slowLoaded.service.js'));
