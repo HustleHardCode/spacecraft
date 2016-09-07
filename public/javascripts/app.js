@@ -5,7 +5,6 @@ var angular = require('angular');
 require('angular-ui-router');
 require('angular-ui-layout');
 require('angular-ui-ace');
-require('angular-lazy-loader');
 
 /**
  * Подключаем изменение прототипа.
@@ -25,7 +24,6 @@ angular.module('spacecraft', [
 		'ui.router',
 		'ui.ace',
 		'ui.layout',
-		'angular-lazy-loader',
 		'spacecraft.modules'
 	])
 	.config(configBlock)
