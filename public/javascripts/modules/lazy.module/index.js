@@ -4,8 +4,9 @@ var angular = require('angular');
 
 var app = angular.module('spacecraft.lazy.module', []);
 
-app.provider('lazyImgConfig', require('./lazy.provider'));
-app.factory('LazyImgMagic', require('./lazy.module'));
-app.factory('lazyImgHelpers', require( './lazy.helpers'));
-app.directive('lazyImg', require('./lazy.directive'));
+app.provider('lazyImgConfig', require('./lazy.img.config'));
+app.factory('lazyImgHelpers', require( './lazy.img.helpers'));
+app.factory('lazyImgMagic', require('./lazy.module'));
+app.directive('lazyImgContainer', require('./lazy.img.container'));
+app.directive('lazyImgDirective', require('./lazy.img.directive'));
 

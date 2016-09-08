@@ -1,13 +1,13 @@
 'use strict';
 
-LoginConfig.$inject = ['$stateProvider', 'lazyImgConfigProvider'];
+LoginConfig.$inject = ['$stateProvider', 'lazyImgConfig'];
 
 module.exports = LoginConfig;
 
 /**
  * Инициализация состояния авторизации.
  */
-function LoginConfig($stateProvider, lazyImgConfigProvider) {
+function LoginConfig($stateProvider, lazyImgConfig) {
 
 	$stateProvider.state('login', {
 		url: '/login',
@@ -15,7 +15,7 @@ function LoginConfig($stateProvider, lazyImgConfigProvider) {
 		controller: 'LoginController as ctrl'
 	});
 
-	lazyImgConfigProvider.setOption({
+	lazyImgConfig.setOption({
 		offset: 1000,
 		errorClass: null,
 		successClass: 'show'
