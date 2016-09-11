@@ -2,10 +2,10 @@
 
 module.exports = LazyImgConfig;
 
-function LazyImgConfig (){
-	
+function LazyImgConfig () {
+
 	var t = {};
-	
+
 	t.options = {
 		offset       : 100,
 		errorClass   : null,
@@ -15,26 +15,26 @@ function LazyImgConfig (){
 	};
 
 	t.$get = getOptions;
-	
+
 	t.setOptions = setOptions;
-	
+
 	return t;
-		
+
 	function setOptions (options) {
-		
+
 		angular.extend(t.options, options);
-		
+
 	}
 
 	function getOptions () {
-		
+
 		var options = t.options;
-		
+
 		return {
 			getOptions: function() {
-				
+
 				return options;
-				
+
 			}
 		};
 	}

@@ -36,7 +36,7 @@ require('./services');
 require('./directives');
 
 runBlock.$inject = ['authentication', '$rootScope', '$state'];
-configBlock.$inject = ['$urlRouterProvider', 'ChartJsProvider'];
+configBlock.$inject = ['$urlRouterProvider', 'ChartJsProvider', 'lazyImgConfigProvider'];
 
 angular.module('spacecraft').config(configBlock);
 angular.module('spacecraft').run(runBlock);
@@ -44,10 +44,16 @@ angular.module('spacecraft').run(runBlock);
 /**
  * Конфигурация сервисов до старта приложения.
  */
-function configBlock($urlRouterProvider, ChartJsProvider) {
+function configBlock($urlRouterProvider, ChartJsProvider, lazyImgConfigProvider) {
 
 	// Для всех необработанных переходов
 	$urlRouterProvider.otherwise('/');
+
+	lazyImgConfigProvider.setOption({
+		offset: 1000,
+		errorClass: null,
+		successClass: 'show'
+	});
 
 }
 
