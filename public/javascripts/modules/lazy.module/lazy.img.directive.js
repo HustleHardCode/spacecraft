@@ -4,14 +4,20 @@ module.exports = LazyImgDirective;
 
 LazyImgDirective.$inject = ['$scope', '$rootScope', 'lazyImgMagic'];
 
-function LazyImgDirective ($scope, $rootScope, lazyImgMagic){
+function LazyImgDirective ($rootScope, lazyImgMagic){
 	
-	$scope.restrict = 'A';
+	var t = {};
+	
+	t.restrict = 'A';
 
-	$scope.link = link;
+	t.link = link;
+	
+	var lazyModule = lazyImgMagic();
+	
+	return t;
 	
 	function link(scope, element, attributes) {
-		var lazyImage = new lazyImgMagic(element),
+		var lazyImage = new lazyModule(element),
 			deregister = attributes.$observe('lazyImg', function (newSource) {
 				if (newSource) {
 					deregister();

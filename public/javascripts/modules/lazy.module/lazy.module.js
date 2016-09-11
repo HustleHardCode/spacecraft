@@ -4,36 +4,43 @@ module.exports = LazyImgMagic;
 
 LazyImgMagic.$inject = ['$scope', '$window', '$rootScope', 'lazyImgConfig', 'lazyImgHelpers'];
 
-function LazyImgMagic ($scope, $window, $rootScope, lazyImgConfig, lazyImgHelpers){
+function LazyImgMagic ($window, $rootScope, lazyImgConfig, lazyImgHelpers){
 	
-	$scope.checkImages = checkImages;
-	$scope.listen = listen;
-	$scope.startListening = startListening;
-	$scope.stopListening = stopListening;
-	$scope.removeImage = removeImage;
-	$scope.loadImage = loadImage;
-	$scope.setPhotoSrc = setPhotoSrc;
-	$scope.Photo = Photo;
+	var t = {};
+	
+	var config = lazyImgConfig();
+	var helpers = lazyImgHelpers();
+	
+	t.checkImages = checkImages;
+	t.listen = listen;
+	t.startListening = startListening;
+	t.stopListening = stopListening;
+	t.removeImage = removeImage;
+	t.loadImage = loadImage;
+	t.setPhotoSrc = setPhotoSrc;
+	t.Photo = Photo;
 
 	var images = [];
 	var isListening = false;
-	var options = lazyImgConfig.getOptions();
+	var options = config.getOptions();
 	var $win = angular.element($window);
-	var winDimensions = lazyImgHelpers.getWinDimensions();
+	var winDimensions = helpers.getWinDimensions();
 
-	var saveWinOffsetT = lazyImgHelpers.throttle(function () {
+	var saveWinOffsetT = helpers.throttle(function () {
 
-		winDimensions = lazyImgHelpers.getWinDimensions();
+		winDimensions = helpers.getWinDimensions();
 
 	}, 60);
 
 	var containers = [options.container || $win];
 	var checkImagesT;
-
+	
+	return t;
+	
 	function checkImages() {
 		for (var i = images.length - 1; i >= 0; i--) {
 			var image = images[i];
-			if (image && lazyImgHelpers.isElementInView(image.$elem[0], options.offset, winDimensions)) {
+			if (image && helpers.isElementInView(image.$elem[0], options.offset, winDimensions)) {
 				loadImage(image);
 				images.splice(i, 1);
 			}
@@ -43,7 +50,7 @@ function LazyImgMagic ($scope, $window, $rootScope, lazyImgConfig, lazyImgHelper
 		}
 	}
 
-	checkImagesT = lazyImgHelpers.throttle(checkImages, 30);
+	checkImagesT = helpers.throttle(checkImages, 30);
 
 	function listen(param) {
 		containers.forEach(function (container) {
@@ -107,7 +114,7 @@ function LazyImgMagic ($scope, $window, $rootScope, lazyImgConfig, lazyImgHelper
 		this.$elem = $elem;
 	}
 
-	$scope.Photo.prototype.setSource = function (source) {
+	t.Photo.prototype.setSource = function (source) {
 		this.src = source;
 		images.unshift(this);
 		if (!isListening) {
@@ -115,24 +122,24 @@ function LazyImgMagic ($scope, $window, $rootScope, lazyImgConfig, lazyImgHelper
 		}
 	};
 
-	$scope.Photo.prototype.removeImage = function () {
+	t.Photo.prototype.removeImage = function () {
 		removeImage(this);
 		if (images.length === 0) {
 			stopListening();
 		}
 	};
 
-	$scope.Photo.prototype.checkImages = function () {
+	t.Photo.prototype.checkImages = function () {
 		checkImages();
 	};
 
-	$scope.Photo.addContainer = function (container) {
+	t.Photo.addContainer = function (container) {
 		stopListening();
 		containers.push(container);
 		startListening();
 	};
 
-	$scope.Photo.removeContainer = function (container) {
+	t.Photo.removeContainer = function (container) {
 		stopListening();
 		containers.splice(containers.indexOf(container), 1);
 		startListening();

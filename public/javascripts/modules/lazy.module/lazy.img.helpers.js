@@ -4,11 +4,16 @@ module.exports = LazyImgHelpers;
 
 LazyImgHelpers.$inject = ['$scope', '$window'];
 
-function LazyImgHelpers ($scope, $window){
+function LazyImgHelpers ($window){
+
+	var t = {};
+
+	t.getWinDimensions = getWinDimensions;
+	t.isElementInView = isElementInView;
+	t.throttle = throttle;
+
+	return t;
 	
-	$scope.getWinDimensions = getWinDimensions;
-	$scope.isElementInView = isElementInView;
-	$scope.throttle = throttle;
 	function getWinDimensions(){
 		return {
 			height: $window.innerHeight,
