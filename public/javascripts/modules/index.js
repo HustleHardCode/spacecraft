@@ -3,6 +3,7 @@
  *
  * Подключение модулей.
  */
+require('./lazy.module');
 require('./lesson.module');
 require('./lessons.module');
 require('./login.module');
@@ -11,6 +12,7 @@ require('./result.module');
 require('./welcome.module');
 
 require('angular').module('spacecraft.modules', [
+	'spacecraft.lazy.module',
 	'spacecraft.lesson.module',
 	'spacecraft.lessons.module',
 	'spacecraft.login.module',

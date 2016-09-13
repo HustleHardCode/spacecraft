@@ -25,7 +25,7 @@ function WelcomeController($scope, $state, $sce, authentication, connection) {
 	$scope.trustAsHtml = trustAsHtml;
 
 	$scope.openLessons = connection.metrics.hitOpenLesson();
-
+	
 	/**
 	 * Формирование статистики по всем параметрам.
 	 */
