@@ -1,7 +1,6 @@
 {
 	"transport": "images/sprites/entities/transport.png",
 	"harvester": "images/sprites/entities/harvester.png",
-	"turret": "images/sprites/entities/turret.png",
 	"base": "images/sprites/entities/base.png",
 	"starField": "images/sprites/starField.png",
 	"shield": "images/sprites/entities/shared/shield.png",

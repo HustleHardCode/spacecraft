@@ -2,7 +2,7 @@
 
 var ENTER = 13;
 
-LoginController.$inject = ['$scope', '$state', 'authentication', 'authService'];
+LoginController.$inject = ['$scope', '$state', 'authentication'];
 
 module.exports = LoginController;
 
@@ -12,7 +12,7 @@ module.exports = LoginController;
  * @since 30.11.15
  * @author Skurishin Vladislav
  */
-function LoginController($scope, $state, authentication, authService) {
+function LoginController($scope, $state, authentication) {
 
 	// Переменная отвечающая за отображение нужной формы
 	$scope.isEnterForm = true;

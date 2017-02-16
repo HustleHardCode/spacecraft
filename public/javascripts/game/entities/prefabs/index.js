@@ -7,6 +7,7 @@ var Shield = require('./shield');
 var AcademyBase = require('./academy-base');
 var Meteor = require('./meteor');
 var Mine = require('./mine');
+var Scout = require('./scout');
 
 // Экспорт
 module.exports = PrefabsFactory();
@@ -28,8 +29,16 @@ function PrefabsFactory() {
 	t.createAcademyBase = createAcademyBase;
 	t.createMeteor = createMeteor;
 	t.createMine = createMine;
+	t.createScout = createScout;
 
 	return t;
+
+	// Разведчик
+	function createScout(game, x, y) {
+
+		return Scout(game, x, y);
+
+	}
 
 	// Транспорт
 	function createTransport(game, x, y) {

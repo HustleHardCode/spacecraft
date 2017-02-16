@@ -21,7 +21,7 @@ var maxHeap = 0;
 
 const app = express();
 
-var resourcesFolderName = app.get('env') === 'development' ? 'public' : 'build';
+const resourcesFolderName = app.get('env') === 'development' ? 'public' : 'build';
 
 app.use(require('./middlewares/send-http-error'));
 

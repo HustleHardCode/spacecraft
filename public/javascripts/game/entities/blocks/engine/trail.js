@@ -6,7 +6,7 @@
  */
 module.exports = Trail;
 
-function Trail (game, spaceCraft, trailX, trailY){
+function Trail (game, spaceCraft, trailX, trailY, trailScale){
 
 	var t = {};
 
@@ -22,6 +22,8 @@ function Trail (game, spaceCraft, trailX, trailY){
 	// Устанавливаем относительные координаты
 	t.emitter.y = trailY || 0;
 	t.emitter.x = - trailX || - sprite.width / 2;
+
+	t.emitter.maxParticleScale = trailScale || 1;
 
 	// Количество частиц
 	t.emitter.lifespan = 100;

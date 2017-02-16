@@ -14,7 +14,7 @@ var AudioWrapper = require('./audio');
 var Diagram = require('../../../directives/diagram.directive/diagram');
 var TabHandler = require('../../../emitters/tab-handler');
 
-LessonService.$inject = ['connection', 'audioManager', 'aceService', 'settings'];
+LessonService.$inject = ['connection', 'audioManager', 'aceService', 'settings', 'statisticsStorage'];
 
 module.exports = LessonService;
 
@@ -388,7 +388,9 @@ function LessonService(connection,
 			endLastSubLesson();
 
 			// Обновляем игровые объекты на начальные значения или нет?
-			currentSubLesson().gamePostUpdate && Game.restart();
+			currentSubLesson().gamePostUpdate &&
+			!currentSubLesson().isRestartDisabled &&
+			Game.restart();
 
 			initNextLesson();
 
@@ -709,7 +711,7 @@ function LessonService(connection,
 	function lessonContent(num) {
 
 		var currentContent = ContentFactory.content(num);
-		
+
 		return currentContent && currentContent.lessonContent;
 
 	}

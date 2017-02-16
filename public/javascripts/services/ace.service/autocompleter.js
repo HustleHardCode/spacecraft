@@ -7,7 +7,6 @@ module.exports = SpaceCraftCompleter;
  *
  * Created by vladthelittleone on 08.12.15.
  */
-
 function SpaceCraftCompleter(editor, rules) {
 
 	var that = {};

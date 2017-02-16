@@ -15,6 +15,10 @@
 			{
 				"value": "rotateRight()",
 				"meta": "transport"
+			},
+			{
+				"value": "moveToXY()",
+				"meta": "transport"
 			}
 		]
 	},

@@ -196,8 +196,11 @@ function findOrCreateVKUser (vkId, email, callback) {
 
 					});
 				}
+				else {
 
-				callback(null, user, false);
+					callback(null, user, false);
+
+				}
 			}
 
 	], callback);

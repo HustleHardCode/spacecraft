@@ -25,7 +25,7 @@ function EngineBlock(spec) {
 
 	if(spec.trail){
 
-		t.trail = Trail(game, unit, spec.trailX, spec.trailY);
+		t.trail = Trail(game, unit, spec.trailX, spec.trailY, spec.trailScale);
 
 	}
 
@@ -34,6 +34,8 @@ function EngineBlock(spec) {
 	unit.rotateLeft = rotateLeft;
 	unit.rotateRight = rotateRight;
 	unit.moveToXY = moveToXY;
+	unit.getX = getX;
+	unit.getY = getY;
 
 	t.update = update;
 
@@ -70,8 +72,6 @@ function EngineBlock(spec) {
 	 */
 	function moveToXY(x, y) {
 
-		useTrail();
-
 		var distance = game.math.distance(unit.sprite.x, unit.sprite.y, x, y);
 
 		// Если дистанция меньше 10,
@@ -81,6 +81,8 @@ function EngineBlock(spec) {
 			return;
 
 		}
+
+		useTrail();
 
 		// Calculate the angle from the missile to the mouse cursor game.input.x
 		// and game.input.y are the mouse position; substitute with whatever
@@ -154,6 +156,24 @@ function EngineBlock(spec) {
 			t.trail.start();
 
 		}
+	}
+
+	/**
+	 * @returns коордианту X в пространстве
+	 */
+	function getX() {
+
+		return unit.sprite.x;
+
+	}
+
+	/**
+	 * @returns коордианту Y в пространстве
+	 */
+	function getY() {
+
+		return unit.sprite.y;
+
 	}
 
 	/**
