@@ -41,7 +41,7 @@ require('./services');
 require('./directives');
 
 runBlock.$inject = ['authentication', '$rootScope', '$state'];
-configBlock.$inject = ['$urlRouterProvider', 'ChartJsProvider'];
+configBlock.$inject = ['$urlRouterProvider', '$locationProvider'];
 
 angular.module('spacecraft').config(configBlock);
 angular.module('spacecraft').run(runBlock);
@@ -49,7 +49,10 @@ angular.module('spacecraft').run(runBlock);
 /**
  * Конфигурация сервисов до старта приложения.
  */
-function configBlock($urlRouterProvider, ChartJsProvider) {
+function configBlock($urlRouterProvider, $locationProvider) {
+
+	// Включаем адреса без решетки (#).
+	$locationProvider.html5Mode(true);
 
 	// Для всех необработанных переходов
 	$urlRouterProvider.otherwise('/');

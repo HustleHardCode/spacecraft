@@ -24,10 +24,6 @@ vk.login = new VKStrategy(config.get('vkStrategySettings'),
 
 					strategyHelp.updateTotalFinalScore(user);
 
-				} else {
-
-					strategyHelp.updateCohort(user);
-
 				}
 
 			}

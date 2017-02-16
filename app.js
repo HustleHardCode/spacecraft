@@ -17,9 +17,11 @@ require('./utils/passport')();
 var localStrategy = require('./utils/passport/local');
 var vkStrategy = require('./utils/passport/vk');
 
+var maxHeap = 0;
+
 const app = express();
 
-var maxHeap = 0;
+const resourcesFolderName = app.get('env') === 'development' ? 'public' : 'build';
 
 app.use(require('./middlewares/send-http-error'));
 
@@ -46,15 +48,7 @@ app.use(session({
 					store:             new MongoStore({mongooseConnection: mongoose.connection})
 				}));
 
-if (app.get('env') === 'development') {
-
-	app.use(express.static(path.join(__dirname, 'public')));
-
-} else {
-
-	app.use(express.static(path.join(__dirname, 'build')));
-
-}
+app.use(express.static(path.join(__dirname, resourcesFolderName)));
 
 // init passportJS
 app.use(passport.initialize());
@@ -65,6 +59,13 @@ passport.use('local-registration', localStrategy.registration);
 passport.use('vk-login', vkStrategy.login);
 
 require('./routes')(app);
+
+// Выдаем стартовую страницу ангуляра,на случай неразрешения роута (для html5 mode).
+app.use('/*', function (req, res) {
+
+	res.sendFile(path.join(__dirname, resourcesFolderName, 'index.html'));
+
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
