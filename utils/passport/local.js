@@ -33,13 +33,6 @@ local.login = new LocalStrategy(localStrategyReqParam,
 
 		User.authorize(normalizeEmail, password, (err, user) => {
 
-			// проверяем прошла ли авторизация успешно
-			if (!err) {
-
-				strategyHelp.updateCohort(user);
-
-			}
-
 			next (err, user);
 
 		});

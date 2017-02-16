@@ -4,14 +4,9 @@
  */
 const login = require('./login');
 const user = require('./user');
-const main = require('./main');
 const logout = require('./logout');
 const reg = require('./registration');
 const statistic = require('./statistic');
-const metrics = require('./metrics');
-const checkAuthentication = require('./../middlewares/check-authentication');
-
-const HttpError = require('error').HttpError;
 
 module.exports = function (app)
 {
@@ -20,13 +15,7 @@ module.exports = function (app)
 	app.use('/reg', reg);
 	app.use('/logout', logout);
 
-	// Проверка на аутентификацию, прежде чем допустить
-	// к нижележащим маршрутам.
-	app.use(checkAuthentication);
-
-	app.use('/', main);
 	app.use('/user', user);
 	app.use('/statistic', statistic);
-	app.use('/metrics', metrics)
 };
 

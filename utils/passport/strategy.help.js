@@ -5,7 +5,6 @@
  * @since 02.10.16
  */
 
-var Cohorts = require ('../../models/cohorts').Cohorts;
 var Statistic = require ('models/statistic').Statistic;
 
 var logger = require('../log')(module);
@@ -16,25 +15,9 @@ function StrategyHelp() {
 
 	var that = {};
 
-	that.updateCohort = updateCohort;
 	that.updateTotalFinalScore = updateTotalFinalScore;
 
 	return that;
-
-
-	function updateCohort(user) {
-
-		Cohorts.updateCohort (user._id, (data, cohortID) => {
-
-			if(data) {
-
-				data.cohorts[cohortID].visits++;
-
-			}
-
-		});
-
-	}
 
 	function updateTotalFinalScore(user) {
 
