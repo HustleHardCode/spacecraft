@@ -1,6 +1,6 @@
 'use strict';
 
-Spinner.$inject = ['$rootScope', '$timeout'];
+Spinner.$inject = ['$rootScope', '$timeout', '$transitions'];
 
 var lodash = require('lodash');
 
@@ -24,7 +24,7 @@ module.exports = Spinner;
  * @author iretd
  * @since 29.04.2017
  */
-function Spinner($rootScope, $timeout) {
+function Spinner($rootScope, $timeout, $transitions) {
 
 	var visible = false;
 
@@ -47,8 +47,11 @@ function Spinner($rootScope, $timeout) {
 		$rootScope.$on('startSpinnerForcibly', onStartSpinnerForcibly);
 		// stopSpinnerForcibly - событие, на которое в сию секунду прекращается показ спинера.
 		$rootScope.$on('stopSpinnerForcibly', updateSpinnerState.bind(null, {visible: false}));
-		$rootScope.$on('$stateChangeStart', updateSpinnerState.bind(null, {visible: true, delay: DEFAULT_DELAY}));
-		$rootScope.$on('$stateChangeSuccess', updateSpinnerState.bind(null, {visible: false}));
+
+		$transitions.onStart({}, updateSpinnerState.bind(null, {visible: true, delay: DEFAULT_DELAY}));
+		$transitions.onSuccess({}, updateSpinnerState.bind(null, {visible: false}));
+		// $rootScope.$on('$stateChangeStart', updateSpinnerState.bind(null, {visible: true, delay: DEFAULT_DELAY}));
+		// $rootScope.$on('$stateChangeSuccess', updateSpinnerState.bind(null, {visible: false}));
 
 		updateSpinnerState({visible: false});
 

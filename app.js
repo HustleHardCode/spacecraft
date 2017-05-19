@@ -108,6 +108,7 @@ app.use(function (err, req, res, next) {
 	if (err.code === 'EBADCSRFTOKEN') {
 
 		res.status(HttpStatus.FORBIDDEN);
+
 		return res.send('You cannot do that from outside of our client side ;)')
 
 	}

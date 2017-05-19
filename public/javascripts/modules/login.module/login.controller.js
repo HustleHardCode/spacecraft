@@ -1,6 +1,6 @@
 'use strict';
 
-LoginController.$inject = ['$scope', '$state', '$window', 'authentication', 'spinner'];
+LoginController.$inject = ['$scope', '$state', '$window', '$transition$', 'authentication', 'spinner'];
 
 module.exports = LoginController;
 
@@ -10,7 +10,7 @@ module.exports = LoginController;
  * @since 30.11.15
  * @author Skurishin Vladislav
  */
-function LoginController($scope, $state, $window, authentication, spinner) {
+function LoginController($scope, $state, $window, $transition$, authentication, spinner) {
 
 	// Переменная отвечающая за отображение нужной формы
 	$scope.isEnterForm = true;
@@ -162,7 +162,12 @@ function LoginController($scope, $state, $window, authentication, spinner) {
 
 										 stopLoginSpinner();
 
-										 onSuccess ? onSuccess() : $state.go('welcome');
+										 // В качестве след. состояния рассматриваем либо:
+										 // - предыдущее (на которое юзер пытался попасть);
+										 // - welcome (как по умолчанию);
+										 var nextStateName = $transition$.from.name || 'welcome';
+
+										 onSuccess ? onSuccess() : $state.go(nextStateName);
 
 									 },
 									 error:    controllerErrorHandler

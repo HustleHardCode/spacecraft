@@ -21,7 +21,7 @@ function LoginConfig($stateProvider) {
 		resolve: resolve,
 		onEnter: ['$state', resolveNames.authentication, onEnter]
 	});
-	
+
 	/**
 	 * Метод обработки факта попадания пользователем на состояние 'login'
      */
