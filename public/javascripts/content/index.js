@@ -12,6 +12,7 @@ contentArray.push(require('./lesson4'));
 contentArray.push(require('./lesson5'));
 contentArray.push(require('./lesson6'));
 contentArray.push(require('./lesson7'));
+contentArray.push(require('./lesson8'));
 
 
 // Экспорт
