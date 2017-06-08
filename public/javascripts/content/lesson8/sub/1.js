@@ -13,7 +13,7 @@ function For() {
 
 	return {
 		isRestartDisabled:  true,
-		title:              'Повторяя повторяй',
+		title:              'Повторяя, повторяй',
 		content:            content,
 		interpreterHandler: interpreterHandler,
 		instructions:       '<ul>' +
@@ -28,22 +28,20 @@ function For() {
 			   'несколько раз одну и туже последовательность команд. ' +
 			   'Например, вот таким нехитрым образом, можно три раза вывести фразу <span class="under-label">\'BBot самый надоедливый робот в этой вселенной\'</span>.<p>' +
 			   '<pre>' +
-			   'BBotDebug(\'BBot самый надоедливый робот в этой вселенной\');<br>' +
-			   'BBotDebug(\'BBot самый надоедливый робот в этой вселенной\');<br>' +
-			   'BBotDebug(\'BBot самый надоедливый робот в этой вселенной\');' +
+			   '<b>BBotDebug</b>(\'BBot самый надоедливый робот в этой вселенной\');<br>' +
+			   '<b>BBotDebug</b>(\'BBot самый надоедливый робот в этой вселенной\');<br>' +
+			   '<b>BBotDebug</b>(\'BBot самый надоедливый робот в этой вселенной\');' +
 			   '</pre>' +
 			   '<p>Не сложно, правда? А что, если вы захотите продублировать этот текст триста раз? ' +
 			   'Похоже у вас возникают сложности? К счастью, использование циклов решает вашу проблему. ' +
 			   'Например вот так:</p>' +
 			   '<pre>' +
-			   'for(var i = 0; i < 300; ++i) <br>{ <br>' +
-			   '    BBotDebug(\'BBot самый надоедливый робот в этой вселенной\');<br>' +
+			   '<b>for</b>(<b>var</b> i = 0; i < 300; i++) <br>{ <br>' +
+			   '    <b>BBotDebug</b>(\'BBot самый надоедливый робот в этой вселенной\');<br>' +
 		       '}' +
 			   '</pre>' +
-			   '<p>В языке программирования <strong>JavaScript</strong> существует <strong>3</strong> основных оператора циклов ' +
-			   '<span class="under-label"><strong>for</strong></span>, <span class="under-label"><strong>while</strong></span> ' +
-			   'и <span class="under-label"><strong>do... while</strong></span>. ' +
-			   'Каждый из которых может помочь вам в организации повторного выполнения определенных строк кода. </p>';
+			   '<p>Страшно? Не дрейфьте! В этом уроке мы подробно расскажем о трех основных операторах циклах языка <b>JavaScript</b>, ' +
+			   'каждый из которых может помочь вам в организации повторного выполнения команд.</p>';
 
 	}
 
@@ -52,13 +50,14 @@ function For() {
 		var lessonResults = {
 
 			correct: '<p>Я могу повторять это до бесконечности:</p>' +
-			'<p class="bbot-output">{{correctText}}</p>',
+					 '<p class="bbot-output">{{correctText}}</p>',
 
 			unknownError: '<p>Кажется кадет кое-что потерял.</p>'
 
 		};
 
-		return LessonResults(lessonResults).resultsWrapper(value);
+		return LessonResults(lessonResults)
+			.resultsWrapper(value);
 	}
 
 }
