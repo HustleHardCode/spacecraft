@@ -10,7 +10,7 @@ module.exports = Mine;
  */
 function Mine(game, x, y, scale, group) {
 
-	var t = createSprite();
+	let t = createSprite();
 
 	// Центрирование
 	t.anchor.x = 0.5;

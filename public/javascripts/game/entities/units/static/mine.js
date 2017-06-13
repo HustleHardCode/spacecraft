@@ -17,7 +17,7 @@ module.exports = Mine;
  */
 function Mine({game, x, y, scale, group, damage, distance, speed}) {
 
-	var t = {};
+	let t = {};
 
 	/**
 	 * Создаем спрайт.

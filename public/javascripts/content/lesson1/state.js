@@ -80,21 +80,24 @@ function StateWrapper(state) {
 		// Создаем группу из мин
 		mines = game.add.group();
 
-		for (var i = 0; i < 10; i++)
-		{
-			var deltaY = Random.randomOf(-1, 1) * 20 * i;
-			var deltaX = Random.randomOf(-1, 1) * 20 * i;
+		for (let i = 0; i < 10; i++) {
 
-			EntitiesFactory.createMine({
-				game: game,
-				x: mineXY.x + deltaX,
-				y: mineXY.y - deltaY,
-				scale: 0.15,
-				group: mines,
-				damage: 2,
-				distance: 100,
-				speed: 100
-			});
+			for(let j = 0; j < 10; j++) {
+
+				let deltaY = 20 * i * (i % 2);
+				let deltaX = 20 * j * (j % 2);
+
+				EntitiesFactory.createMine({
+					game: game,
+					x: mineXY.x + deltaX,
+					y: mineXY.y + deltaY,
+					scale: 0.15,
+					group: mines,
+					damage: 2,
+					distance: 100,
+					speed: 100
+				});
+			}
 		}
 	}
 
