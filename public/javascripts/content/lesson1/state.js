@@ -18,14 +18,12 @@ function StateWrapper(state) {
 
 	var t = state;
 
-	var explosions;	// Группа анимации взрывов
 	var player;		// Игрок
 	var mines; 		// Мины
 
 	var mineXY;		// Координаты мин
 
 	t.entities = entities;
-	t.logic = logic;
 
 	return t;
 
@@ -92,79 +90,12 @@ function StateWrapper(state) {
 				x: mineXY.x + deltaX,
 				y: mineXY.y - deltaY,
 				scale: 0.15,
-				group: mines
+				group: mines,
+				damage: 2,
+				distance: 100,
+				speed: 100
 			});
 		}
-
-		// Группа анимации взрыва
-		explosions = game.add.group();
-		explosions.createMultiple(10, 'explosion');
-		explosions.forEach(initExplosion, this);
-
-	}
-
-	/**
-	 * Инициализация взрывов.
-     */
-	function initExplosion (explosion) {
-
-		explosion.anchor.x = 0.5;
-		explosion.anchor.y = 0.5;
-		explosion.animations.add('explosion');
-
-	}
-
-	/**
-	 * Обновление логики минного поля.
-     */
-	function logic(game) {
-
-		// В случае близкого положения мин,
-		// летим к кораблю
-		if (Phaser.Point.distance(mineXY, player) < 100) {
-
-			mines.forEach(function (e) {
-
-				if (!player.alive) {
-
-					// Если игрок погиб, мины
-					// прекращают движение.
-					e.body.velocity.x = 0;
-					e.body.velocity.y = 0;
-
-				} else {
-
-					game.physics.arcade.moveToObject(e, player, 100);
-
-					// При пересечении обрабатываем в overlapHandler
-					game.physics.arcade.overlap(player, e, overlapHandler);
-
-				}
-
-			});
-
-		}
-
-	}
-
-	/**
-	 * Обработка пересечений.
-	 */
-	function overlapHandler(transport, mine) {
-
-		// Наносим два урона
-		transport.damage(2);
-
-		var explosion = explosions.getFirstExists(false);
-
-		explosion.scale.setTo(0.5);
-		explosion.reset(transport.body.x, transport.body.y);
-		explosion.play('explosion', 30, false, true);
-
-		player.audio.playExplosion();
-
-		mine.kill();
-
 	}
 
 }
