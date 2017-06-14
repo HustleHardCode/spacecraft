@@ -1,10 +1,12 @@
 'use strict';
 
 // Зависимости
-var PrefabsFactory = require('../../prefabs');
-var World = require('../../world');
-var GameAudioFactory = require('../../../audio');
-var AnimationFactory = require('../../../animations');
+let PrefabsFactory = require('../../prefabs');
+let World = require('../../world');
+let GameAudioFactory = require('../../../audio');
+let AnimationFactory = require('../../../animations');
+
+let lodash = require('lodash');
 
 // Экспорт
 module.exports = Mine;
@@ -18,6 +20,8 @@ module.exports = Mine;
 function Mine({game, x, y, scale, group, damage, distance, speed}) {
 
 	let t = {};
+
+	t.target = {};
 
 	/**
 	 * Создаем спрайт.
@@ -62,24 +66,44 @@ function Mine({game, x, y, scale, group, damage, distance, speed}) {
 	function overlapHandler(sprite, mine) {
 
 		// Наносим два урона
-		sprite.damage(damage);
+		sprite && sprite.damage(damage);
 
-		mine.kill();
+		mine && mine.kill();
+
+	}
+
+	function tryToKillTarget() {
+
+		game.physics.arcade.moveToObject(t, t.target, speed);
+
+		game.physics.arcade.overlap(t.target, t, overlapHandler);
 
 	}
 
 	function update() {
 
-		var sprites = World.getObjects();
+		if(lodash.isEmpty(t.target)) {
 
-		sprites.forEach(target => {
+			let sprites = World.getObjects();
 
-			if(Phaser.Point.distance(t, target) <= distance) {
+			for(let target of sprites) {
 
-				game.physics.arcade.moveToObject(t, target, speed);
+				if(Phaser.Point.distance(t, target) <= distance) {
 
-				game.physics.arcade.overlap(target, t, overlapHandler);
+					// Определяем цель для мины,
+					// первая найденная в зоне видимости
+					t.target = target;
+
+					tryToKillTarget();
+
+					break;
+				}
 			}
-		});
+
+		} else {
+
+			tryToKillTarget();
+
+		}
 	}
 }
