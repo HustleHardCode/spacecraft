@@ -80,23 +80,30 @@ function StateWrapper(state) {
 		// Создаем группу из мин
 		mines = game.add.group();
 
+		// Создаем поле мин в шахматном порядке
 		for (let i = 0; i < 10; i++) {
 
 			for(let j = 0; j < 10; j++) {
 
-				let deltaY = 20 * i * (i % 2);
-				let deltaX = 20 * j * (j % 2);
+				// Складываем индексы и мод 2,
+				// 0 и 1 в таком случае будут чередоваться
+				if((i + j) % 2 === 0) {
 
-				EntitiesFactory.createMine({
-					game: game,
-					x: mineXY.x + deltaX,
-					y: mineXY.y + deltaY,
-					scale: 0.15,
-					group: mines,
-					damage: 2,
-					distance: 100,
-					speed: 100
-				});
+					let deltaY = 20 * i;
+					let deltaX = 20 * j;
+
+					EntitiesFactory.createMine({
+						game: game,
+						x: mineXY.x + deltaX,
+						y: mineXY.y + deltaY,
+						scale: 0.15,
+						group: mines,
+						damage: 2,
+						distance: 100,
+						speed: 100
+					});
+
+				}
 			}
 		}
 	}
