@@ -15,6 +15,7 @@ function StateWrapper(state) {
 	let t = state;
 
 	t.entities = entities;
+	t.backgroundObjects = require('../backgrounds/academy');
 
 	return t;
 

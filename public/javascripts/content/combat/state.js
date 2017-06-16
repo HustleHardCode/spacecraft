@@ -37,24 +37,6 @@ function StateWrapper(state) {
 		var height = bounds.height;
 		var width = bounds.width;
 
-		t.addToBackground({
-			preload: 'violetDust',
-			cameraOffset: {
-				x: 300,
-				y: 700,
-				coefficient: -0.31
-			}
-		});
-
-		t.addToBackground({
-			preload: 'blueDust',
-			cameraOffset: {
-				x: 700,
-				y: 500,
-				coefficient: -0.31
-			}
-		});
-
 		EntitiesFactory.createStructure({
 			game: game,
 			x: height - 300,

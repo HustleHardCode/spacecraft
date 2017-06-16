@@ -6,7 +6,8 @@ var LessonResults = require('../../lesson-results');
 module.exports = goToResearchCenter();
 
 /**
- * Created by vaimer on 23.03.17.
+ * @since 23.03.17
+ * @author Skurishin Vladislav
  */
 function goToResearchCenter() {
 
@@ -16,17 +17,17 @@ function goToResearchCenter() {
 		title:             'К исследовательскому центру',
 		character:         [{
 			audio: 'audio/lesson4/6-1',
-			css:   'astromen-img',
-			video: {
-				url: 'https://www.youtube.com/watch?v=AkBJEc1BpDE',
-				content: 'Видео старейшин программирования - команды <strong>Хекслет</strong>, найденное BBot\'ом в архиве времени.'
-			}
+			css:   'astromen-img'
 		}, {
 			audio:  'audio/lesson4/6-2',
 			css:    'astromen-img',
 			marker: {
 				x1: 2,
 				x2: 3
+			},
+			video:  {
+				url:     'https://www.youtube.com/watch?v=AkBJEc1BpDE',
+				content: 'Видео старейшин программирования - команды <strong>Хекслет</strong>, найденное BBot\'ом в архиве времени.'
 			}
 		}, {
 			audio:  'audio/lesson4/6-3',
@@ -58,15 +59,15 @@ function goToResearchCenter() {
 				'showSkip':           false
 			}]
 		}, {
-			audio: 'audio/lesson4/6-6',
-			css:   'astromen-img',
+			audio:  'audio/lesson4/6-6',
+			css:    'astromen-img',
 			marker: {
 				x1: 7,
 				y2: Infinity
 			}
 		}, {
-			audio: 'audio/lesson4/6-7',
-			css:   'astromen-img',
+			audio:  'audio/lesson4/6-7',
+			css:    'astromen-img',
 			marker: {
 				x1: 11,
 				y2: Infinity

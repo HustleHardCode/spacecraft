@@ -29,6 +29,7 @@ function StateWrapper(state) {
 
 	t.entities = entities;
 	t.onContextLoaded = onContextLoaded;
+	t.backgroundObjects = require('../backgrounds/modulation-zone');
 
 	return t;
 
@@ -60,19 +61,20 @@ function StateWrapper(state) {
 		var worldCenterX = game.world.centerX;
 		var worldCenterY = game.world.centerY;
 
-		var planet = EntitiesFactory.createStructure({
-			game: game,
-			x: worldCenterX + 700,
-			y: worldCenterY + 200,
-			preload: 'planet'
-		});
-
 		MeteorFactory.createMeteorSphere({
 			game: game,
 			x: worldCenterX - 400,
 			y: worldCenterY - 400,
 			radius: 150
 		});
+
+		MeteorFactory.createMeteorSphere({
+			game: game,
+			x: worldCenterX - 600,
+			y: worldCenterY - 500,
+			radius: 150
+		});
+
 
 		carrier = EntitiesFactory.createCarrier({
 			game: game,
@@ -170,8 +172,6 @@ function StateWrapper(state) {
 
 	function onContextLoaded(game, {subIndex: index}) {
 
-		player.logic = null;
-
 		if(index === 2) {
 
 			// Пока пользователь не поменял капитана
@@ -207,6 +207,8 @@ function StateWrapper(state) {
 			sensor.visible = true;
 
 		}
+
+		player.logic = corvetteLogic.bind(player, player, carrier);
 
 	}
 }

@@ -16,8 +16,10 @@ function Prefab({
 	scale = 1,			// Скалирование
 	anchorX = 0.5,		// Якорь по x
 	anchorY = 0.5, 		// Якорь по y
+	angle,				// Угол поворота
 	alpha = 1, 			// Прозрачность
 	group,				// Группа?
+	angularVelocity,	// Скорость поворота
 	cameraOffset		// Движение относительно камеры?
 }) {
 
@@ -30,7 +32,11 @@ function Prefab({
 	// Альфа.
 	t.alpha = alpha;
 
+	// Устанавливаем скорость оборота
+	angularVelocity && (t.body.angularVelocity = angularVelocity);
+
 	scale && t.scale.setTo(scale);
+	angle && (t.angle = angle);
 
 	game.physics.arcade.enableBody(t);
 

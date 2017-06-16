@@ -24,6 +24,7 @@ function StateWrapper(state) {
 	t.entities = entities;
 	t.logic = logic;
 	t.onContextLoaded = onContextLoaded;
+	t.backgroundObjects = require('../backgrounds/сrash-zone');
 
 	return t;
 

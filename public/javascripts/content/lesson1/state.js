@@ -24,6 +24,7 @@ function StateWrapper(state) {
 	let player;		// Игрок
 
 	t.entities = entities;
+	t.backgroundObjects = require('../backgrounds/сrash-zone');
 
 	return t;
 

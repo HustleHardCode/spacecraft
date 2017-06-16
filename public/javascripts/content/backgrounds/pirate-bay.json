@@ -1,0 +1,44 @@
+[
+	{
+		"preload": "yellowDust",
+		"cameraOffset": {
+			"x": 1300,
+			"y": 1000,
+			"coefficient": -0.31
+		}
+	},
+	{
+		"preload": "yellowDust",
+		"cameraOffset": {
+			"x": 1000,
+			"y": 700,
+			"angle": 233,
+			"coefficient": -0.31
+		}
+	},
+	{
+		"preload": "yellowDust",
+		"cameraOffset": {
+			"x": 800,
+			"y": 500,
+			"angle": 33,
+			"coefficient": -0.31
+		}
+	},
+	{
+		"preload": "yellowDust",
+		"cameraOffset": {
+			"x": 600,
+			"y": 1000,
+			"coefficient": -0.31
+		}
+	},
+	{
+		"preload": "hotNebula",
+		"cameraOffset": {
+			"x": 1500,
+			"y": 760,
+			"coefficient": -0.35
+		}
+	}
+]

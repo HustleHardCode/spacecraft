@@ -9,6 +9,8 @@ let World = require('../entities/world');
 let AnimationFactory = require('../animations');
 let Prefabs = require('../entities/prefab');
 
+let Random = require('../../utils/random');
+
 module.exports = PlayState;
 
 /**
@@ -34,13 +36,12 @@ function PlayState(game) {
 	let cursors;		// Объект ввода / вывода.
 	let background;		// Спрайт фона.
 
-	t.updates = []; 	// Объекты обновления.
+	t.updates = []; 			// Объекты обновления.
 
 	t.create = create;
 	t.update = update;
 	t.setRunner = setRunner;
 	t.followFor = followFor;
-	t.addToBackground = addToBackground;
 	t.pushContextParameters = pushContextParameters;
 
 	return t;
@@ -57,12 +58,17 @@ function PlayState(game) {
 
 		// Создание бэкграунда
 		background = game.add.tileSprite(0, 0, game.width, game.height, 'starField');
-
 		background.fixedToCamera = true;
 
 		// Выполняем инициализацию контейнера игровых объектов.
 		World.initialization(game);
 		AnimationFactory.initialization(game);
+
+		// Инициализация объектов background'а.Таких как
+		// пыль, небула и т.п.
+		t.backgroundObjects ?
+			addToBackground(t.backgroundObjects) :
+			randomBackground();
 
 		// Запуск шаблонного метода инициализации сущностей
 		t.entities && t.entities(game);
@@ -72,11 +78,41 @@ function PlayState(game) {
 	}
 
 	/**
+	 * Генерируем задник случайным образом.
+	 */
+	function randomBackground() {
+
+		let loads = ['violetDust', 'blueDust', 'yellowDust'];
+
+		Random.random() ? loads.push('coldNebula') : true;
+		Random.random() ? loads.push('hotNebula') : true;
+
+		Random.random() ? loads.push('planet1') : true;
+		Random.random() ? loads.push('planet2') : true;
+
+		lodash.forEach(loads, p => addToBackground([{
+			preload:      p,
+			cameraOffset: {
+				x:           Random.randomInt(game.world.randomX / 2, game.world.randomY / 2),
+				y:           Random.randomInt(game.world.randomX / 2, game.world.randomY / 2),
+				angle:       game.rnd.angle(),
+				coefficient: -0.31
+			}
+		}]));
+
+	}
+
+	/**
 	 * Добавить объект на задний фон.
 	 */
-	function addToBackground({preload, cameraOffset}) {
+	function addToBackground(objects) {
 
-		t.updates.push(Prefabs({game, preload, cameraOffset}));
+		lodash.forEach(objects, o => t.updates.push(Prefabs({
+			game:         game,
+			preload:      o.preload,
+			angle:        o.angle,
+			cameraOffset: o.cameraOffset
+		})));
 
 	}
 
@@ -94,12 +130,12 @@ function PlayState(game) {
 	}
 
 	/**
-	 * 	Передаем параметры в игровой стейт.
-	 * 	По сути onContextLoaded есть шаблонный метод
-	 * 	внутри которого логика работы с передаваемыми данными.
+	 *    Передаем параметры в игровой стейт.
+	 *    По сути onContextLoaded есть шаблонный метод
+	 *    внутри которого логика работы с передаваемыми данными.
 	 *
-	 * 	В случае если onContextLoaded вернет false,
-	 * 	то метод выполниться единожды с заданными параметрами.
+	 *    В случае если onContextLoaded вернет false,
+	 *    то метод выполниться единожды с заданными параметрами.
 	 */
 	function pushParametersIntoState() {
 

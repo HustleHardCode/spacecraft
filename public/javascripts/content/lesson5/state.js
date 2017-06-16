@@ -30,6 +30,7 @@ function StateWrapper(state) {
 
 	t.entities = entities;
 	t.onContextLoaded = onContextLoaded;
+	t.backgroundObjects = require('../backgrounds/pirate-bay');
 
 	return t;
 
