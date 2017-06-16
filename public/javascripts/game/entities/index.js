@@ -3,28 +3,29 @@
 // Зависимости
 
 // Сущности
-var Meteor = require('./units/static/meteor');
-var Mine = require('./units/static/mine');
-var StaticUnit = require('./units/static/static-unit');
+const Meteor = require('./units/static/meteor');
+const Mine = require('./units/static/mine');
+const StaticUnit = require('./units/static/static-unit');
 
-var Cruiser = require('./units/heavy/cruiser');
-var Carrier = require('./units/heavy/carrier');
-var Combat = require('./units/heavy/combat');
-var Fighter = require('./units/heavy/fighter');
+const Cruiser = require('./units/heavy/cruiser');
+const Carrier = require('./units/heavy/carrier');
+const Combat = require('./units/heavy/combat');
+const Fighter = require('./units/heavy/fighter');
 
-var Transport = require('./units/light/transport');
-var Harvester = require('./units/light/harvester');
-var Scout = require('./units/light/scout');
-var LightCorvette = require('./units/light/corvette');
-var EbonHawk = require('./units/light/ebonHawk');
+const Transport = require('./units/light/transport');
+const Harvester = require('./units/light/harvester');
+const Scout = require('./units/light/scout');
+const LightCorvette = require('./units/light/corvette');
+const EbonHawk = require('./units/light/ebonHawk');
 
-var Planet = require('./units/base/planet');
-var ResearchCenter = require('./units/base/research-center');
-var AcademyBase = require('./units/base/academy-base');
-var Base = require('./units/base/base');
+const Planet = require('./units/base/planet');
+const ResearchCenter = require('./units/base/research-center');
+const AcademyBase = require('./units/base/academy-base');
+const PirateBase = require('./units/base/pirate-base');
+const Base = require('./units/base/base');
 
-var World = require('./world');
-var Random = require('../../utils/random');
+const World = require('./world');
+const Random = require('../../utils/random');
 
 // Экспорт
 module.exports = EntitiesFactory();
@@ -38,10 +39,11 @@ module.exports = EntitiesFactory();
 function EntitiesFactory() {
 
 	// that / this
-	var t = {};
+	let t = {};
 
 	t.createMeteorField = createMeteorField;
 	t.createMeteorSphere = createMeteorSphere;
+	t.createMeteors = createMeteors;
 
 	t.createMine = Mine;
 	t.createStaticUnit = StaticUnit;
@@ -62,22 +64,52 @@ function EntitiesFactory() {
 	t.createCarriersShip = createByType(LightCorvette);
 	t.createEbonHawk = createByType(EbonHawk);
 	t.createLightCorvette = createByType(LightCorvette);
+	t.createPirateBase = createByType(PirateBase);
 
 	return t;
+
+
+	/**
+	 * Функция создает метеоритное поле, по определенной кривой, от начальной до конечной точки.
+	 * @param startX точка по x, с которой должна начатся отрисовка метеоритого поля
+	 * @param finishX точка по x, на которой отрисовка метеортного поля должна закончиться.
+	 * @param step шаг, с которым должна происходить отрисовка участков метеоритного поля.
+	 * @param count количестов элементов, котороые должны быть сформированны на каждом шаге формирования
+	 * метеоритного поля.
+	 * @param radius радиус, в котором будут создаваться метеориты на каждом из шагов.
+	 * @param calculateMeteorCoordinateY функция для вычисления точки по y, от которой будет формироваться точка в метеоритном поле.
+	 */
+	function createMeteors({game, startX, finishX, step, count, radius, calculateMeteorCoordinateY}) {
+
+		let _count = count || 5;
+
+		for(let i = startX; i < finishX; i += step) {
+
+			createMeteorSphere({
+				x: i,
+				game: game,
+				y: calculateMeteorCoordinateY(i),
+				count: _count,
+				radius: radius || step * 2
+			});
+
+		}
+
+	}
 
 	/**
 	 * Создать метеоритное поле.
 	 */
-	function createMeteorField({game, x, y}) {
+	function createMeteorField({game, x, y, count}) {
 
 		let radius = Phaser.Point.distance(new Phaser.Point(x, y),
-										   new Phaser.Point(0, 0));
+			                               new Phaser.Point(0, 0));
 
 		let shift = 10;
-		let count = 2 * x;
+		let _count = count ? count * 10 : 2 * x;
 		let randomSize = 200;
 
-		for (let i = 0; i < count; i = i + shift) {
+		for (let i = 0; i < _count; i += shift) {
 
 			let j = Math.sqrt(radius * radius - i * i);
 
@@ -95,12 +127,14 @@ function EntitiesFactory() {
 	/**
 	 * Создать метеоритное поле округлое.
 	 */
-	function createMeteorSphere({game, x, y, radius}) {
+	function createMeteorSphere({game, x, y, radius, count}) {
 
 		let meteorX;
 		let meteorY;
 
-		for(let i = 0; i <= 100; i++) {
+		let _count = count || 100;
+
+		for(let i = 0; i <= _count; i++) {
 
 			meteorX = Random.randomInt(x - radius, x + radius);
 			meteorY = Random.randomInt(y - radius, y + radius);
@@ -115,6 +149,7 @@ function EntitiesFactory() {
 				});
 
 				setMeteorParameters(m);
+
 			}
 
 		}
@@ -133,7 +168,7 @@ function EntitiesFactory() {
 	 */
 	function createByType(type) {
 
-		return function (args) {
+		return (args) => {
 
 			return create(args, type);
 

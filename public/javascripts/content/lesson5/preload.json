@@ -13,6 +13,8 @@
 		"meteor5": "images/sprites/entities/meteors/meteor5.png",
 		"meteor6": "images/sprites/entities/meteors/meteor6.png",
 		"meteor7": "images/sprites/entities/meteors/meteor7.png",
+		"pirateBase": "images/sprites/entities/structures/pirateBase.png",
+		"transport": "images/sprites/entities/spacecrafts/transport.png"
 	},
 	"audio": {
 		"warpEffect": [

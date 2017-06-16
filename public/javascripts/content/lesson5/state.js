@@ -1,9 +1,9 @@
 'use strict';
 
-var EntitiesFactory = require('../../game/entities');
-var CodeLauncher = require('../../game/launcher');
+const EntitiesFactory = require('../../game/entities');
+const CodeLauncher = require('../../game/launcher');
 
-var Api = require('./api');
+const Api = require('./api');
 
 module.exports = StateWrapper;
 
@@ -24,7 +24,9 @@ function StateWrapper(state) {
 	let centerY;
 
 	// Индекс точки для корабля противника.
-	let pointIndex = 0;
+	let pointIndex1 = 0;
+	let pointIndex2 = 0;
+	let pointIndex3 = 0;
 
 	t.entities = entities;
 	t.onContextLoaded = onContextLoaded;
@@ -39,43 +41,94 @@ function StateWrapper(state) {
 		centerX = game.world.centerX;
 		centerY = game.world.centerY;
 
+		EntitiesFactory.createPirateBase({
+			game: game,
+			x: centerX + 750,
+			y: centerY - 50,
+			velocity: 30
+		});
+
 		// Создать транспорт противника
 		enemy = EntitiesFactory.createEbonHawk({
 			game: game,
-			x: centerX + 50,
-			y: centerY - 200,
+			x: centerX + 650,
+			y: centerY - 50,
 			velocity: 30
 		});
+
+		enemy.bringToTop();
 
 		enemy.angle = 220;
 		enemy.logic = enemyMoving;
 
-		createMeteorField(game);
+		// Создаем транспоты 1 и 2
+		let transport = EntitiesFactory.createTransport({
+			game: game,
+			x: centerX + 800,
+			y: centerY - 800,
+			velocity: 30
+		});
+
+		transport.logic = transport1Moving;
+
+		let transport2 = EntitiesFactory.createTransport({
+			game: game,
+			x: centerX + 650,
+			y: centerY + 300,
+			velocity: 30
+		});
+
+		transport2.logic = transport2Moving;
+
+		// cоздаем метеоритное поле
+		EntitiesFactory.createMeteors({
+			game: game,
+			calculateMeteorCoordinateY: calculateMeteorCoordinateY,
+			startX: centerX - 500,
+			finishX: centerX + 1500,
+			step: 60,
+			count: 2,
+			radius: 200
+		});
+
 		createPlayer(game);
 
 	}
 
 	/**
-	 * Создаем метеоритное поле по краям.
-	 * @param game
+	 * Данная функция, определяет, то как должна изменятся значение координаты y, в
+	 * зависимости от значения координаты x, при ортрисовке метеоритного поля.
 	 */
-	function createMeteorField(game) {
+	function calculateMeteorCoordinateY(x) {
 
-		EntitiesFactory.createMeteorSphere({game: game, x: centerX - 750, y: centerY + 275, radius: 500});
-		EntitiesFactory.createMeteorSphere({game: game, x: centerX - 750, y: centerY - 1650, radius: 500});
+		if (x < centerY) {
 
-		EntitiesFactory.createMeteorSphere({game: game, x: centerX - 1250, y: centerY - 1650, radius: 500});
-		EntitiesFactory.createMeteorSphere({game: game, x: centerX - 1600, y: centerY + 200, radius: 500});
+			return centerY + 450;
 
-		EntitiesFactory.createMeteorSphere({game: game, x: centerX - 2100, y: centerY - 900, radius: 500});
+		}
 
+		if(x < centerY + 600) {
+
+			return centerY + 400;
+
+		}
+
+		if(x < centerY + 1100) {
+
+			return centerY + 350;
+
+		}
+
+		return centerY + 100;
 	}
 
-	// Метод логики корабля пользователя для 9 подурока.
+	/**
+	 * 	Метод логики корабля пользователя для 9 подурока.
+ 	 */
 	function moveToEnemy (obj) {
 
 		// Объект в зоне поражения EMP?
-		var inDetectionRadius = player.distanceTo(enemy.x, enemy.y) < DETECTION_RADIUS;
+		let inDetectionRadius = player.distanceTo(enemy.x, enemy.y) < DETECTION_RADIUS;
 
 		// Всегда следуем за enemy
 		obj.moveToXY(enemy.x, enemy.y);
@@ -97,40 +150,69 @@ function StateWrapper(state) {
 
 			}
 
-		} else {
+		} else if (inDetectionRadius) {
 
-			if (inDetectionRadius) {
-
-				player.stun();
-
-			}
+			player.stun();
 
 		}
+	}
+
+	/**
+	 * Метод логики врага для 9 подурока.
+	 * Враг просто курсирует по заданным точкам
+	 */
+	function enemyMoving(obj) {
+
+		let points = [new Phaser.Point(centerX - 500, centerY - 500),
+			          new Phaser.Point(centerX - 500, centerY - 1000),
+		              new Phaser.Point(centerX - 1500, centerY - 1000),
+			          new Phaser.Point(centerX - 1500, centerY - 500)];
+
+		pointIndex1 = moveToNextPoint(obj, points, pointIndex1);
 
 	}
 
-	// Методо лигики врага для 9 подурока.
-	// Враг просто курсирует по заданным точкам
-	function enemyMoving (obj) {
+	/**
+	 * Метод логики курсирования для первого транспорта.
+	 */
+	function transport1Moving(obj) {
 
-		let x = [centerX - 500, centerX - 500,  centerX - 1500, centerX - 1500];
-		let y = [centerY - 500, centerY - 1000, centerY - 1000, centerY - 500];
+		let points = [new Phaser.Point(centerX + 650, centerY - 50), new Phaser.Point(centerX + 800, centerY - 800)];
 
-		if (obj.distanceTo(x[pointIndex], y[pointIndex]) < DISTANCE_TO_ACCEPT_POINT) {
+		pointIndex2 = moveToNextPoint(obj, points, pointIndex2);
 
-			if (pointIndex === x.length - 1) {
+	}
+
+	/**
+	 * Метод логики курсирования для второго транспорта.
+	 */
+	function transport2Moving(obj) {
+
+		let points = [new Phaser.Point(centerX + 650, centerY - 50), new Phaser.Point(centerX + 650, centerY + 300)];
+
+		pointIndex3 = moveToNextPoint(obj, points, pointIndex3);
+
+	}
+
+	function moveToNextPoint(obj, points, pointIndex) {
+
+		if (obj.distanceTo(points[pointIndex].x, points[pointIndex].y) < DISTANCE_TO_ACCEPT_POINT) {
+
+			pointIndex++;
+
+			if (pointIndex >= points.length) {
 
 				pointIndex = 0;
 
-			} else {
-
-				pointIndex++;
-
 			}
+
+		} else {
+
+			obj.moveToXY(points[pointIndex].x, points[pointIndex].y);
 
 		}
 
-		obj.moveToXY(x[pointIndex], y[pointIndex]);
+		return pointIndex;
 
 	}
 
@@ -149,6 +231,8 @@ function StateWrapper(state) {
 			player:   true,
 			velocity: 20
 		});
+
+		player.bringToTop();
 
 		player.angle = 270;
 		player.alpha = 0;
