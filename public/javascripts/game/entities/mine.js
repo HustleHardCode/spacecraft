@@ -6,6 +6,8 @@ let World = require('./world');
 let GameAudioFactory = require('../audio');
 let AnimationFactory = require('../animations');
 
+let lodash = require('lodash');
+
 // Экспорт
 module.exports = MineFactory();
 
@@ -20,8 +22,6 @@ function MineFactory() {
 
 	let t = {};
 
-	let game = {};
-
 	t.createMineField = createMineField;
 
 	return t;
@@ -30,8 +30,6 @@ function MineFactory() {
 	 * Создание минного поля.
 	 */
 	function createMineField(game, x, y) {
-
-		this.game = game;
 
 		// Создать минное поле
 		let mineXY = new Phaser.Point(x, y);
@@ -51,18 +49,12 @@ function MineFactory() {
 					let deltaY = 20 * i;
 					let deltaX = 20 * j;
 
-					let m = Prefabs({
+					createMine({
 						game: game,
-						preload: 'mine',
-						x: 	 mineXY.x + deltaX,
-						y: 	 mineXY.y + deltaY,
-						group: mines,
-						scale: 0.15
+						x: mineXY.x + deltaX,
+						y: mineXY.y + deltaY,
+						group: mines
 					});
-
-					World.pushObject(m);
-
-					addMineLogic(m, game);
 
 				}
 
@@ -70,60 +62,93 @@ function MineFactory() {
 		}
 	}
 
-	function addMineLogic(mine, game) {
+	function createMine({game, x, y, group}) {
+
+		let mine = {};
+
+		mine.target = {};
+
+		mine = Prefabs({
+			game: game,
+			preload: 'mine',
+			x: 	 x,
+			y: 	 y,
+			group: group,
+			scale: 0.15
+		});
 
 		mine.events.onKilled.add(onKillCallback, mine);
 
 		mine.audio = GameAudioFactory(game, mine);
 
 		mine.update = update;
-	}
 
-	/**
-	 * Логика уничтожения корабля.
-	 */
-	function onKillCallback() {
+		return mine;
 
-		var x = this.x;
-		var y = this.y;
+		/**
+		 * Логика уничтожения корабля.
+		 */
+		function onKillCallback() {
 
-		AnimationFactory.playExplosions([{
-			x: x,
-			y: y,
-			scale: 0.2
-		}]);
+			var x = mine.x;
+			var y = mine.y;
 
-		// Удаляем объект из мира.
-		World.removeObject();
+			AnimationFactory.playExplosions([{
+				x: x,
+				y: y,
+				scale: 0.2
+			}]);
 
-		// Играем аудио взрыва.
-		this.audio.playExplosion();
-	}
+			// Удаляем объект из мира.
+			World.removeObject(mine);
 
-	/**
-	 * Обработка пересечений.
-	 */
-	function overlapHandler(sprite, mine) {
+			// Играем аудио взрыва.
+			mine.audio.playExplosion();
+		}
 
-		// Наносим два урона
-		sprite.damage(DAMAGE_MINE);
+		/**
+		 * Обработка пересечений.
+		 */
+		function overlapHandler(sprite, mine) {
 
-		mine.kill();
+			// Наносим два урона
+			sprite.damage(DAMAGE_MINE);
 
-	}
+			mine.kill();
 
-	function update() {
+		}
 
-		var sprites = World.getObjects();
+		function tryToKillTarget() {
 
-		sprites.forEach(target => {
+			game.physics.arcade.moveToObject(mine, mine.target, MINE_SPEED);
 
-			if(Phaser.Point.distance(t, target) <= DISTANCE_TO_TARGET) {
+			game.physics.arcade.overlap(mine.target, mine, overlapHandler);
 
-				game.physics.arcade.moveToObject(t, target, MINE_SPEED);
+		}
 
-				game.physics.arcade.overlap(target, t, overlapHandler);
+		function update() {
+
+			if(lodash.isEmpty(mine.target)) {
+
+				let sprites = World.getObjects();
+
+				for(let target of sprites) {
+
+					if(Phaser.Point.distance(mine, target) <= DISTANCE_TO_TARGET) {
+
+						mine.target = target;
+
+						tryToKillTarget();
+
+						break;
+					}
+				}
+
+			} else {
+
+				tryToKillTarget();
+
 			}
-		});
+		}
 	}
 }

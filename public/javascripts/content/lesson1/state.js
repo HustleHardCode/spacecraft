@@ -58,7 +58,7 @@ function StateWrapper(state) {
 		// Создать метеоритное поле
 		MeteorFactory.createMeteorField({game, x, y});
 
-		MineFactory.createMineField(game, 1550, 1550);
+		MineFactory.createMineField(game, 1500, 1500);
 
 		// Корабль на верх.
 		player.bringToTop();
