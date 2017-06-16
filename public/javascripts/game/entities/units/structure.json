@@ -1,0 +1,37 @@
+{
+	"needAudio": true,
+	"isRotating": true,
+	"preload": "base",
+	"maxHealth": 1000,
+	"blocks": [
+		{
+			"type": "engineBlock",
+			"angularVelocity": 0.0025,
+			"maxVelocity": 0,
+			"drag": 0,
+			"trail": false
+		}
+	],
+	"killOptions": {
+		"explosion": [{
+			"offsetX": [0, 0],
+			"offsetY": [0, 0]
+		}, {
+			"offsetX": [10, 50],
+			"offsetY": [10, 50],
+			"randomScale": true
+		}, {
+			"offsetX": [10, 100],
+			"offsetY": [10, 100],
+			"randomScale": true
+		}, {
+			"offsetX": [10, 100],
+			"offsetY": [10, 100],
+			"randomScale": true
+		}, {
+			"offsetX": [10, 50],
+			"offsetY": [10, 50],
+			"randomScale": true
+		}]
+	}
+}

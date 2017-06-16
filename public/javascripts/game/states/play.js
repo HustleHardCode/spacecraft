@@ -1,12 +1,13 @@
 'use strict';
 
 // Внешние зависимости.
-var lodash = require('lodash');
+let lodash = require('lodash');
 
 // Внутренние зависимости.
-var CodeLauncher = require('../launcher');
-var World = require('../entities/world');
-var AnimationFactory = require('../animations');
+let CodeLauncher = require('../launcher');
+let World = require('../entities/world');
+let AnimationFactory = require('../animations');
+let Prefabs = require('../entities/prefab');
 
 module.exports = PlayState;
 
@@ -19,19 +20,19 @@ module.exports = PlayState;
 function PlayState(game) {
 
 	// Стандартные границы мира.
-	var BOUNDS = {
+	let BOUNDS = {
 		x:      0,
 		y:      0,
 		width:  4000,
 		height: 4000
 	};
 
-	var t = {};
+	let t = {};
 
-	var params; 		// Параметры инициализации контента.
-	var runner;			// Объект запуска кода обработки.
-	var cursors;		// Объект ввода / вывода.
-	var background;		// Спрайт фона.
+	let params; 		// Параметры инициализации контента.
+	let runner;			// Объект запуска кода обработки.
+	let cursors;		// Объект ввода / вывода.
+	let background;		// Спрайт фона.
 
 	t.updates = []; 	// Объекты обновления.
 
@@ -39,6 +40,7 @@ function PlayState(game) {
 	t.update = update;
 	t.setRunner = setRunner;
 	t.followFor = followFor;
+	t.addToBackground = addToBackground;
 	t.pushContextParameters = pushContextParameters;
 
 	return t;
@@ -49,12 +51,13 @@ function PlayState(game) {
 	function create() {
 
 		// Границы мира
-		var bounds = t.bounds || BOUNDS;
+		let bounds = t.bounds || BOUNDS;
 
 		game.world.setBounds(bounds.x, bounds.y, bounds.width, bounds.width);
 
 		// Создание бэкграунда
 		background = game.add.tileSprite(0, 0, game.width, game.height, 'starField');
+
 		background.fixedToCamera = true;
 
 		// Выполняем инициализацию контейнера игровых объектов.
@@ -66,6 +69,15 @@ function PlayState(game) {
 
 		// Объект ввода / вывода
 		cursors = game.input.keyboard.createCursorKeys();
+	}
+
+	/**
+	 * Добавить объект на задний фон.
+	 */
+	function addToBackground({preload, cameraOffset}) {
+
+		t.updates.push(Prefabs({game, preload, cameraOffset}));
+
 	}
 
 	/**
@@ -91,7 +103,7 @@ function PlayState(game) {
 	 */
 	function pushParametersIntoState() {
 
-		var needRepeat = t.onContextLoaded(game, params);
+		let needRepeat = t.onContextLoaded(game, params);
 
 		// Если повтор задания не нужен,
 		// то убираем функцию.
@@ -136,19 +148,19 @@ function PlayState(game) {
 	 */
 	function followFor(object) {
 
-		var view = game.camera.view;
+		let view = game.camera.view;
 
-		var x = Math.max(object.width, 100);
-		var y = Math.max(object.height, 200);
+		let x = Math.max(object.width, 100);
+		let y = Math.max(object.height, 200);
 
-		var w = Math.round(view.halfWidth - 2 * x);
-		var h = Math.round(view.height - 2 * y);
+		let w = Math.round(view.halfWidth - 2 * x);
+		let h = Math.round(view.height - 2 * y);
 
-		var deadzoneCenterX = x + w / 2;
-		var deadzoneCenterY = y + h / 2;
+		let deadzoneCenterX = x + w / 2;
+		let deadzoneCenterY = y + h / 2;
 
-		var viewX = Math.round(object.x + view.halfWidth);
-		var viewY = Math.round(object.y + view.halfHeight);
+		let viewX = Math.round(object.x + view.halfWidth);
+		let viewY = Math.round(object.y + view.halfHeight);
 
 		game.camera.follow(object);
 		game.camera.deadzone = new Phaser.Rectangle(x, y, w, h);

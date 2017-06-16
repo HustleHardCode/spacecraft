@@ -1,11 +1,14 @@
 'use strict';
 
 // Зависимости
-var EntitiesFactory = require('../../game/entities');
-var CodeLauncher = require('../../game/launcher');
-var Random = require('../../utils/random');
+let EntitiesFactory = require('../../game/entities');
+let CodeLauncher = require('../../game/launcher');
+let Random = require('../../utils/random');
 
-var Api = require('./api');
+let Api = require('./api');
+
+let MeteorFactory = EntitiesFactory.MeteorFactory;
+let MineFactory = EntitiesFactory.MineFactory;
 
 module.exports = StateWrapper;
 
@@ -16,12 +19,9 @@ module.exports = StateWrapper;
  */
 function StateWrapper(state) {
 
-	var t = state;
+	let t = state;
 
-	var player;		// Игрок
-	var mines; 		// Мины
-
-	var mineXY;		// Координаты мин
+	let player;		// Игрок
 
 	t.entities = entities;
 
@@ -32,32 +32,33 @@ function StateWrapper(state) {
 	 */
 	function entities(game) {
 
-		var x = game.world.centerX;
-		var y = game.world.centerY;
+		let x = game.world.centerX;
+		let y = game.world.centerY;
 
-		EntitiesFactory.createResearchCenter({
-			game: game,
-			x: 400,
-			y: 2000
+		EntitiesFactory.createStructure({
+			preload: 'researchCenter',
+			game:    game,
+			x:       400,
+			y:       2000
 		});
 
 		// Создать транспорт
 		player = EntitiesFactory.createTransport({
-			game: game,
-			x: x,
-			y: y,
+			game:   game,
+			x:      x,
+			y:      y,
 			player: true
 		});
 
-		player.rotation = - Math.PI / 2;
+		player.rotation = -Math.PI / 2;
 
 		// API для урока
 		player.api = Api(player);
 
 		// Создать метеоритное поле
-		EntitiesFactory.createMeteorField({game, x, y});
+		MeteorFactory.createMeteorField({game, x, y});
 
-		mineField(game);
+		MineFactory.createMineField(game, 1550, 1550);
 
 		// Корабль на верх.
 		player.bringToTop();
@@ -68,44 +69,4 @@ function StateWrapper(state) {
 		CodeLauncher.setArguments(player.api);
 
 	}
-
-	/**
-	 * Создание минного поля.
-     */
-	function mineField(game) {
-
-		// Создать минное поле
-		mineXY = new Phaser.Point(1550, 1550);
-
-		// Создаем группу из мин
-		mines = game.add.group();
-
-		// Создаем поле мин в шахматном порядке
-		for (let i = 0; i < 10; i++) {
-
-			for(let j = 0; j < 10; j++) {
-
-				// Складываем индексы и мод 2,
-				// 0 и 1 в таком случае будут чередоваться
-				if((i + j) % 2 === 0) {
-
-					let deltaY = 20 * i;
-					let deltaX = 20 * j;
-
-					EntitiesFactory.createMine({
-						game: game,
-						x: mineXY.x + deltaX,
-						y: mineXY.y + deltaY,
-						scale: 0.15,
-						group: mines,
-						damage: 2,
-						distance: 100,
-						speed: 100
-					});
-
-				}
-			}
-		}
-	}
-
 }

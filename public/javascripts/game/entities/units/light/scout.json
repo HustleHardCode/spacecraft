@@ -1,0 +1,22 @@
+{
+	"needAudio": true,
+	"preload": "scout",
+	"maxHealth": 4,
+	"blocks": [
+		{
+			"type": "engineBlock",
+			"drag": 130,
+			"maxVelocity": 60,
+			"angularVelocity": 0.6,
+			"trails": [
+				{
+					"trailScale:": 0.05
+				}
+			]
+		},
+		{
+			"type": "scannerBlock",
+			"maxDiameter": 350
+		}
+	]
+}

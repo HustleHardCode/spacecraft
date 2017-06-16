@@ -13,7 +13,6 @@ function Game() {
 	// that / this
 	var t = {};
 
-	t.preload = require('./preload.json');			// Ресурсы
 	t.state = require('./state');					// Обертка вокруг игрового состояния
 
 	return t;

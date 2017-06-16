@@ -22,11 +22,11 @@ function OperatorsAndOperands() {
 							'</ul>',
 		character:    [{
 			audio: 'audio/lesson1/3-1',
-			css:   'astromen-img'
-			// video: {
-			// 	url: 'https://www.youtube.com/watch?v=bBIz32KOULM&list=PLJOe7BmEsRtLXM3UnEhvEWDU3ZBe-Us9r&index=3',
-			// 	content: 'Об математических операторах от гуру <b>JavaScript</b> - команды <b>Хекслет</b>. Прямиком из 2017 года!'
-			// }
+			css:   'astromen-img',
+			video: {
+				url: 'https://youtu.be/X_QjS0EjteI',
+				content: 'Об математических операторах от гуру <b>JavaScript</b> - команды <b>Хекслет</b>. Прямиком из 2017 года!'
+			}
 		}]
 	};
 

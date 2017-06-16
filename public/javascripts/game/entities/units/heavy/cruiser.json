@@ -1,0 +1,31 @@
+{
+	"needAudio": true,
+	"preload": "cruiser",
+	"maxHealth": 100,
+	"blocks": [
+		{
+			"type": "engineBlock",
+			"drag": 10,
+			"maxVelocity": 20,
+			"angularVelocity": 0.1,
+			"trails": [
+				{
+					"trailY": -10,
+					"trailX": 17
+				},
+				{
+					"trailY": 10,
+					"trailX": 17
+				}
+			]
+		},
+		{
+			"type": "scannerBlock",
+			"maxDiameter": 700
+		},
+		{
+			"type": "shieldBlock",
+			"scale": 0.9
+		}
+	]
+}

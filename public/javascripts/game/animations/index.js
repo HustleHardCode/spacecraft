@@ -19,8 +19,8 @@ function AnimationsFactory() {
 	let game;
 
 	t.initialization = initialization;
-	t.playExplosion = playExplosion;
 	t.playExplosions = playExplosions;
+	t.playExplosion = Explosion.play;
 	t.playWarpEffect = WarpEffect.play;
 
 	return t;
@@ -37,15 +37,6 @@ function AnimationsFactory() {
 		// Анимации взрыва.
 		Explosion.initialization(game);
 		WarpEffect.initialization(game);
-
-	}
-
-	/**
-	 * Анимация взрыва.
-	 */
-	function playExplosion(args) {
-
-		Explosion.play(args);
 
 	}
 

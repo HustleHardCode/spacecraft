@@ -61,6 +61,7 @@ function CargoBlock(spec) {
 	 */
 	function isEmpty() {
 
-		return lodash.isEqual('Пусто', cargoContainer)
+		return lodash.isEqual('Пусто', cargoContainer);
+
 	}
 }

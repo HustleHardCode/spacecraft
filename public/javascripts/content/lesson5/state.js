@@ -1,9 +1,11 @@
 'use strict';
 
-var EntitiesFactory = require('../../game/entities');
-var CodeLauncher = require('../../game/launcher');
+let EntitiesFactory = require('../../game/entities');
+let CodeLauncher = require('../../game/launcher');
 
-var Api = require('./api');
+let Api = require('./api');
+
+let MeteorFactory = EntitiesFactory.MeteorFactory;
 
 module.exports = StateWrapper;
 
@@ -61,13 +63,13 @@ function StateWrapper(state) {
 	 */
 	function createMeteorField(game) {
 
-		EntitiesFactory.createMeteorSphere({game: game, x: centerX - 750, y: centerY + 275, radius: 500});
-		EntitiesFactory.createMeteorSphere({game: game, x: centerX - 750, y: centerY - 1650, radius: 500});
+		MeteorFactory.createMeteorSphere({game: game, x: centerX - 750, y: centerY + 275, radius: 500});
+		MeteorFactory.createMeteorSphere({game: game, x: centerX - 750, y: centerY - 1650, radius: 500});
 
-		EntitiesFactory.createMeteorSphere({game: game, x: centerX - 1250, y: centerY - 1650, radius: 500});
-		EntitiesFactory.createMeteorSphere({game: game, x: centerX - 1600, y: centerY + 200, radius: 500});
+		MeteorFactory.createMeteorSphere({game: game, x: centerX - 1250, y: centerY - 1650, radius: 500});
+		MeteorFactory.createMeteorSphere({game: game, x: centerX - 1600, y: centerY + 200, radius: 500});
 
-		EntitiesFactory.createMeteorSphere({game: game, x: centerX - 2100, y: centerY - 900, radius: 500});
+		MeteorFactory.createMeteorSphere({game: game, x: centerX - 2100, y: centerY - 900, radius: 500});
 
 	}
 
@@ -75,7 +77,7 @@ function StateWrapper(state) {
 	function moveToEnemy (obj) {
 
 		// Объект в зоне поражения EMP?
-		var inDetectionRadius = player.distanceTo(enemy.x, enemy.y) < DETECTION_RADIUS;
+		let inDetectionRadius = player.distanceTo(enemy.x, enemy.y) < DETECTION_RADIUS;
 
 		// Всегда следуем за enemy
 		obj.moveToXY(enemy.x, enemy.y);

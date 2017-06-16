@@ -8,7 +8,7 @@ var AnimationFactory = require('../../../animations');
  */
 module.exports = Warp;
 
-function Warp({spaceCraft, warpScale = 0.5}) {
+function Warp({unit, warpScale = 0.5}) {
 
 	let t = {};
 
@@ -26,16 +26,16 @@ function Warp({spaceCraft, warpScale = 0.5}) {
 	 */
 	function play() {
 
-		spaceCraft.alpha = 0;
+		unit.alpha = 0;
 
 		AnimationFactory.playWarpEffect({
-			x: spaceCraft.x,
-			y: spaceCraft.y,
-			angle: spaceCraft.angle + 90,
+			x: unit.x,
+			y: unit.y,
+			angle: unit.angle + 90,
 			scale: warpScale
 		});
 
-		spaceCraft.audio.playWarpEffect();
+		unit.audio.playWarpEffect();
 
 		changeAlpha = true;
 
@@ -49,12 +49,13 @@ function Warp({spaceCraft, warpScale = 0.5}) {
 		if (changeAlpha) {
 
 			// Постепенный выход из инвиза.
-			if (spaceCraft.alpha < 1) {
+			if (unit.alpha < 1) {
 
-				spaceCraft.alpha += 0.05;
+				unit.alpha += 0.05;
 
 			} else {
 
+				unit.alpha = 1;
 				changeAlpha = false;
 
 			}

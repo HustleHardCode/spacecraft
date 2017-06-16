@@ -59,7 +59,7 @@ function IfOperation() {
 				link.set('vertices', [{x: 125, y: 100}]);
 			},
 			video:   {
-				url:   'https://www.youtube.com/watch?v=kPe8Fojxh6k',
+				url:   'https://www.youtube.com/watch?v=kPe8Fojxh6k&index=4&list=PLJOe7BmEsRtLXM3UnEhvEWDU3ZBe-Us9r',
 				content: 'Возможно знакомое вам лицо, назовем его Билл, об операторе <b>if</b>.'
 			}
 		}],

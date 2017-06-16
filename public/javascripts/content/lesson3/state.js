@@ -1,9 +1,11 @@
 'use strict';
 
-var EntitiesFactory = require('../../game/entities');
-var CodeLauncher = require('../../game/launcher');
+let EntitiesFactory = require('../../game/entities');
+let CodeLauncher = require('../../game/launcher');
 
-var Api = require('./api');
+let Api = require('./api');
+
+let MeteorFactory = EntitiesFactory.MeteorFactory;
 
 module.exports = StateWrapper;
 
@@ -13,11 +15,11 @@ module.exports = StateWrapper;
 
 function StateWrapper(state) {
 
-	var t = state;
+	let t = state;
 
-	var player;
-	var graphics;	// Графика
-	var sensor;		// Датчик
+	let player;
+	let graphics;	// Графика
+	let sensor;		// Датчик
 
 	t.entities = entities;
 	t.logic = logic;
@@ -35,7 +37,7 @@ function StateWrapper(state) {
 
 	function createNewCruiser(game) {
 
-		var cruiser = EntitiesFactory.createCruiser({game: game, x: 1000, y: 2000});
+		let cruiser = EntitiesFactory.createCruiser({game: game, x: 1000, y: 2000});
 
 		cruiser.rotation = -Math.PI / 2;
 
@@ -63,12 +65,12 @@ function StateWrapper(state) {
 
 	function createSpaceCraftsInWorld(game) {
 
-		var scout = EntitiesFactory.createScout({game: game, x: 2000, y: 2000});
+		let scout = EntitiesFactory.createScout({game: game, x: 2000, y: 2000});
 		scout.rotation = 0.5 * Math.PI / 2;
 
-		var s1 = EntitiesFactory.createScout({game: game, x: 2055, y: 1995});
-		var s2 = EntitiesFactory.createScout({game: game, x: 2101, y: 1890});
-		var fighter = EntitiesFactory.createFighter({game: game, x: 400, y: 150});
+		let s1 = EntitiesFactory.createScout({game: game, x: 2055, y: 1995});
+		let s2 = EntitiesFactory.createScout({game: game, x: 2101, y: 1890});
+		let fighter = EntitiesFactory.createFighter({game: game, x: 400, y: 150});
 
 		s1.rotation = -3.85 * Math.PI / 2;
 		s2.rotation = -4.25 * Math.PI / 2;
@@ -83,13 +85,18 @@ function StateWrapper(state) {
 	 */
 	function entities(game) {
 
-		var x = game.world.centerX;
-		var y = game.world.centerY;
+		let x = game.world.centerX;
+		let y = game.world.centerY;
 
 		// Инициализация графики
 		graphics = game.add.graphics(0, 0);
 
-		EntitiesFactory.createResearchCenter({game: game, x: 400, y: 2000});
+		EntitiesFactory.createStructure({
+			preload: 'researchCenter',
+			game: game,
+			x: 400,
+			y: 2000
+		});
 
 		// Создать транспорт
 		player = EntitiesFactory.createHarvester({
@@ -107,11 +114,11 @@ function StateWrapper(state) {
 		createNewCruiser(game);
 
 		// Создать метеоритное поле
-		EntitiesFactory.createMeteorField({game, x, y});
+		MeteorFactory.createMeteorField({game, x, y});
 
 		createSpaceCraftsInWorld(game);
 
-		sensor = EntitiesFactory.createStaticUnit({
+		sensor = EntitiesFactory.create({
 			game: game,
 			x: 2170,
 			y: 2080,
@@ -140,8 +147,8 @@ function StateWrapper(state) {
 	 */
 	function patrol(spacecraft, x1, y1, x2, y2) {
 
-		var x = x1;
-		var y = y1;
+		let x = x1;
+		let y = y1;
 
 		spacecraft.logic = function (h) {
 

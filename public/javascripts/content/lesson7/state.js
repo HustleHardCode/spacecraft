@@ -1,13 +1,15 @@
 'use strict';
 
+// Библиотеки
+var moment = require('moment');
+
+// Зависимости
 var EntitiesFactory = require('../../game/entities');
 var CodeLauncher = require('../../game/launcher');
-
 var Random = require('../../utils/random');
+let MeteorFactory = EntitiesFactory.MeteorFactory;
 
 var Api = require('./api');
-
-var moment = require('moment');
 
 module.exports = StateWrapper;
 
@@ -58,14 +60,14 @@ function StateWrapper(state) {
 		var worldCenterX = game.world.centerX;
 		var worldCenterY = game.world.centerY;
 
-		var planet = EntitiesFactory.createPlanet({
+		var planet = EntitiesFactory.createStructure({
 			game: game,
 			x: worldCenterX + 700,
 			y: worldCenterY + 200,
 			preload: 'planet'
 		});
 
-		EntitiesFactory.createMeteorSphere({
+		MeteorFactory.createMeteorSphere({
 			game: game,
 			x: worldCenterX - 400,
 			y: worldCenterY - 400,
@@ -83,12 +85,14 @@ function StateWrapper(state) {
 
 		createNewPlayer();
 
-		sensor = EntitiesFactory.createSensor({
+		sensor = EntitiesFactory.create({
 			game: game,
 			x: worldCenterX - 500,
 			y: worldCenterY - 500,
 			preload: 'sensor',
-			faction: 2
+			faction: 2,
+			maxHealth: 1,
+			needAudio: true
 		});
 
 		sensor.visible = false;
@@ -165,6 +169,8 @@ function StateWrapper(state) {
 	}
 
 	function onContextLoaded(game, {subIndex: index}) {
+
+		player.logic = null;
 
 		if(index === 2) {
 

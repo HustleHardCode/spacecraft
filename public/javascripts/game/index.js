@@ -54,7 +54,7 @@ function Game() {
 		// Игровые состояния.
 		StatesManager.createBootState(t.phaser, 'boot');
 
-		preloadState = StatesManager.createPreloadState(t.phaser, 'preload', content.preload);
+		preloadState = StatesManager.createPreloadState(t.phaser, 'preload');
 		playState = StatesManager.createWrappedPlayState(t.phaser, 'play', content.state);
 
 		// Стартуем boot состояние.

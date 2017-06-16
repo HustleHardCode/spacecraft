@@ -1,30 +1,14 @@
 'use strict';
 
+// Библиотеки
+let lodash = require('lodash');
+
 // Зависимости
+let Unit = require('./units/unit');
 
-// Сущности
-var Meteor = require('./units/static/meteor');
-var Mine = require('./units/static/mine');
-var StaticUnit = require('./units/static/static-unit');
-
-var Cruiser = require('./units/heavy/cruiser');
-var Carrier = require('./units/heavy/carrier');
-var Combat = require('./units/heavy/combat');
-var Fighter = require('./units/heavy/fighter');
-
-var Transport = require('./units/light/transport');
-var Harvester = require('./units/light/harvester');
-var Scout = require('./units/light/scout');
-var LightCorvette = require('./units/light/corvette');
-var EbonHawk = require('./units/light/ebonHawk');
-
-var Planet = require('./units/base/planet');
-var ResearchCenter = require('./units/base/research-center');
-var AcademyBase = require('./units/base/academy-base');
-var Base = require('./units/base/base');
-
-var World = require('./world');
-var Random = require('../../utils/random');
+let MeteorFactory = require('./meteor');
+let MineFactory = require('./mine');
+let World = require('./world');
 
 // Экспорт
 module.exports = EntitiesFactory();
@@ -38,104 +22,36 @@ module.exports = EntitiesFactory();
 function EntitiesFactory() {
 
 	// that / this
-	var t = {};
+	let t = {};
 
-	t.createMeteorField = createMeteorField;
-	t.createMeteorSphere = createMeteorSphere;
+	t.MeteorFactory = MeteorFactory;
+	t.MineFactory = MineFactory;
 
-	t.createMine = Mine;
-	t.createStaticUnit = StaticUnit;
+	t.create = create;
 
-	t.createSensor = createByType(StaticUnit);
-	t.createCarrier = createByType(Carrier);
-	t.createBase = createByType(Base);
-	t.createMeteor = createByType(Meteor);
-	t.createTransport = createByType(Transport);
-	t.createHarvester = createByType(Harvester);
-	t.createAcademyBase = createByType(AcademyBase);
-	t.createPlanet = createByType(Planet);
-	t.createFighter = createByType(Fighter);
-	t.createResearchCenter = createByType(ResearchCenter);
-	t.createScout = createByType(Scout);
-	t.createCruiser = createByType(Cruiser);
-	t.createCombat = createByType(Combat);
-	t.createCarriersShip = createByType(LightCorvette);
-	t.createEbonHawk = createByType(EbonHawk);
-	t.createLightCorvette = createByType(LightCorvette);
+	// Сущности
+	t.createCarrier = createByType(require('./units/heavy/carrier.json'));
+	t.createTransport = createByType(require('./units/light/transport'));
+	t.createHarvester = createByType(require('./units/light/harvester'));
+	t.createStructure = createByType(require('./units/structure'));
+	t.createFighter = createByType(require('./units/heavy/fighter'));
+	t.createScout = createByType(require('./units/light/scout'));
+	t.createCruiser = createByType(require('./units/heavy/cruiser'));
+	t.createCombat = createByType(require('./units/heavy/combat'));
+	t.createCarriersShip = createByType(require('./units/light/corvette'));
+	t.createEbonHawk = createByType(require('./units/light/ebonHawk'));
+	t.createLightCorvette = createByType(require('./units/light/corvette'));
 
 	return t;
 
 	/**
-	 * Создать метеоритное поле.
-	 */
-	function createMeteorField({game, x, y}) {
-
-		let radius = Phaser.Point.distance(new Phaser.Point(x, y),
-										   new Phaser.Point(0, 0));
-
-		let shift = 10;
-		let count = 2 * x;
-		let randomSize = 200;
-
-		for (let i = 0; i < count; i = i + shift) {
-
-			let j = Math.sqrt(radius * radius - i * i);
-
-			let m = t.createMeteor({
-				game: game,
-				x: 	 i + Random.randomInt(0, randomSize),
-				y: 	 j + Random.randomInt(0, randomSize)
-			});
-
-			setMeteorParameters(m);
-		}
-
-	}
-
-	/**
-	 * Создать метеоритное поле округлое.
-	 */
-	function createMeteorSphere({game, x, y, radius}) {
-
-		let meteorX;
-		let meteorY;
-
-		for(let i = 0; i <= 100; i++) {
-
-			meteorX = Random.randomInt(x - radius, x + radius);
-			meteorY = Random.randomInt(y - radius, y + radius);
-
-			// Проверяем попадают ли координаты в радуик окружности
-			if(Math.pow(meteorX - x, 2) + Math.pow(meteorY - y, 2) <= Math.pow(radius, 2)) {
-
-				let m = t.createMeteor({
-					game: game,
-					x: 	 meteorX,
-					y: 	 meteorY
-				});
-
-				setMeteorParameters(m);
-			}
-
-		}
-
-	}
-
-	function setMeteorParameters(m) {
-
-		m.scale.setTo(Random.randomInt(1, 3) * 0.1);
-		m.body.angularVelocity = Random.randomInt(1, 10) * 0.2;
-
-	}
-
-	/**
 	 * Обертка вокруг метода создания.
 	 */
-	function createByType(type) {
+	function createByType(typeArgs) {
 
-		return function (args) {
+		return function (userArgs) {
 
-			return create(args, type);
+			return create(lodash.assign({}, typeArgs, userArgs));
 
 		}
 
@@ -143,23 +59,13 @@ function EntitiesFactory() {
 
 	/**
 	 * Функция создания объекта.
-	 *
-	 * @param args параметры
-	 * @param args.game игра
-	 * @param args.x координата X объекта
-	 * @param args.y координата Y объекта
-	 * @param args.player объект игрока
-	 * @param args.faction фракция объекта
-	 * @param args.preload объект спрайта
-	 * @param args.factory фабрика объектов
-	 * @param createFunction функция создания юнита
 	 */
-	function create(args, createFunction) {
+	function create(args) {
 
 		// Если фабрика не задана, задаем текущую.
 		args.factory = args.factory || t;
 
-		let unit = createFunction(args);
+		let unit = Unit(args);
 		let id = World.pushObject(unit);
 
 		// Задаем как объект игрока, если этот корабль юзера.
