@@ -52,24 +52,24 @@ function WelcomeController($scope,
 
 	$scope.userInfo = userInfoData;
 
-	// Т.к. в новой версси графиков нельзя переобпределить цвет
+	// Т.к. в новой версси графиков нельзя переопределить цвет
 	// графки при новедении, необходимо задать общую настройку цветов.
 	// backgroundColor - цвет при наведении(hover)
 	// pointBackgroundColor - цвет графика в обычном состоянии(да да бред но это так)
 	$scope.pieChartColors = [{
-		backgroundColor: '#C5C8C0', // Первая половинка пирога
+		backgroundColor: '#435560', // Первая половинка пирога
 		pointBackgroundColor: '#152B39',
-		pointHoverBackgroundColor: '#152B35',
+		pointHoverBackgroundColor: '#152B37',
 		borderColor: '#152B39',
 		pointBorderColor: '#152B39',
-		pointHoverBorderColor: '#152B35'
+		pointHoverBorderColor: '#152B37'
 	}, {
-		backgroundColor: '#C5C8C0', // Вторая половинка графика
+		backgroundColor: '#C5C8C3', // Вторая половинка графика
 		pointBackgroundColor: '#C5C8C6',
-		pointHoverBackgroundColor: '#C5C8C1',
+		pointHoverBackgroundColor: '#C5C8C4',
 		borderColor: '#C5C8C1',
 		pointBorderColor: '#C5C8C1',
-		pointHoverBorderColor: '#C5C8C1'
+		pointHoverBorderColor: '#C5C8C4'
 	}];
 
 	formDataForChart(lessonStatisticsData);

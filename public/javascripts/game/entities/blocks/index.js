@@ -27,42 +27,42 @@ function BlocksFactory() {
 	 *
 	 * @type {EngineBlock}
 	 */
-	t.addEngineBlock = EngineBlock;
+	t.engineBlock = EngineBlock;
 
 	/**
 	 * Добавляем щит к юниту.
 	 *
 	 * @type {ShieldBlock}
 	 */
-	t.addShieldBlock = ShieldBlock;
+	t.shieldBlock = ShieldBlock;
 
 	/**
 	 * Добавляем сканер к юниту.
 	 *
 	 * @type {ScannerBlock}
 	 */
-	t.addScannerBlock = ScannerBlock;
+	t.scannerBlock = ScannerBlock;
 
 	/**
 	 * Добавляем грузовой отсек к юниту.
 	 *
 	 * @type {CargoBlock}
 	 */
-	t.addCargoBlock = CargoBlock;
+	t.cargoBlock = CargoBlock;
 
 	/**
 	 * Добавляем блок создания к юниту.
 	 *
 	 * @type {CarrierBlock}
 	 */
-	t.addCarrierBlock = CarrierBlock;
+	t.carrierBlock = CarrierBlock;
 
 	/**
 	 * Добавляем блок оружия к юниту.
 	 *
 	 * @type {WeaponBlock}
 	 */
-	t.addWeaponBlock = WeaponBlock;
+	t.weaponBlock = WeaponBlock;
 
 	return t;
 

@@ -26,14 +26,8 @@ function AcademyProgram() {
 		}, {
 			audio: 'audio/lesson2/1-2',
 			css:   'astrogirl-img',
-			hint:  [
-				{
-					'next .video-content-hint': 'Так кто же эти загадочные пилоты-инженеры?',
-					'nextButton':        {text: 'Далее'},
-					'showSkip':          false
-				}
-			],
 			video: {
+				hide: true,
 				url:     'https://www.youtube.com/watch?v=kvIFJNafsC4&index=6&list=PLJOe7BmEsRtLXM3UnEhvEWDU3ZBe-Us9r',
 				content: 'Опытные пилоты конгломерата <b>Яндекс</b> расскажут, чем они занимаются.'
 			}

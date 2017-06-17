@@ -1,5 +1,7 @@
 'use strict';
 
+var resources = require('./preload.json');
+
 module.exports = PreloadState;
 
 /**
@@ -15,6 +17,7 @@ function PreloadState(game) {
 	var onSuccessful;
 
 	t.isPreloading = true;
+	t.resources = resources;
 
 	t.preload = preload;
 	t.create = create;

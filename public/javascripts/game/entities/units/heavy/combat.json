@@ -1,0 +1,77 @@
+{
+	"needAudio": true,
+	"preload": "combat1",
+	"maxHealth": 150,
+	"blocks": [
+		{
+			"type": "weaponBlock"
+		},
+		{
+			"type": "engineBlock",
+			"drag": 10,
+			"maxVelocity": 15,
+			"angularVelocity": 0.15,
+			"trails": [
+				{
+					"trailY": -3,
+					"trailScale": 0.1
+				},
+				{
+					"trailY": 3,
+					"trailScale": 0.1
+				},
+				{
+					"trailY": -18
+				},
+				{
+					"trailY": 18
+				}
+			]
+		},
+		{
+			"type": "scannerBlock",
+			"maxDiameter": 700
+		},
+		{
+			"type": "shieldBlock",
+			"scale": 0.7
+		}
+	],
+	"killOptions": {
+		"explosion": [
+			{
+				"offsetX": [
+					0,
+					0
+				],
+				"offsetY": [
+					0,
+					0
+				],
+				"randomScale": true
+			},
+			{
+				"offsetX": [
+					10,
+					50
+				],
+				"offsetY": [
+					10,
+					50
+				],
+				"randomScale": true
+			},
+			{
+				"offsetX": [
+					10,
+					50
+				],
+				"offsetY": [
+					10,
+					50
+				],
+				"randomScale": true
+			}
+		]
+	}
+}

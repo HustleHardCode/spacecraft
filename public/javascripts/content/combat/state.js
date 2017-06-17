@@ -37,7 +37,7 @@ function StateWrapper(state) {
 		var height = bounds.height;
 		var width = bounds.width;
 
-		EntitiesFactory.createBase({
+		EntitiesFactory.createStructure({
 			game: game,
 			x: height - 300,
 			y: 300,
@@ -45,7 +45,7 @@ function StateWrapper(state) {
 			faction: 1
 		});
 
-		EntitiesFactory.createBase({
+		EntitiesFactory.createStructure({
 			game: game,
 			x: 300,
 			y: width - 300,

@@ -1,0 +1,37 @@
+[
+	{
+		"preload": "blueDust",
+		"cameraOffset": {
+			"x": 1300,
+			"y": 1000,
+			"coefficient": -0.31
+		}
+	},
+	{
+		"preload": "blueDust",
+		"cameraOffset": {
+			"x": 1000,
+			"y": 700,
+			"angle": 160,
+			"coefficient": -0.31
+		}
+	},
+	{
+		"preload": "blueDust",
+		"cameraOffset": {
+			"x": 800,
+			"y": 1000,
+			"angle": 120,
+			"coefficient": -0.31
+		}
+	},
+	{
+		"preload": "coldNebula",
+		"cameraOffset": {
+			"x": 500,
+			"y": 700,
+			"angle": 30,
+			"coefficient": -0.31
+		}
+	}
+]

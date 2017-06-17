@@ -89,13 +89,9 @@ function StatesManager() {
 	/**
 	 * Состояние загрузки ресурсов.
 	 */
-	function createPreloadState(game, key, resources) {
+	function createPreloadState(game, key) {
 
-		var state = game.state.add(key, PreloadState);
-
-		state.resources = resources;
-
-		return state;
+		return game.state.add(key, PreloadState);
 
 	}
 

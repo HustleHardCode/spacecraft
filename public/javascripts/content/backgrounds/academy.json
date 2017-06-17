@@ -1,0 +1,42 @@
+[
+	{
+		"preload": "yellowDust",
+		"cameraOffset": {
+			"x": 1300,
+			"y": 1000,
+			"coefficient": -0.31
+		}
+	},
+	{
+		"preload": "yellowDust",
+		"cameraOffset": {
+			"x": 1000,
+			"y": 700,
+			"coefficient": -0.31
+		}
+	},
+	{
+		"preload": "yellowDust",
+		"cameraOffset": {
+			"x": 700,
+			"y": 1100,
+			"coefficient": -0.31
+		}
+	},
+	{
+		"preload": "yellowDust",
+		"cameraOffset": {
+			"x": 800,
+			"y": 700,
+			"coefficient": -0.31
+		}
+	},
+	{
+		"preload": "planet2",
+		"cameraOffset": {
+			"x": 1000,
+			"y": 650,
+			"coefficient": -0.31
+		}
+	}
+]

@@ -1,7 +1,7 @@
 'use strict';
 
-var EntitiesFactory = require('../../game/entities');
-var random = require('../../utils/random');
+let EntitiesFactory = require('../../game/entities');
+let random = require('../../utils/random');
 
 module.exports = StateWrapper;
 
@@ -12,9 +12,10 @@ module.exports = StateWrapper;
  */
 function StateWrapper(state) {
 
-	var t = state;
+	let t = state;
 
 	t.entities = entities;
+	t.backgroundObjects = require('../backgrounds/academy');
 
 	return t;
 
@@ -23,24 +24,25 @@ function StateWrapper(state) {
 	 */
 	function entities(game) {
 
-		var x = game.world.centerX;
-		var y = game.world.centerY;
+		let x = game.world.centerX;
+		let y = game.world.centerY;
 
-		var base = EntitiesFactory.createAcademyBase({
+		let base = EntitiesFactory.createStructure({
  			game: game,
 			x: x,
-			y: y
+			y: y,
+			anchorX: 0.8
 		});
 
-		for (var h = 0; h < 5; h++) {
+		for (let h = 0; h < 5; h++) {
 
-			var i1 = random.randomInt(-225, 225);
-			var i2 = random.randomInt(-225, 225);
+			let i1 = random.randomInt(-225, 225);
+			let i2 = random.randomInt(-225, 225);
 
 			// Рандомим тип корабля
-			var type = random.random() ? EntitiesFactory.createTransport : EntitiesFactory.createHarvester;
+			let type = random.random() ? EntitiesFactory.createTransport : EntitiesFactory.createHarvester;
 
-			var spacecraft = type({
+			let spacecraft = type({
 		  		game: game,
 				x: x + i1,
 		  		y: y + i2

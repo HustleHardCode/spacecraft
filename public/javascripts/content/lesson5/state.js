@@ -1,9 +1,11 @@
 'use strict';
 
-const EntitiesFactory = require('../../game/entities');
-const CodeLauncher = require('../../game/launcher');
+let EntitiesFactory = require('../../game/entities');
+let CodeLauncher = require('../../game/launcher');
 
-const Api = require('./api');
+let Api = require('./api');
+
+let MeteorFactory = EntitiesFactory.MeteorFactory;
 
 module.exports = StateWrapper;
 
@@ -30,6 +32,7 @@ function StateWrapper(state) {
 
 	t.entities = entities;
 	t.onContextLoaded = onContextLoaded;
+	t.backgroundObjects = require('../backgrounds/pirate-bay');
 
 	return t;
 
@@ -41,12 +44,12 @@ function StateWrapper(state) {
 		centerX = game.world.centerX;
 		centerY = game.world.centerY;
 
-		EntitiesFactory.createPirateBase({
-			game: game,
-			x: centerX + 750,
-			y: centerY - 50,
-			velocity: 30
-		});
+		// EntitiesFactory.createPirateBase({
+		// 	game: game,
+		// 	x: centerX + 750,
+		// 	y: centerY - 50,
+		// 	velocity: 30
+		// });
 
 		// Создать транспорт противника
 		enemy = EntitiesFactory.createEbonHawk({
@@ -61,35 +64,35 @@ function StateWrapper(state) {
 		enemy.angle = 220;
 		enemy.logic = enemyMoving;
 
-		// Создаем транспоты 1 и 2
-		let transport = EntitiesFactory.createTransport({
-			game: game,
-			x: centerX + 800,
-			y: centerY - 800,
-			velocity: 30
-		});
-
-		transport.logic = transport1Moving;
-
-		let transport2 = EntitiesFactory.createTransport({
-			game: game,
-			x: centerX + 650,
-			y: centerY + 300,
-			velocity: 30
-		});
-
-		transport2.logic = transport2Moving;
-
-		// cоздаем метеоритное поле
-		EntitiesFactory.createMeteors({
-			game: game,
-			calculateMeteorCoordinateY: calculateMeteorCoordinateY,
-			startX: centerX - 500,
-			finishX: centerX + 1500,
-			step: 60,
-			count: 2,
-			radius: 200
-		});
+		// // Создаем транспоты 1 и 2
+		// let transport = EntitiesFactory.createTransport({
+		// 	game: game,
+		// 	x: centerX + 800,
+		// 	y: centerY - 800,
+		// 	velocity: 30
+		// });
+        //
+		// transport.logic = transport1Moving;
+        //
+		// let transport2 = EntitiesFactory.createTransport({
+		// 	game: game,
+		// 	x: centerX + 650,
+		// 	y: centerY + 300,
+		// 	velocity: 30
+		// });
+        //
+		// transport2.logic = transport2Moving;
+        //
+		// // cоздаем метеоритное поле
+		// EntitiesFactory.createMeteors({
+		// 	game: game,
+		// 	calculateMeteorCoordinateY: calculateMeteorCoordinateY,
+		// 	startX: centerX - 500,
+		// 	finishX: centerX + 1500,
+		// 	step: 60,
+		// 	count: 2,
+		// 	radius: 200
+		// });
 
 		createPlayer(game);
 
@@ -123,8 +126,22 @@ function StateWrapper(state) {
 	}
 
 	/**
-	 * 	Метод логики корабля пользователя для 9 подурока.
- 	 */
+	 * Создаем метеоритное поле по краям.
+	 * @param game
+	 */
+	function createMeteorField(game) {
+
+		MeteorFactory.createMeteorSphere({game: game, x: centerX - 750, y: centerY + 275, radius: 500});
+		MeteorFactory.createMeteorSphere({game: game, x: centerX - 750, y: centerY - 1650, radius: 500});
+
+		MeteorFactory.createMeteorSphere({game: game, x: centerX - 1250, y: centerY - 1650, radius: 500});
+		MeteorFactory.createMeteorSphere({game: game, x: centerX - 1600, y: centerY + 200, radius: 500});
+
+		MeteorFactory.createMeteorSphere({game: game, x: centerX - 2100, y: centerY - 900, radius: 500});
+
+	}
+
+	// Метод логики корабля пользователя для 9 подурока.
 	function moveToEnemy (obj) {
 
 		// Объект в зоне поражения EMP?

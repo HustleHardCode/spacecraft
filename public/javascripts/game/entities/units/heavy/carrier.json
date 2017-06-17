@@ -1,0 +1,20 @@
+{
+	"needAudio": true,
+	"preload": "carrier",
+	"maxHealth": 300,
+	"blocks": [
+		{
+			"type": "engineBlock",
+			"drag":            300,
+			"velocity":        15,
+			"angularVelocity": 0.05
+		},
+		{
+			"type": "carrierBlock"
+		},
+		{
+			"type": "shieldBlock",
+			"scale": 2.8
+		}
+	]
+}

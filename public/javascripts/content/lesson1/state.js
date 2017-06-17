@@ -1,11 +1,13 @@
 'use strict';
 
 // Зависимости
-var EntitiesFactory = require('../../game/entities');
-var CodeLauncher = require('../../game/launcher');
-var Random = require('../../utils/random');
+let EntitiesFactory = require('../../game/entities');
+let CodeLauncher = require('../../game/launcher');
+let Random = require('../../utils/random');
 
-var Api = require('./api');
+let Api = require('./api');
+
+let MeteorFactory = EntitiesFactory.MeteorFactory;
 
 module.exports = StateWrapper;
 
@@ -16,16 +18,17 @@ module.exports = StateWrapper;
  */
 function StateWrapper(state) {
 
-	var t = state;
+	let t = state;
 
-	var explosions;	// Группа анимации взрывов
-	var player;		// Игрок
-	var mines; 		// Мины
+	let explosions;	// Группа анимации взрывов
+	let player;		// Игрок
+	let mines; 		// Мины
 
-	var mineXY;		// Координаты мин
+	let mineXY;		// Координаты мин
 
 	t.entities = entities;
 	t.logic = logic;
+	t.backgroundObjects = require('../backgrounds/сrash-zone');
 
 	return t;
 
@@ -34,10 +37,11 @@ function StateWrapper(state) {
 	 */
 	function entities(game) {
 
-		var x = game.world.centerX;
-		var y = game.world.centerY;
+		let x = game.world.centerX;
+		let y = game.world.centerY;
 
-		EntitiesFactory.createResearchCenter({
+		EntitiesFactory.createStructure({
+			preload: 'researchCenter',
 			game: game,
 			x: 400,
 			y: 2000
@@ -57,7 +61,7 @@ function StateWrapper(state) {
 		player.api = Api(player);
 
 		// Создать метеоритное поле
-		EntitiesFactory.createMeteorField({game, x, y});
+		MeteorFactory.createMeteorField({game, x, y});
 
 		mineField(game);
 
@@ -82,13 +86,14 @@ function StateWrapper(state) {
 		// Создаем группу из мин
 		mines = game.add.group();
 
-		for (var i = 0; i < 10; i++)
+		for (let i = 0; i < 10; i++)
 		{
-			var deltaY = Random.randomOf(-1, 1) * 20 * i;
-			var deltaX = Random.randomOf(-1, 1) * 20 * i;
+			let deltaY = Random.randomOf(-1, 1) * 20 * i;
+			let deltaX = Random.randomOf(-1, 1) * 20 * i;
 
-			EntitiesFactory.createMine({
+			EntitiesFactory.create({
 				game: game,
+				preload: 'mine',
 				x: mineXY.x + deltaX,
 				y: mineXY.y - deltaY,
 				scale: 0.15,
@@ -155,7 +160,7 @@ function StateWrapper(state) {
 		// Наносим два урона
 		transport.damage(2);
 
-		var explosion = explosions.getFirstExists(false);
+		let explosion = explosions.getFirstExists(false);
 
 		explosion.scale.setTo(0.5);
 		explosion.reset(transport.body.x, transport.body.y);

@@ -1,13 +1,15 @@
 'use strict';
 
+// Библиотеки
+var moment = require('moment');
+
+// Зависимости
 var EntitiesFactory = require('../../game/entities');
 var CodeLauncher = require('../../game/launcher');
-
 var Random = require('../../utils/random');
+let MeteorFactory = EntitiesFactory.MeteorFactory;
 
 var Api = require('./api');
-
-var moment = require('moment');
 
 module.exports = StateWrapper;
 
@@ -27,6 +29,7 @@ function StateWrapper(state) {
 
 	t.entities = entities;
 	t.onContextLoaded = onContextLoaded;
+	t.backgroundObjects = require('../backgrounds/modulation-zone');
 
 	return t;
 
@@ -58,19 +61,20 @@ function StateWrapper(state) {
 		var worldCenterX = game.world.centerX;
 		var worldCenterY = game.world.centerY;
 
-		var planet = EntitiesFactory.createPlanet({
-			game: game,
-			x: worldCenterX + 700,
-			y: worldCenterY + 200,
-			preload: 'planet'
-		});
-
-		EntitiesFactory.createMeteorSphere({
+		MeteorFactory.createMeteorSphere({
 			game: game,
 			x: worldCenterX - 400,
 			y: worldCenterY - 400,
 			radius: 150
 		});
+
+		MeteorFactory.createMeteorSphere({
+			game: game,
+			x: worldCenterX - 600,
+			y: worldCenterY - 500,
+			radius: 150
+		});
+
 
 		carrier = EntitiesFactory.createCarrier({
 			game: game,
@@ -83,12 +87,14 @@ function StateWrapper(state) {
 
 		createNewPlayer();
 
-		sensor = EntitiesFactory.createSensor({
+		sensor = EntitiesFactory.create({
 			game: game,
 			x: worldCenterX - 500,
 			y: worldCenterY - 500,
 			preload: 'sensor',
-			faction: 2
+			faction: 2,
+			maxHealth: 1,
+			needAudio: true
 		});
 
 		sensor.visible = false;
@@ -201,6 +207,8 @@ function StateWrapper(state) {
 			sensor.visible = true;
 
 		}
+
+		player.logic = corvetteLogic.bind(player, player, carrier);
 
 	}
 }

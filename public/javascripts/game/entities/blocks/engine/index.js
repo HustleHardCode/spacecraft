@@ -17,8 +17,8 @@ function EngineBlock({
 	game,
 	unit,
 	angularVelocity,
-	velocity,
-	maxVelocity = velocity,
+	maxVelocity,
+	velocity = maxVelocity,
 	drag,
 	trails,
 	stunDelay = 5000,
@@ -29,15 +29,13 @@ function EngineBlock({
 	let t = {};
 	let trailsArray = [];
 
-	let warp = Warp({spaceCraft: unit, warpScale: warpScale});
+	let warp = Warp({unit, warpScale});
 	let stun = Stun({game, stunDelay});
 
 	unit.moveForward = moveForward;
 	unit.rotateLeft = rotateLeft;
 	unit.rotateRight = rotateRight;
 	unit.moveToXY = moveToXY;
-	unit.getX = getX;
-	unit.getY = getY;
 	unit.distanceTo = distanceTo;
 	unit.setVelocity = setVelocity;
 	unit.getVelocity = getVelocity;
@@ -181,24 +179,6 @@ function EngineBlock({
 			trail && trail.start();
 
 		});
-
-	}
-
-	/**
-	 * @returns коордианту X в пространстве
-	 */
-	function getX() {
-
-		return unit.x;
-
-	}
-
-	/**
-	 * @returns коордианту Y в пространстве
-	 */
-	function getY() {
-
-		return unit.y;
 
 	}
 

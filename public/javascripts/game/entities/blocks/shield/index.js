@@ -1,7 +1,7 @@
 'use strict';
 
 // Зависимости
-let PrefabsFactory = require('../../prefabs');
+let Prefab = require('../../prefab');
 let EMP = require('./emp');
 
 // Экспорт
@@ -31,7 +31,14 @@ function ShieldBlock({game, unit, scale = 1, empMaxDiameter, color}) {
 	/**
 	 * Создаем спрайт щита.
 	 */
-	let shieldSprite = PrefabsFactory.createShield(game, 0, 0, scale, unit.isPlayer);
+	let shieldSprite = Prefab({
+		game: game,
+		x: 0,
+		y: 0,
+		scale: scale,
+		alpha: 0.2,
+		preload: unit.isPlayer ? 'userShield' : 'shield'
+	});
 
 	t.update = update;
 
