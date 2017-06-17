@@ -89,10 +89,10 @@ function StateWrapper(state) {
 		MeteorFactory.createMeteorsByFunction({
 			game: game,
 			calculateMeteorCoordinateY: calculateMeteorCoordinateY,
-			startX: centerX - 500,
-			finishX: centerX + 1500,
+			startX: centerX - 1000,
+			finishX: centerX + 2000,
 			step: 60,
-			count: 5,
+			count: 3,
 			radius: 200
 		});
 
@@ -106,25 +106,25 @@ function StateWrapper(state) {
 	 */
 	function calculateMeteorCoordinateY(x) {
 
-		if (x < centerY) {
+		if(x < centerX + 600) {
 
-			return centerY + 450;
-
-		}
-
-		if(x < centerY + 600) {
-
-			return centerY + 400;
+			return centerX + 400;
 
 		}
 
-		if(x < centerY + 1100) {
+		if(x < centerX + 1100) {
 
-			return centerY + 350;
+			return centerY + 300;
 
 		}
 
-		return centerY + 100;
+		if (x < centerX + 1250) {
+
+			return centerY + 200;
+		}
+
+
+		return centerY - (x / 10 - 100);
 	}
 
 
