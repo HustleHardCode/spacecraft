@@ -49,7 +49,8 @@
 		"userShield": "images/sprites/entities/shared/userShield.png",
 		"sensor": "images/sprites/entities/shared/sensor.png",
 		"carrier": "images/sprites/entities/spacecrafts/carrier.png",
-		"planet": "images/sprites/entities/structures/planet2.png"
+		"planet": "images/sprites/entities/structures/planet2.png",
+		"pirateBase": "images/sprites/entities/structures/pirateBase.png"
 	},
 	"audio": {
 		"explosion": [ "audio/game/explosion2.wav" ],

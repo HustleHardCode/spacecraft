@@ -14,55 +14,87 @@ function MeteorFactory() {
 
 	t.createMeteorField = createMeteorField;
 	t.createMeteorSphere = createMeteorSphere;
+	t.createMeteorsByFunction = createMeteorsByFunction;
 
 	return t;
 
 	/**
-	 * Создание метеоритов.
+	 * Функция создает метеоритное поле, по определенной кривой, от начальной до конечной точки.
+	 * @param startX точка по x, с которой должна начатся отрисовка метеоритого поля
+	 * @param finishX точка по x, на которой отрисовка метеортного поля должна закончиться.
+	 * @param step шаг, с которым должна происходить отрисовка участков метеоритного поля.
+	 * @param count количестов элементов, котороые должны быть сформированны на каждом шаге формирования
+	 * метеоритного поля.
+	 * @param radius радиус, в котором будут создаваться метеориты на каждом из шагов.
+	 * @param calculateMeteorCoordinateY функция для вычисления точки по y,
+	 * от которой будет формироваться точка в метеоритном поле.
 	 */
-	function createMeteors(x, radius, game) {
+	function createMeteorsByFunction({game, startX, finishX, step, count, radius, calculateMeteorCoordinateY}) {
 
-		let shift = 4;
-		let count = 2 * x;
-		let randomSize = 300;
+		const _count = count || 5;
 
-		for (let i = 0; i < count; i = i + shift) {
+		for(let meteorX = startX; meteorX < finishX; meteorX += step) {
 
-			let j = Math.sqrt(radius * radius - i * i);
-
-			let m = Prefabs({
-				game:    game,
-				angle:   game.rnd.angle(),
-				preload: 'meteor' + Random.randomInt(1, 21),
-				x:       i + Random.randomInt(0, randomSize),
-				y:       j + Random.randomInt(0, randomSize)
+			createMeteorSphere({
+				x: meteorX,
+				y: calculateMeteorCoordinateY(meteorX),
+				game: game,
+				count: _count,
+				radius: radius || step * 2
 			});
 
-			setMeteorParameters(m);
 		}
+
 	}
 
 	/**
-	 * Создание пыли.
+	 * Создать округлое метеоритное поле.
+	 * @param x центр создаваемой сферы по x
+	 * @param y центр создаваемой сферы по y
+	 * @param radius радиус окружности
+	 * @param count количество метеоритов, которое будет расположенно в генерируемом поле.
+	 * Если парметр отсутствует, принимает значение 100.
 	 */
-	function createDusts(x, radius, game) {
+	function createMeteorSphere({game, x, y, radius, count}) {
 
-		let shift = 100;
-		let count = 2 * x;
+		let meteorX;
+		let meteorY;
 
-		for (let i = 0; i < count; i = i + shift) {
+		// Создаем пыль.
+		Prefabs({
+			game:    game,
+			angle:   game.rnd.angle(),
+			preload: Random.random() ? 'redDust' : 'greyDust',
+			x:       x,
+			y:       y
+		});
 
-			let j = Math.sqrt(radius * radius - i * i);
+		const _count = count || 100;
 
-			Prefabs({
-				game:    game,
-				angle:   game.rnd.angle(),
-				preload: Random.random() ? 'redDust' : 'greyDust',
-				x:       i + 150,
-				y:       j + 150
-			});
+		for(let i = 0; i <= _count; i++) {
+
+			meteorX = Random.randomInt(x - radius, x + radius);
+			meteorY = Random.randomInt(y - radius, y + radius);
+
+			const r = Math.pow(meteorX - x, 2) + Math.pow(meteorY - y, 2);
+
+			// Проверяем попадают ли координаты в радиус окружности
+			if(r <= Math.pow(radius, 2)) {
+
+				const m = Prefabs({
+					game: game,
+					preload: 'meteor' + Random.randomInt(1, 21),
+					x: 	 meteorX,
+					y: 	 meteorY,
+					angle: game.rnd.angle()
+				});
+
+				setMeteorParameters(m);
+
+			}
 
 		}
+
 	}
 
 	/**
@@ -81,44 +113,59 @@ function MeteorFactory() {
 	}
 
 	/**
-	 * Создать метеоритное поле округлое.
+	 * Создание метеоритов.
 	 */
-	function createMeteorSphere({game, x, y, radius}) {
+	function createMeteors(x, radius, game) {
 
-		let meteorX;
-		let meteorY;
+		const shift = 4;
+		const count = 2 * x;
+		const randomSize = 300;
 
-		// Создаем пыль.
-		Prefabs({
-			game:    game,
-			angle:   game.rnd.angle(),
-			preload: Random.random() ? 'redDust' : 'greyDust',
-			x:       x,
-			y:       y
-		});
+		for (let meteorX = 0; meteorX < count; meteorX += shift) {
 
-		for(let i = 0; i <= 100; i++) {
+			const meteorY = calculateMeteorSphereY(radius, meteorX);
 
-			meteorX = Random.randomInt(x - radius, x + radius);
-			meteorY = Random.randomInt(y - radius, y + radius);
+			const meteor = Prefabs({
+				game:    game,
+				angle:   game.rnd.angle(),
+				preload: 'meteor' + Random.randomInt(1, 21),
+				x:       meteorX + Random.randomInt(0, randomSize),
+				y:       meteorY + Random.randomInt(0, randomSize)
+			});
 
-			let r = Math.pow(meteorX - x, 2) + Math.pow(meteorY - y, 2);
-
-			// Проверяем попадают ли координаты в радиус окружности
-			if(r <= Math.pow(radius, 2)) {
-
-				let m = Prefabs({
-					game: game,
-					preload: 'meteor' + Random.randomInt(1, 21),
-					x: 	 meteorX,
-					y: 	 meteorY,
-					angle: game.rnd.angle()
-				});
-
-				setMeteorParameters(m);
-			}
+			setMeteorParameters(meteor);
 
 		}
+
+	}
+
+	/**
+	 * Создание пыли.
+	 */
+	function createDusts(x, radius, game) {
+
+		const shift = 100;
+		const count = 2 * x;
+
+		for (let meteorX = 0; meteorX < count; meteorX += shift) {
+
+			const meteorY = calculateMeteorSphereY(radius, meteorX);
+
+			Prefabs({
+				game:    game,
+				angle:   game.rnd.angle(),
+				preload: Random.random() ? 'redDust' : 'greyDust',
+				x:       meteorX + 150,
+				y:       meteorY + 150
+			});
+
+		}
+
+	}
+
+	function calculateMeteorSphereY(radius, meteorX) {
+
+		return Math.sqrt(Math.pow(radius, 2) - Math.pow(meteorX, 2));
 
 	}
 
