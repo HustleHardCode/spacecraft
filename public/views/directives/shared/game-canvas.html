@@ -84,9 +84,9 @@
 		<span class="blue">{{spaceCraft.protection.getShield()}} / {{spaceCraft.protection.getMaxShield()}}</span>
 	</div>
 
-	<div class="params-bar" ng-if="world.getPlayer().sprite.health">
+	<div class="params-bar" ng-if="world.getPlayer().health">
 		<span class="fa fa-heart red"></span>
-		<span class="red">{{world.getPlayer().sprite.health}} / {{world.getPlayer().sprite.maxHealth}}</span>
+		<span class="red">{{world.getPlayer().health}} / {{world.getPlayer().maxHealth}}</span>
 	</div>
 </div>
 <!-- DSH bar -->

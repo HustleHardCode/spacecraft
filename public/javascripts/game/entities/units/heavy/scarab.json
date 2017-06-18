@@ -1,21 +1,23 @@
 {
 	"needAudio": true,
-	"preload": "cruiser",
+	"preload": "scarabEmpty",
+	"hullPreload": "scarabHull",
 	"maxHealth": 100,
 	"blocks": [
 		{
 			"type": "engineBlock",
 			"drag": 10,
+			"preload": "scarabJet",
 			"maxVelocity": 20,
 			"angularVelocity": 0.1,
 			"trails": [
 				{
-					"trailY": -10,
-					"trailX": 17
-				},
-				{
-					"trailY": 10,
-					"trailX": 17
+					"lifespan": 100,
+					"maxParticleSpeedX": -150,
+					"minParticleSpeedX": -50,
+					"maxParticleSpeedY": 50,
+					"minParticleSpeedY": -50,
+					"count": 50
 				}
 			]
 		},

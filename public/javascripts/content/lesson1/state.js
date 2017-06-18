@@ -40,6 +40,9 @@ function StateWrapper(state) {
 		let x = game.world.centerX;
 		let y = game.world.centerY;
 
+		// Создать метеоритное поле
+		MeteorFactory.createMeteorField({game, x, y});
+
 		EntitiesFactory.createStructure({
 			preload: 'researchCenter',
 			game: game,
@@ -48,7 +51,7 @@ function StateWrapper(state) {
 		});
 
 		// Создать транспорт
-		player = EntitiesFactory.createTransport({
+		player = EntitiesFactory.createFlea({
 			game: game,
 			x: x,
 			y: y,
@@ -59,9 +62,6 @@ function StateWrapper(state) {
 
 		// API для урока
 		player.api = Api(player);
-
-		// Создать метеоритное поле
-		MeteorFactory.createMeteorField({game, x, y});
 
 		mineField(game);
 
@@ -81,7 +81,7 @@ function StateWrapper(state) {
 	function mineField(game) {
 
 		// Создать минное поле
-		mineXY = new Phaser.Point(1550, 1550);
+		mineXY = new Phaser.Point(1600, 1600);
 
 		// Создаем группу из мин
 		mines = game.add.group();
@@ -96,7 +96,7 @@ function StateWrapper(state) {
 				preload: 'mine',
 				x: mineXY.x + deltaX,
 				y: mineXY.y - deltaY,
-				scale: 0.15,
+				scale: 0.08,
 				group: mines
 			});
 		}

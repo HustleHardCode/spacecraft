@@ -13,7 +13,13 @@ module.exports = ShieldBlock;
  * @author Skurishin Vladislav
  * @since 11.06.16
  */
-function ShieldBlock({game, unit, scale = 1, empMaxDiameter, color}) {
+function ShieldBlock({
+	game,
+	unit,
+	scale = 1,
+	empMaxDiameter,
+	color
+}) {
 
 	// that / this
 	let t = {};
@@ -37,7 +43,8 @@ function ShieldBlock({game, unit, scale = 1, empMaxDiameter, color}) {
 		y: 0,
 		scale: scale,
 		alpha: 0.2,
-		preload: unit.isPlayer ? 'userShield' : 'shield'
+		preload: 'shield',
+		withoutPhysics: true
 	});
 
 	t.update = update;

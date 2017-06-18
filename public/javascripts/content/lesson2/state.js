@@ -79,7 +79,7 @@ function StateWrapper(state) {
 		// Создать метеоритное поле
 		MeteorFactory.createMeteorField({game, x, y});
 
-		let cruiser = EntitiesFactory.createCruiser({
+		let cruiser = EntitiesFactory.createScarab({
 			game: game,
 			x: 2020,
 			y: 1740
@@ -90,7 +90,7 @@ function StateWrapper(state) {
 		// Дейстивя харвестра
 		cruiser.logic = h => h.moveToXY(150, 150);
 
-		let h1 = EntitiesFactory.createHarvester({game: game, x: 1859, y: 2156});
+		let h1 = EntitiesFactory.createLouse({game: game, x: 1859, y: 2156});
 
 		h1.rotation = -3.35 * Math.PI / 2;
 

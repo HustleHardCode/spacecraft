@@ -9,14 +9,15 @@ module.exports = CarrierBlock;
  * @since 09.05.2017
  * @author Skurishin Vladislav
  */
-function CarrierBlock(spec) {
+function CarrierBlock({
+	game,
+	unit,
+	createMethod,
+	factory
+}) {
 
 	// that / this
 	var t = {};
-
-	var game = spec.game;
-	var unit = spec.unit;
-	var factory = spec.factory;
 
 	unit.create = create;
 
@@ -30,6 +31,16 @@ function CarrierBlock(spec) {
 	 */
 	function create(logic, player) {
 
+		let method = factory[createMethod];
+
+		// Если метода по созданию не существует,
+		// выходим из метода.
+		if (!method) {
+
+			return;
+
+		}
+
 		var x = unit.x;
 		var y = unit.y;
 
@@ -37,7 +48,7 @@ function CarrierBlock(spec) {
 
 		// Фабричный метод. Можно передать разные фабрики, которые
 		// сами определяют тип корабля.
-		var spaceCraft = factory.createCarriersShip({game, x, y, player, faction});
+		var spaceCraft = method({game, x, y, player, faction});
 		spaceCraft.logic = logic.bind(spaceCraft, spaceCraft, unit);
 		spaceCraft.rotation = unit.rotation;
 

@@ -28,17 +28,15 @@ function EntitiesFactory() {
 	t.create = create;
 
 	// Сущности
-	t.createCarrier = createByType(require('./units/heavy/carrier.json'));
-	t.createTransport = createByType(require('./units/light/transport'));
-	t.createHarvester = createByType(require('./units/light/harvester'));
+	t.createLocust = createByType(require('./units/heavy/locust'));
+	t.createFlea = createByType(require('./units/light/flea'));
+	t.createLouse = createByType(require('./units/light/louse'));
 	t.createStructure = createByType(require('./units/structure'));
-	t.createFighter = createByType(require('./units/heavy/fighter'));
+	t.createMantis = createByType(require('./units/heavy/mantis'));
 	t.createScout = createByType(require('./units/light/scout'));
-	t.createCruiser = createByType(require('./units/heavy/cruiser'));
+	t.createScarab = createByType(require('./units/heavy/scarab'));
 	t.createCombat = createByType(require('./units/heavy/combat'));
-	t.createCarriersShip = createByType(require('./units/light/corvette'));
-	t.createEbonHawk = createByType(require('./units/light/ebonHawk'));
-	t.createLightCorvette = createByType(require('./units/light/corvette'));
+	t.createHawk = createByType(require('./units/light/hawk'));
 
 	return t;
 

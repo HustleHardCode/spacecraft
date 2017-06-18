@@ -36,9 +36,9 @@ function StateWrapper(state) {
 
 	}
 
-	function createNewCruiser(game) {
+	function createNewScarab(game) {
 
-		let cruiser = EntitiesFactory.createCruiser({game: game, x: 1000, y: 2000});
+		let cruiser = EntitiesFactory.createScarab({game: game, x: 1000, y: 2000});
 
 		cruiser.rotation = -Math.PI / 2;
 
@@ -71,7 +71,7 @@ function StateWrapper(state) {
 
 		let s1 = EntitiesFactory.createScout({game: game, x: 2055, y: 1995});
 		let s2 = EntitiesFactory.createScout({game: game, x: 2101, y: 1890});
-		let fighter = EntitiesFactory.createFighter({game: game, x: 400, y: 150});
+		let fighter = EntitiesFactory.createMantis({game: game, x: 400, y: 150});
 
 		s1.rotation = -3.85 * Math.PI / 2;
 		s2.rotation = -4.25 * Math.PI / 2;
@@ -89,6 +89,9 @@ function StateWrapper(state) {
 		let x = game.world.centerX;
 		let y = game.world.centerY;
 
+		// Создать метеоритное поле
+		MeteorFactory.createMeteorField({game, x, y});
+
 		// Инициализация графики
 		graphics = game.add.graphics(0, 0);
 
@@ -100,7 +103,7 @@ function StateWrapper(state) {
 		});
 
 		// Создать транспорт
-		player = EntitiesFactory.createHarvester({
+		player = EntitiesFactory.createLouse({
 			game: game,
 			x: 1859,
 			y: 2156,
@@ -112,11 +115,7 @@ function StateWrapper(state) {
 		// API для урока
 		player.api = Api(player);
 
-		createNewCruiser(game);
-
-		// Создать метеоритное поле
-		MeteorFactory.createMeteorField({game, x, y});
-
+		createNewScarab(game);
 		createSpaceCraftsInWorld(game);
 
 		sensor = EntitiesFactory.create({

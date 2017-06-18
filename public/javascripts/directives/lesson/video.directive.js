@@ -15,7 +15,7 @@ function VideoBoard($sce) {
 	var directive = {
 		scope:       {
 			content: '=',// текст
-			title:   '=',// заголовок
+			boardTitle:   '=',// заголовок
 			url:     '=' // url видео
 		},
 		templateUrl: 'views/directives/lesson/video.html',

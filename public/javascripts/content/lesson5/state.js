@@ -54,7 +54,7 @@ function StateWrapper(state) {
 		});
 
 		// Создать транспорт противника
-		enemy = EntitiesFactory.createEbonHawk({
+		enemy = EntitiesFactory.createHawk({
 			game: game,
 			x: centerX + 650,
 			y: centerY - 50,
@@ -67,7 +67,7 @@ function StateWrapper(state) {
 		enemy.logic = enemyMoving;
 
 		// Создаем транспоты 1 и 2
-		let transport = EntitiesFactory.createTransport({
+		let transport = EntitiesFactory.createLouse({
 			game: game,
 			x: centerX + 800,
 			y: centerY - 800,
@@ -76,7 +76,7 @@ function StateWrapper(state) {
 
 		transport.logic = transport1Moving;
 
-		let transport2 = EntitiesFactory.createTransport({
+		let transport2 = EntitiesFactory.createLouse({
 			game: game,
 			x: centerX + 650,
 			y: centerY + 300,
@@ -228,12 +228,18 @@ function StateWrapper(state) {
 	function createPlayer(game) {
 
 		// Создать транспорт игрока
-		player = EntitiesFactory.createLightCorvette({
+		player = EntitiesFactory.createFlea({
 			game:     game,
 			x:        centerX,
 			y:        centerY,
 			player:   true,
 			velocity: 20
+		});
+
+		// Добавляем щиты.
+		player.addBlock({
+			"type": "shieldBlock",
+			"scale": 0.6
 		});
 
 		player.bringToTop();
