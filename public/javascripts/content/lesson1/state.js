@@ -3,12 +3,11 @@
 // Зависимости
 let EntitiesFactory = require('../../game/entities');
 let CodeLauncher = require('../../game/launcher');
-let Random = require('../../utils/random');
 
 let Api = require('./api');
 
 let MeteorFactory = EntitiesFactory.MeteorFactory;
-let MineFactory = EntitiesFactory.MineFactory;
+let MineFieldFactory = EntitiesFactory.MineFieldFactory;
 
 module.exports = StateWrapper;
 
@@ -36,30 +35,34 @@ function StateWrapper(state) {
 		let x = game.world.centerX;
 		let y = game.world.centerY;
 
+		// Создать метеоритное поле
+		MeteorFactory.createMeteorField({game, x, y});
+
 		EntitiesFactory.createStructure({
 			preload: 'researchCenter',
-			game:    game,
-			x:       400,
-			y:       2000
+			game: game,
+			x: 400,
+			y: 2000
 		});
 
 		// Создать транспорт
-		player = EntitiesFactory.createTransport({
-			game:   game,
-			x:      x,
-			y:      y,
+		player = EntitiesFactory.createFlea({
+			game: game,
+			x: x,
+			y: y,
 			player: true
 		});
 
-		player.rotation = -Math.PI / 2;
+		player.rotation = - Math.PI / 2;
 
 		// API для урока
 		player.api = Api(player);
 
-		// Создать метеоритное поле
-		MeteorFactory.createMeteorField({game, x, y});
-
-		MineFactory.createMineField(game, 1500, 1500);
+		MineFieldFactory.createLightMineField({
+			game: game,
+			x: 1500,
+			y: 1500
+		});
 
 		// Корабль на верх.
 		player.bringToTop();

@@ -1,10 +1,13 @@
 {
 	"needAudio": true,
-	"preload": "scout",
+	"preload": "scoutEmpty",
+	"hullPreload": "scoutHull",
+	"scale": 0.5,
 	"maxHealth": 4,
 	"blocks": [
 		{
 			"type": "engineBlock",
+			"preload": "scoutJet",
 			"drag": 130,
 			"maxVelocity": 60,
 			"angularVelocity": 0.6,
@@ -17,6 +20,10 @@
 		{
 			"type": "scannerBlock",
 			"maxDiameter": 350
+		},
+		{
+			"type": "weaponBlock",
+			"bulletKillDistance": 50
 		}
 	]
 }

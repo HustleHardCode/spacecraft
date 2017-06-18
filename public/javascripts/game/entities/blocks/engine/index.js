@@ -19,7 +19,9 @@ function EngineBlock({
 	angularVelocity,
 	maxVelocity,
 	velocity = maxVelocity,
+	preload,
 	drag,
+	scale,
 	trails,
 	stunDelay = 5000,
 	warpScale
@@ -57,7 +59,20 @@ function EngineBlock({
 
 			trails.forEach(t => {
 
-				let trail = Trail(game, unit, t.trailX, t.trailY, t.trailScale);
+				let trail = Trail({
+					game:              game,
+					unit:              unit,
+					preload:           preload,
+					trailScale:        scale,
+					maxParticleSpeedX: t.maxParticleSpeedX,
+					maxParticleSpeedY: t.maxParticleSpeedY,
+					minParticleSpeedX: t.minParticleSpeedX,
+					minParticleSpeedY: t.minParticleSpeedY,
+					rotationX:         t.rotationX,
+					rotationY:         t.rotationY,
+					lifespan:          t.lifespan,
+					count:             t.count
+				});
 
 				trailsArray.push(trail);
 

@@ -39,11 +39,13 @@ function StateWrapper(state) {
 	 */
 	function entities(game) {
 
+		createMeteorField(game);
+
 		centerX = game.world.centerX;
 		centerY = game.world.centerY;
 
 		// Создать транспорт противника
-		enemy = EntitiesFactory.createEbonHawk({
+		enemy = EntitiesFactory.createHawk({
 			game: game,
 			x: centerX + 50,
 			y: centerY - 200,
@@ -53,7 +55,6 @@ function StateWrapper(state) {
 		enemy.angle = 220;
 		enemy.logic = enemyMoving;
 
-		createMeteorField(game);
 		createPlayer(game);
 
 	}
@@ -145,12 +146,18 @@ function StateWrapper(state) {
 	function createPlayer(game) {
 
 		// Создать транспорт игрока
-		player = EntitiesFactory.createLightCorvette({
+		player = EntitiesFactory.createFlea({
 			game:     game,
 			x:        centerX,
 			y:        centerY,
 			player:   true,
 			velocity: 20
+		});
+
+		// Добавляем щиты.
+		player.addBlock({
+			"type": "shieldBlock",
+			"scale": 0.6
 		});
 
 		player.angle = 270;

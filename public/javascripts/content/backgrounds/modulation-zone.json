@@ -27,7 +27,7 @@
 	},
 	{
 		"preload": "planet",
-		"angularVelocity": 0.0025,
+		"prefabAngularVelocity": 0.0025,
 		"cameraOffset": {
 			"x": 1750,
 			"y": 1300,

@@ -1,16 +1,20 @@
 {
 	"needAudio": true,
-	"preload": "transport",
+	"preload": "fleaEmpty",
+	"hullPreload": "fleaHull",
 	"maxHealth": 10,
 	"blocks": [
 		{
 			"type": "engineBlock",
+			"preload": "fleaJet",
 			"drag": 60,
 			"maxVelocity": 35,
-			"angularVelocity": 0.3,
+			"angularVelocity": 0.15,
 			"trails": [
 				{
-					"trailScale:": 0.5
+					"trailScale:": 1,
+					"anchorX": 0.5,
+					"anchorY": 0.1
 				}
 			]
 		},

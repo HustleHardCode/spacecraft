@@ -40,7 +40,7 @@ function StateWrapper(state) {
 			let i2 = random.randomInt(-225, 225);
 
 			// Рандомим тип корабля
-			let type = random.random() ? EntitiesFactory.createTransport : EntitiesFactory.createHarvester;
+			let type = random.random() ? EntitiesFactory.createFlea : EntitiesFactory.createLouse;
 
 			let spacecraft = type({
 		  		game: game,

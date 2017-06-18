@@ -1,0 +1,25 @@
+{
+	"needAudio": true,
+	"preload": "hawkEmpty",
+	"hullPreload": "hawkHull",
+	"maxHealth": 100,
+	"blocks": [
+		{
+			"type": "engineBlock",
+			"preload": "hawkJet",
+			"drag":            60,
+			"maxVelocity":     30,
+			"angularVelocity": 0.13,
+			"trails":          [{
+				"trailScale": 0.6
+			}]
+		},
+		{
+			"type": "cargoBlock"
+		},
+		{
+			"type": "shieldBlock",
+			"scale": 0.8
+		}
+	]
+}

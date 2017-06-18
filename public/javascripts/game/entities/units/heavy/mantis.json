@@ -1,0 +1,33 @@
+{
+	"needAudio": true,
+	"preload": "mantisEmpty",
+	"hullPreload": "mantisHull",
+	"maxHealth": 180,
+	"blocks": [
+		{
+			"type": "engineBlock",
+			"preload": "mantisJet",
+			"drag": 30,
+			"maxVelocity": 20,
+			"angularVelocity": 0.12,
+			"trails": [
+				{
+					"lifespan": 100,
+					"maxParticleSpeedX": -150,
+					"minParticleSpeedX": -50,
+					"maxParticleSpeedY": 0,
+					"minParticleSpeedY": -10,
+					"count": 20
+				}
+			]
+		},
+		{
+			"type": "scannerBlock",
+			"maxDiameter": 700
+		},
+		{
+			"type": "shieldBlock",
+			"scale": 0.9
+		}
+	]
+}

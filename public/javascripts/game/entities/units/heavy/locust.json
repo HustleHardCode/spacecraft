@@ -1,20 +1,23 @@
 {
 	"needAudio": true,
-	"preload": "carrier",
+	"preload": "locustEmpty",
+	"hullPreload": "locustHull",
 	"maxHealth": 300,
 	"blocks": [
 		{
 			"type": "engineBlock",
+			"preload": "locustJet",
 			"drag":            300,
 			"velocity":        15,
 			"angularVelocity": 0.05
 		},
 		{
-			"type": "carrierBlock"
+			"type": "carrierBlock",
+			"createMethod": "createScout"
 		},
 		{
 			"type": "shieldBlock",
-			"scale": 2.8
+			"scale": 1.8
 		}
 	]
 }

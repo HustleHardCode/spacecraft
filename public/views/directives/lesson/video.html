@@ -2,11 +2,12 @@
 	<div class="content-description">
 		<div class="content-overflow video-content-hint">
 			<div class="content-center">
-				<div class="lesson-title">{{title}}</div>
+				<div class="lesson-title">{{boardTitle}}</div>
 				<div class="lesson-content" ng-bind-html="getContent()"></div>
 				<youtube-video ng-if="url"
 							   video-url="url"
-							   class="embed-responsive-item"></youtube-video>
+							   class="embed-responsive-item">
+				</youtube-video>
 			</div>
 		</div>
 	</div>

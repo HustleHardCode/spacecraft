@@ -10,17 +10,18 @@ module.exports = Prefab;
  */
 function Prefab({
 	game,
-	x = 0, 				// Координата x
-	y = 0, 				// Координата y
-	preload, 			// Имя спрайтов
-	scale = 1,			// Скалирование
-	anchorX = 0.5,		// Якорь по x
-	anchorY = 0.5, 		// Якорь по y
-	angle,				// Угол поворота
-	alpha = 1, 			// Прозрачность
-	group,				// Группа?
-	angularVelocity,	// Скорость поворота
-	cameraOffset		// Движение относительно камеры?
+	x = 0, 					// Координата x
+	y = 0, 					// Координата y
+	preload, 				// Имя спрайтов
+	scale = 1,				// Скалирование
+	anchorX = 0.5,			// Якорь по x
+	anchorY = 0.5, 			// Якорь по y
+	angle,					// Угол поворота
+	alpha = 1, 				// Прозрачность
+	group,					// Группа?
+	prefabAngularVelocity,	// Скорость поворота
+	cameraOffset,			// Движение относительно камеры?
+	withoutPhysics			// Без физики?
 }) {
 
 	var t = create();
@@ -33,14 +34,18 @@ function Prefab({
 	t.alpha = alpha;
 
 	// Устанавливаем скорость оборота
-	angularVelocity && (t.body.angularVelocity = angularVelocity);
+	prefabAngularVelocity && (t.body.angularVelocity = prefabAngularVelocity);
 
 	scale && t.scale.setTo(scale);
 	angle && (t.angle = angle);
 
-	game.physics.arcade.enableBody(t);
+	if (!withoutPhysics) {
 
-	t.body.collideWorldBounds = true;
+		game.physics.arcade.enableBody(t);
+
+		t.body.collideWorldBounds = true;
+
+	}
 
 	// Фиксируем относительно камеры
 	cameraOffset && (t.fixedToCamera = true);

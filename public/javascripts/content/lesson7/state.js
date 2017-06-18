@@ -76,12 +76,18 @@ function StateWrapper(state) {
 		});
 
 
-		carrier = EntitiesFactory.createCarrier({
+		carrier = EntitiesFactory.createLocust({
 			game: game,
 			x: worldCenterX,
 			y: worldCenterY,
 			faction: 1
 		});
+
+		carrier.logic = function (c) {
+
+			c.moveForward();
+
+		};
 
 		carrier.rotation = 3 * Math.PI / 2;
 
