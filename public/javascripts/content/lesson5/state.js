@@ -44,6 +44,17 @@ function StateWrapper(state) {
 		centerX = game.world.centerX;
 		centerY = game.world.centerY;
 
+		// cоздаем метеоритное поле
+		MeteorFactory.createMeteorsByFunction({
+			game: game,
+			calculateMeteorCoordinateY: calculateMeteorCoordinateY,
+			startX: centerX - 1000,
+			finishX: centerX + 2000,
+			step: 60,
+			count: 3,
+			radius: 200
+		});
+
 		const pirateBase = EntitiesFactory.createStructure({
 			preload: 'pirateBase',
 			game: game,
@@ -84,17 +95,6 @@ function StateWrapper(state) {
 		});
 
 		transport2.logic = transport2Moving;
-
-		// cоздаем метеоритное поле
-		MeteorFactory.createMeteorsByFunction({
-			game: game,
-			calculateMeteorCoordinateY: calculateMeteorCoordinateY,
-			startX: centerX - 1000,
-			finishX: centerX + 2000,
-			step: 60,
-			count: 3,
-			radius: 200
-		});
 
 		createPlayer(game);
 
