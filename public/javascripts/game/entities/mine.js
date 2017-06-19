@@ -1,7 +1,7 @@
 'use strict';
 
 const lodash = require('lodash');
-const MineFactory = require('./units/mine');
+const Mine = require('./units/mine');
 
 // Экспорт
 module.exports = MineFieldFactory();
@@ -37,7 +37,7 @@ function MineFieldFactory() {
 					let deltaY = 20 * i;
 					let deltaX = 20 * j;
 
-					MineFactory.createLightMine({
+					Mine({
 						game: game,
 						x: x + deltaX,
 						y: y + deltaY,

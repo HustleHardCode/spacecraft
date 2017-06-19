@@ -60,8 +60,8 @@ function StateWrapper(state) {
 
 		MineFieldFactory.createLightMineField({
 			game: game,
-			x: 1500,
-			y: 1500
+			x: 1650,
+			y: 1650
 		});
 
 		// Корабль на верх.
