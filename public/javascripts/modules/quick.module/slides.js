@@ -48,18 +48,21 @@ module.exports = [{
 	title:     'Отдельное спасибо',
 	subSlides: [{
 		title:       'MillionthVector',
-		description: "<p xmlns:cc='http://creativecommons.org/ns#' about='http://millionthvector.blogspot.ru/p/free-sprites.html'>За предоставленные спрайты от <a rel='cc:attributionURL' property='cc:attributionName' href='http://millionthvector.blogspot.com/p/free-sprites.html'>MillionthVector</a> / <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>CC BY 4.0</a></p>"
+		description: "<p xmlns:cc='http://creativecommons.org/ns#' about='http://millionthvector.blogspot.ru/p/free-sprites.html'>За предоставленные спрайты от <a rel='cc:attributionURL' property='cc:attributionName' href='http://millionthvector.blogspot.com/p/free-sprites.html'>MillionthVector</a> / <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>CC BY 4.0</a>.</p>"
+	}, {
+		title:       'Tatermand',
+		description: '<p>За предоставленные спрайты. <a href="https://opengameart.org/users/tatermand">Ссылка на творчество.</a></p>'
 	}, {
 		title:       'Freepik',
-		description: '<p>За иконки от <a href="http://ru.freepik.com">Freepik</a></p>'
+		description: '<p>За иконки от <a href="http://ru.freepik.com">Freepik</a>.</p>'
 	}, {
 		title:       'Евгению Шинкоренко',
-		description: '<p>За музыку. <a href="https://soundcloud.com/awe-483543071">Ссылка на творчество.</a></p>'
+		description: '<p>За музыку. <a href="https://soundcloud.com/awe-483543071">Ссылка на творчество</a>.</p>'
 	}, {
 		title:       'Олегу Сальникову',
-		description: '<p>За предоставленные изображения. <a href="http://vk.com/oys_club">Ссылка на творчество.</a></p>'
+		description: '<p>За предоставленные изображения. <a href="http://vk.com/oys_club">Ссылка на творчество</a>.</p>'
 	}, {
 		title:       'Близким',
-		description: '<p>Нашим друзьям и близки за их поддержку, комментарии и советы</p>'
+		description: '<p>Нашим друзьям и близки за их поддержку, комментарии и советы.</p>'
 	}]
 }];

@@ -56,7 +56,7 @@ router.get('/user/combat/code', checkAuthentication, (req, res) => {
 
 			if (lodash.isEmpty(document)) {
 
-				res.sendStatus(HttpStatus.ACCEPTED);
+				res.status(HttpStatus.ACCEPTED).send();
 
 				return;
 
