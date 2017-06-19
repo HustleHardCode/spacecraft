@@ -2,7 +2,7 @@
 
 // Зависимости
 var CodeLauncher = require('../launcher');
-var UpdateManager = require('../update-manager')
+var UpdateManager = require('../update-manager');
 
 // Экспорт
 module.exports = CodeRunner;

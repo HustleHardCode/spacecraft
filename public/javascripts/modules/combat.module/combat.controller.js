@@ -3,6 +3,7 @@
 // Зависимости
 const CodeLauncher = require('../../game/launcher');
 const TabHandler = require('../../emitters/tab-handler');
+const spinnerMessages = require('../../utils/json/messages/spinner.json');
 const resolvesNames = require('./combat.resolve').names;
 
 const lodash = require('lodash');
@@ -12,7 +13,7 @@ CombatController.$inject = ['$scope',
 							'aceService',
 							'connection',
 							'settings',
-							'$localStorage',
+							'spinner',
 							resolvesNames.combatUserCode,
 							resolvesNames.combatEnemy];
 
@@ -29,15 +30,24 @@ function CombatController($scope,
 						  aceService,
 						  connection,
 						  settings,
-						  $localStorage,
+						  spinner,
 						  combatUserCode,
 						  combatEnemy) {
 
-	var VK_GROUP_ID = 105816682;
+	const VK_GROUP_ID = 105816682;
 
-	var markerService;
-	var soundtrack;
-	var markerId;
+	// Статус НЕГОТОВНОСТИ программного кода участвовать в боях с другими игроками.
+	const CODE_STATUS_INACTIVE = false;
+	// Статус ГОТОВНОСТИ программного кода участвовать в боях с другими игроками.
+	const CODE_STATUS_ACTIVE = true;
+
+	// Храним последнее значение прогр. кода, которое сохранили на стороне сервиса, во избежание
+	// отправки избыточных запросов на сохранение.
+	let lastSavedCode;
+
+	let markerService;
+	let soundtrack;
+	let markerId;
 
 	CodeLauncher.onError = onError;
 
@@ -50,10 +60,13 @@ function CombatController($scope,
 	$scope.aceChanged = aceChanged;
 	$scope.aceLoaded = aceLoaded;
 	$scope.toggleCodeRun = toggleCodeRun;
+	$scope.saveButton = saveButton;
 	$scope.onError = onError;
 
 	$scope.$watch('$viewContentLoaded', onContentLoaded);
 	$scope.$on('$destroy', onDestroy);
+
+
 
 	initVk();
 
@@ -73,6 +86,46 @@ function CombatController($scope,
 		} catch (e) {
 
 			$scope.vkWidgetEnable = false;
+
+		}
+
+	}
+
+	function saveButton() {
+
+		saveCombatUserCode({
+							   combatUserCode: aceService.getValue(),
+							   idCombat: 1,
+							   codeStatus: CODE_STATUS_INACTIVE
+						   });
+
+	}
+
+	function saveCombatUserCode({combatUserCode, idCombat, codeStatus, success, error}) {
+
+		if (lastSavedCode !== combatUserCode) {
+
+			spinner.start({message: spinnerMessages.saveButton});
+
+			connection.saveCombatUserCode(idCombat, combatUserCode, codeStatus, onSaveSuccess, onSaveError);
+
+		}
+
+		function onSaveSuccess() {
+
+			lastSavedCode = combatUserCode;
+
+			spinner.stop();
+
+			success && success();
+
+		}
+
+		function onSaveError() {
+
+			spinner.stop();
+
+			error && error();
 
 		}
 
@@ -148,15 +201,7 @@ function CombatController($scope,
 
 		var editorSession = aceService.getSession();
 
-		// Отправка запроса на получение кода следующего уркоа
-		connection.getCombatCodeFromJs('start', function (res) {
-
-			var code = res.data;
-
-			// Сохранение в Ace.
-			editorSession.setValue(code);
-
-		});
+		editorSession.setValue(combatUserCode);
 
 	}
 
@@ -280,21 +325,35 @@ function CombatController($scope,
 
 		}
 
-		if (!CodeLauncher.isCodeRunning) {
-
-			var editorSession = aceService.getSession();
-			var code = editorSession.getDocument().getValue();
-
-			CodeLauncher.run(code);
-
-			// При запуске кода
-			// выключаем окно настроек.
-			$scope.settingsEnable = false;
-
-		}
-		else {
+		if (CodeLauncher.isCodeRunning) {
 
 			CodeLauncher.stop();
+
+		} else {
+
+			const editorSession = aceService.getSession();
+			// Выделяем аннотации об ошибках в программном коде.
+			const errors = lodash.filter(editorSession.getAnnotations(), {type: 'error'});
+			const isCodeSyntaxCorrect = lodash.isEmpty(errors);
+
+			if (isCodeSyntaxCorrect) {
+
+				const code = aceService.getValue();
+
+				// При запуске кода
+				// выключаем окно настроек.
+				$scope.settingsEnable = false;
+
+				// При запуске - также осуществляем сохранение ВСЕГО кода но со статусом CODE_STATUS_ACTIVE.
+				saveCombatUserCode({
+									   combatUserCode: code,
+									   idCombat:       1,
+									   codeStatus:     CODE_STATUS_ACTIVE,
+									   success: CodeLauncher.run.bind(CodeLauncher, code)
+								   });
+
+			}
+
 
 		}
 

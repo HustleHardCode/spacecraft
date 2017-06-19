@@ -343,10 +343,8 @@ function LessonService(connection,
 		// Смотреть: content/state.js, метод onContextLoaded.
 		Game.pushContextParameters({subIndex: scope.subIndex, prepare: prepare});
 
-		// Отправка запроса на получение кода следующего уркоа
-		connection.getLessonCodeFromJs(lessonId, scope.subIndex, function (res) {
-
-			var code = res.data;
+		// Отправка запроса на получение кода следующего урока
+		connection.getLessonCodeFromJs(lessonId, scope.subIndex, function (code) {
 
 			// Сохранение в Ace.
 			editorSession.setValue(code);

@@ -22,7 +22,7 @@ function Connection($http) {
 	that.getCodeFromJs = getCodeFromJs;
 
 	that.getLessonCodeFromJs = getLessonCodeFromJs;
-	that.getCombatCodeFromJs = getCombatCodeFromJs;
+	that.getCombatDefaultUserCode = getCombatDefaultUserCode;
 
 	that.getCombatEnemy = getCombatEnemy;
 
@@ -60,12 +60,12 @@ function Connection($http) {
 
 	}
 
-	function saveCombatUserCode(idCombat, code, success, error) {
+	function saveCombatUserCode(idCombat, code, status, success, error) {
 
 		$http({
 				  url:    apiUrls.combatUserCode,
 				  method: 'POST',
-				  data:   { idCombat, code }
+				  data:   { idCombat, code, status }
 			  }).then(success,
 					  error);
 
@@ -156,12 +156,12 @@ function Connection($http) {
 	/**
 	 * Получить код из .js файла.
 	 */
-	function getCodeFromJs(source, callback) {
+	function getCodeFromJs(source, success, error) {
 
 		$http({
 				  method: 'GET',
 				  url:    source
-			  }).then(callback);
+			  }).then(claimHttpDataOnly(success), error);
 
 	}
 
@@ -179,11 +179,11 @@ function Connection($http) {
 	/**
 	 * Получить код для сражений из .js файла.
 	 */
-	function getCombatCodeFromJs(code, callback) {
+	function getCombatDefaultUserCode(code, success, error) {
 
 		var source = resourcesUrls.combatUserCode + '/' + code + '.code';
 
-		getCodeFromJs(source, callback)
+		getCodeFromJs(source, success, error)
 
 	}
 

@@ -73,12 +73,12 @@
 		 ng-click="toggleContentEnable('settingsEnable')"
 		 ng-class="{'fa-chevron-right' : settingsEnable, 'fa-wrench' : !settingsEnable}"></div>
 
-	<div class="right-toolbar-new-group right-toolbar-button fa"
+
+	<div class="fa-floppy-o right-toolbar-new-group right-toolbar-button fa"
 		 tooltip-placement="left"
 		 tooltip-append-to-body="true"
-		 uib-tooltip="{{settingsEnable ? 'Сохранить ваш код' : 'Показать настройки'}}"
-		 ng-click="toggleContentEnable('settingsEnable')"
-		 ng-class="{'fa-floppy-o' : settingsEnable, 'fa-floppy-o' : !settingsEnable}"></div>
+		 uib-tooltip="Сохранить ваш код"
+		 ng-click="saveButton()"></div>
 
 	<div class="right-toolbar-new-group right-toolbar-button fa fa-vk vk-hint"
 		 tooltip-placement="left"

@@ -96,6 +96,7 @@ router.post('/user/combat/code', checkAuthentication, (req, res) => {
 	// TODO При желании, можно определять сообщение.
 	req.checkBody('idCombat').notEmpty().isInt();
 	req.checkBody('code').notEmpty();
+	requ.checkBody('status').notEmpty();
 
 	// TODO yield
 	req.getValidationResult().then(function(result) {
@@ -108,12 +109,13 @@ router.post('/user/combat/code', checkAuthentication, (req, res) => {
 
 		}
 
-		let idUser = req.user._id;
-		let idCombat = req.body.idCombat;
-		let code = req.body.code;
+		const idUser = req.user._id;
+		const idCombat = req.body.idCombat;
+		const code = req.body.code;
+		const status = req.body.status;
 
 		CombatCodeModel.update({idUser, idCombat},
-							   {idUser, idCombat, code},
+							   {idUser, idCombat, code, status},
 							   {
 								   upsert:        true,
 								   runValidators: true
