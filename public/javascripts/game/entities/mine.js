@@ -13,22 +13,22 @@ function MineFieldFactory() {
 
 	let t = {};
 
-	t.createLightMineField = createLightMineField;
+	t.createMineField = createMineField;
 
 	return t;
 
 	/**
 	 * Создание минного поля.
 	 */
-	function createLightMineField({game, x, y}) {
+	function createMineField({game, x, y, createFunction}) {
 
 		// Создаем группу из мин
 		let mines = game.add.group();
 
 		// Создаем поле мин в шахматном порядке
-		for (let i = 0; i < 10; i++) {
+		for (let i = 0; i < 6; i++) {
 
-			for (let j = 0; j < 10; j++) {
+			for (let j = 0; j < 6; j++) {
 
 				// Складываем индексы и мод 2,
 				// 0 и 1 в таком случае будут чередоваться
@@ -37,7 +37,7 @@ function MineFieldFactory() {
 					let deltaY = 20 * i;
 					let deltaX = 20 * j;
 
-					Mine({
+					createFunction({
 						game: game,
 						x: x + deltaX,
 						y: y + deltaY,

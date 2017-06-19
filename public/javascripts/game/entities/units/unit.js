@@ -40,6 +40,8 @@ function Unit(args) {
 	// Менеджер блоков
 	let blocksManager = [];
 
+	t.specialLogic = args.specialLogic;
+
 	/**
 	 * Коллбеки.
 	 */
@@ -126,6 +128,8 @@ function Unit(args) {
 		lodash.forEach(blocksManager, b => b.update && b.update());
 
 		t.logic && t.logic(t);
+
+		t.specialLogic && t.specialLogic(game, World, t);
 
 		isRotating && t.rotateLeft();
 

@@ -58,10 +58,11 @@ function StateWrapper(state) {
 		// API для урока
 		player.api = Api(player);
 
-		MineFieldFactory.createLightMineField({
+		MineFieldFactory.createMineField({
 			game: game,
 			x: 1650,
-			y: 1650
+			y: 1650,
+			createFunction: EntitiesFactory.createMine
 		});
 
 		// Корабль на верх.

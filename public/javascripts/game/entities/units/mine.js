@@ -1,98 +1,53 @@
 'use strict';
 
-const World = require('../world');
-const AnimationFactory = require('../../animations');
+module.exports = Mine();
 
-const GameAudioFactory = require('../../audio');
-const Prefab = require('../prefab');
+function Mine() {
 
-// Экспорт
-module.exports = Mine;
+	let damage = 2;
+	let distance = 100;
+	let speed = 100;
 
-/**
- * Мина.
- */
-function Mine({
-	game,
-	preload = 'mine',
-	x,
-	y,
-	scale = 0.1,
-	damage = 2,
-	distance = 100,
-	speed = 100,
-	faction = 0,
-	group
-}) {
+	return {
+		needAudio: true,
+		preload: 'mine',
+		scale: 0.1,
+		damage: damage,
+		distance: distance,
+		speed: speed,
+		faction: 0,
+		killOptions: {
+			explosion: [
+				{
+					offsetX:     [
+						0,
+						0
+					],
+					offsetY:     [
+						0,
+						0
+					],
+					randomScale: 0.3
+				},
+			]
+		},
+		specialLogic: specialLogic
+	};
 
-	let t = Prefab({
-		game,
-		preload,
-		x,
-		y,
-		scale,
-		group
-	});
+	function specialLogic(game, world, mine) {
 
-	t.faction = faction;
+		if(!mine.target) {
 
-	t.events.onKilled.add(onKillCallback, this);
-
-	t.audio = GameAudioFactory(game, t, false);
-
-	t.update = update;
-
-	return t;
-
-	function onKillCallback() {
-
-		AnimationFactory.playExplosions([{
-			x: t.x,
-			y: t.y,
-			scale: 0.2
-		}]);
-
-		// Удаляем объект из мира.
-		World.removeObject(t);
-
-		// Играем аудио взрыва.
-		t.audio.playExplosion();
-	}
-
-	/**
-	 * Обработка пересечений.
-	 */
-	function overlapHandler(sprite, mine) {
-
-		// Наносим два урона
-		sprite.damage(damage);
-
-		mine.kill();
-
-	}
-
-	function tryToKillTarget() {
-
-		game.physics.arcade.moveToObject(t, t.target, speed);
-
-		game.physics.arcade.overlap(t.target, t, overlapHandler);
-
-	}
-
-	function update() {
-
-		if(!t.target) {
-
-			let sprites = World.getObjects();
+			let sprites = world.getObjects();
 
 			for(let target of sprites) {
 
-				if(Phaser.Point.distance(t, target) <= distance &&
-				   target.faction != t.faction) {
+				if(Phaser.Point.distance(mine, target) <= distance &&
+				   target.faction != mine.faction) {
 
-					t.target = target;
+					mine.target = target;
 
-					tryToKillTarget();
+					tryToKillTarget(game, mine);
 
 					break;
 				}
@@ -100,8 +55,29 @@ function Mine({
 
 		} else {
 
-			tryToKillTarget();
+			tryToKillTarget(game, mine);
 
 		}
+
+	}
+
+	/**
+	 * Обработка пересечений.
+	 */
+	function overlapHandler(sprite, mine) {
+
+		// Наносим урон
+		sprite.damage(damage);
+
+		mine.kill();
+
+	}
+
+	function tryToKillTarget(game, mine) {
+
+		game.physics.arcade.moveToObject(mine, mine.target, speed);
+
+		game.physics.arcade.overlap(mine.target, mine, overlapHandler);
+
 	}
 }

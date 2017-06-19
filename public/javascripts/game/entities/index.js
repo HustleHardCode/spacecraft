@@ -5,7 +5,6 @@ const lodash = require('lodash');
 
 // Зависимости
 const Unit = require('./units/unit');
-const Mine = require('./units/mine');
 
 const MeteorFactory = require('./meteor');
 const MineFieldFactory = require('./mine');
@@ -40,7 +39,7 @@ function EntitiesFactory() {
 	t.createScarab = createByType(require('./units/heavy/scarab'));
 	t.createCombat = createByType(require('./units/heavy/combat'));
 	t.createHawk = createByType(require('./units/light/hawk'));
-	t.createMine = createMine;
+	t.createMine = createByType(require('./units/mine'));
 
 	return t;
 
@@ -73,18 +72,6 @@ function EntitiesFactory() {
 
 		return unit;
 
-	}
-
-	function createMine(args) {
-
-		// Если фабрика не задана, задаем текущую.
-		args.factory = args.factory || t;
-
-		let mine = Mine(args);
-
-		World.pushObject(mine);
-
-		return mine;
 	}
 
 }
