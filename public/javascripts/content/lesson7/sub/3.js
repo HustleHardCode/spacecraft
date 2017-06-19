@@ -38,8 +38,8 @@ function ElseOperation() {
 
 				var act1 = block(50, 200, 'Управляет - BBot', '#152B39');
 				var act2 = block(400, 200, 'Управляет - Кадет', '#152B39');
-				var link1 = createLink(graph, null, act1, 300, 100);
-				var link2 = createLink(graph, null, act2, 300, 100);
+				var link1 = createLink({graph: graph, target: act1, sourceX: 300, sourceY: 100});
+				var link2 = createLink({graph: graph, target: act2, sourceX: 300, sourceY: 100});
 
 				var labelBlock1 = blockWithSize({
 					x: 150,

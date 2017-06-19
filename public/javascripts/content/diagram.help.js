@@ -22,11 +22,27 @@ function DiagramHelp () {
 
 	}
 
-	function createLink(graph, source, target, sourceX, sourceY) {
+	/**
+	 * Рисует линию между елементами
+	 * @param graph - сам граф
+	 * @param source - от какого элемента рисуется линия
+	 * @param target - до какого элемента рисуется линия
+	 * @param sourceX - координата X для случая если не указан source
+	 * @param sourceY - координата Y для случая если не указан source
+	 * @param isArrow - флаг отрисовки стрелочки в конце линии
+	 */
+	function createLink ({
+		graph,
+		source,
+		target,
+		sourceX,
+		sourceY,
+		isArrow
+	}) {
 
-		var erd = joint.shapes.erd;
+		let erd = joint.shapes.erd;
 
-		var myLink;
+		let myLink;
 
 		if(!sourceX && !sourceY && source) {
 
@@ -44,10 +60,27 @@ function DiagramHelp () {
 
 		}
 
-		myLink.attr({
-			'.connection':    {stroke: '#fff', 'stroke-width': 4},
-			'.marker-target': {stroke: '#fff', fill: '#fff', d: 'M 10 0 L 0 5 L 10 10 z'}
-		});
+		let attr = {
+
+			'.connection': {
+				stroke: '#fff',
+				'stroke-width': 4
+			}
+
+		};
+
+		// Если выставлен флаг, того что линия со стрелочкой, то добавляем в attr соответствующий css
+		if (isArrow) {
+
+			attr['.marker-target'] = {
+				stroke: '#fff',
+				fill: '#fff',
+				d: 'M 10 0 L 0 5 L 10 10 z'
+			};
+
+		}
+
+		myLink.attr(attr);
 
 		return !sourceX && !sourceY && source ?
 				myLink.addTo(graph) :
