@@ -8,10 +8,10 @@ const Y_COORD = 1500;
 this.run = function(corvette)
 {
 	// Передвижение к датчику.
-	scout.moveToXY(X_COORD, Y_COORD);
+	corvette.moveToXY(X_COORD, Y_COORD);
 
 	// Готовность первого лазерного оружия.
-	var isLaser1Ready = false;
+	var isLaser1Ready = true;
 
 	// Готовность второго лазерного оружия.
 	var isLaser2Ready = false;
@@ -20,7 +20,7 @@ this.run = function(corvette)
 	if (isLaser1Ready || isLaser2Ready)
 	{
 		// ТО выполняем выстрел.
-		scout.fireAtXY(X_COORD, Y_COORD);
+		corvette.fire();
 	}
 
 }

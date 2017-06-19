@@ -5,9 +5,14 @@
  */
 
 // Зависимсоти
-var drill = require('./1');
-var ifOperation = require('./2');
-var elseOperation = require('./3');
-var complexLogicalExpressionOr = require('./4');
+let drill = require('./1');
+let ifOperation = require('./2');
+let elseOperation = require('./3');
+let complexLogicalExpressionOr = require('./4');
+let complexLogicalExpressionAnd = require('./5');
 
-module.exports = [drill, ifOperation, elseOperation, complexLogicalExpressionOr];
+module.exports = [drill,
+				  ifOperation,
+				  elseOperation,
+				  complexLogicalExpressionOr,
+				  complexLogicalExpressionAnd];

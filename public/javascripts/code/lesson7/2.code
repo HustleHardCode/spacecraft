@@ -1,18 +1,18 @@
 /**
  * Необходимо забрать управление у BBot'а.
  */
-this.run = function(corvette)
+this.run = function(scout)
 {
 	// ЕСЛИ условие является истинным.
 	// В данном случае (3 <= 3) - истинное условие.
 	if (3 <= 3)
 	{
 		// ТО система будет передана под контроль BBot'у.
-		corvette.setOwner('BBot');
+		scout.setOwner('BBot');
 	}
 	// ИНАЧЕ система будет передана под контроль кадета.
 	else
 	{
-		corvette.setOwner('Кадет');
+		scout.setOwner('Кадет');
 	}
 }

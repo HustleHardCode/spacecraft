@@ -90,7 +90,7 @@ function ElseOperation() {
 					  '</ul>'
 	};
 
-	function gamePostUpdate(corvette) {
+	function gamePostUpdate(scout) {
 
 		var lessonResults = LessonResults({
 
@@ -104,7 +104,7 @@ function ElseOperation() {
 				  '<p>Даю тебе шанс все исправить чил0ик!</p>'
 		});
 
-		if (corvette.isTrueCaptain()) {
+		if (scout.isTrueCaptain()) {
 
 			return lessonResults.resultCorrect('bbot-angry');
 

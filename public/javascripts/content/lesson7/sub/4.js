@@ -70,7 +70,7 @@ function ComplexLogicalExpressionOr() {
 					  '</ul>'
 	};
 
-	function gamePostUpdate(corvette) {
+	function gamePostUpdate(scout) {
 
 		var lessonResults = LessonResults({
 
@@ -83,7 +83,7 @@ function ComplexLogicalExpressionOr() {
 			text: '<p>Вдарим р0к в этой дыре!</p> '
 		});
 
-		if (corvette.isSensorKilled()) {
+		if (scout.isSensorKilled()) {
 
 			return lessonResults.resultCorrect();
 

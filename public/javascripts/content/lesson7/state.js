@@ -22,7 +22,7 @@ function StateWrapper(state) {
 	let t = state;
 
 	let player;
-	let carrier;    // Авианосец
+	let locust;    // Авианосец
 	let explosions;	// Группа анимации взрывов
 	let updateTime = moment().valueOf();
 	let sensor;
@@ -36,7 +36,7 @@ function StateWrapper(state) {
 	function createNewPlayer() {
 
 		// Создать шаттл
-		player = carrier.create(corvetteLogic, true);
+		player = locust.create(scoutLogic, true);
 
 		// API для урока
 		player.api = Api(player);
@@ -46,7 +46,7 @@ function StateWrapper(state) {
 
 		// Корабль на верх.
 		player.bringToTop();
-		carrier.bringToTop();
+		locust.bringToTop();
 
 		player.events.onKilled.add(onKillCallback, this);
 
@@ -76,20 +76,20 @@ function StateWrapper(state) {
 		});
 
 
-		carrier = EntitiesFactory.createLocust({
+		locust = EntitiesFactory.createLocust({
 			game: game,
 			x: worldCenterX,
 			y: worldCenterY,
 			faction: 1
 		});
 
-		carrier.logic = function (c) {
+		locust.logic = function (c) {
 
 			c.moveForward();
 
 		};
 
-		carrier.rotation = 3 * Math.PI / 2;
+		locust.rotation = 3 * Math.PI / 2;
 
 		createNewPlayer();
 
@@ -138,14 +138,14 @@ function StateWrapper(state) {
 
 		}
 
-		carrier.bringToTop();
+		locust.bringToTop();
 		player.destroy();
 
 		setTimeout(createNewPlayer, LESSON_TIMEOUT);
 
 	}
 
-	function corvetteLogic(c, parent) {
+	function scoutLogic(c, parent) {
 
 		if (!c.alive) {
 
@@ -214,7 +214,7 @@ function StateWrapper(state) {
 
 		}
 
-		player.logic = corvetteLogic.bind(player, player, carrier);
+		player.logic = scoutLogic.bind(player, player, locust);
 
 	}
 }
