@@ -162,7 +162,7 @@ function Unit(args) {
 		});
 
 		// Удаляем объект из мира.
-		World.removeObject(t);
+		!player && World.removeObject(t);
 
 		// Играем аудио взрыва.
 		t.audio && t.audio.playExplosion();

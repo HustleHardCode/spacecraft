@@ -21,5 +21,42 @@
 		{
 			"type": "cargoBlock"
 		}
-	]
+	],
+	"killOptions": {
+		"explosion": [
+			{
+				"offsetX": [
+					0,
+					0
+				],
+				"offsetY": [
+					0,
+					0
+				],
+				"randomScale": true
+			},
+			{
+				"offsetX": [
+					10,
+					50
+				],
+				"offsetY": [
+					10,
+					50
+				],
+				"randomScale": true
+			},
+			{
+				"offsetX": [
+					10,
+					50
+				],
+				"offsetY": [
+					10,
+					50
+				],
+				"randomScale": true
+			}
+		]
+	}
 }
