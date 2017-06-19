@@ -17,7 +17,6 @@ module.exports = Promises;
  * @since 11.02.17
  * @author greezlock
  */
-
 function Promises($q, authentication, connection, statisticsStorage) {
 
 	var t = {};
@@ -25,6 +24,7 @@ function Promises($q, authentication, connection, statisticsStorage) {
 	t.getAuthenticationStatus = getAuthenticationStatus;
 
 	t.getLessonStatisticsData = getLessonStatisticsData;
+	t.getCombatUserCode = getCombatUserCode;
 	t.getCombatEnemy = getCombatEnemy;
 	t.getLeaderBoardData = getLeaderBoardData;
 	t.getUserProgressData = getUserProgressData;
@@ -54,7 +54,13 @@ function Promises($q, authentication, connection, statisticsStorage) {
 
 		}
 
-		return $q(authentication.getAuthenticationStatus.bind(null, args.ignoreAuthModule));
+		return $q(authentication.getAuthenticationStatus.bind(authentication, args.ignoreAuthModule));
+
+	}
+
+	function getCombatUserCode(idCombat) {
+
+		return $q(connection.getCombatUserCode.bind(connection, idCombat));
 
 	}
 
@@ -90,7 +96,7 @@ function Promises($q, authentication, connection, statisticsStorage) {
 
 	function getGame(id) {
 
-		return $q(Game.initialization.bind(null, id));
+		return $q(Game.initialization.bind(Game, id));
 
 	}
 

@@ -22,15 +22,17 @@ function CombatResolve() {
 	// Имена resolve'ов.
 	const names = {
 		authentication: 'authenticationStatus',
+		combatUserCode: 'combatUserCode',
 		combatEnemy:    'combatEnemy',
 		game:           'game'
-
 	};
+
 	// Значения resolve'ов
 	let resolves = {};
 
 	resolves[names.authentication] = ['promises', 'spinner', onAuthenticationStatus];
-	resolves[names.combatEnemy] = ['promises', 'spinner', names.authentication, onCombatEnemy];
+	resolves[names.combatUserCode] = ['promises', 'spinner', names.authentication, onCombatUserCode];
+	resolves[names.combatEnemy] = ['promises', 'spinner', names.combatUserCode, onCombatEnemy];
 	resolves[names.game] = ['$stateParams', 'promises', 'spinner', names.combatEnemy, onGame];
 
 	// В качестве экспорта из модуля:
@@ -46,6 +48,14 @@ function CombatResolve() {
 		spinner.start({message: spinnerMessages.authorization});
 
 		return promises.getAuthenticationStatus();
+
+	}
+
+	function onCombatUserCode(promises, spinner) {
+
+		spinner.start({message: spinnerMessages.combatUserCode});
+
+		return promises.getCombatUserCode(1);
 
 	}
 

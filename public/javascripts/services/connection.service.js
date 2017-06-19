@@ -26,6 +26,9 @@ function Connection($http) {
 
 	that.getCombatEnemy = getCombatEnemy;
 
+	that.getCombatUserCode = getCombatUserCode;
+	that.saveCombatUserCode = saveCombatUserCode;
+
 	that.saveLessonsStatistics = saveLessonsStatistics;
 	that.getLessonsStatistics = getLessonsStatistics;
 
@@ -45,6 +48,28 @@ function Connection($http) {
 	that.checkSession = checkSession;
 
 	return that;
+
+	function getCombatUserCode(idCombat, success, error) {
+
+		$http({
+				  url:    apiUrls.combatUserCode,
+				  method: 'GET',
+				  params:   { idCombat }
+			  }).then(claimHttpDataOnly(success),
+					  error);
+
+	}
+
+	function saveCombatUserCode(idCombat, code, success, error) {
+
+		$http({
+				  url:    apiUrls.combatUserCode,
+				  method: 'POST',
+				  data:   { idCombat, code }
+			  }).then(success,
+					  error);
+
+	}
 
 	function getCombatEnemy(idCombat, success, error) {
 

@@ -37,7 +37,8 @@ angular.module('spacecraft', [
 		'ngCookies',
 		'ngMessages',
 		'ngAnimate',
-		'youtube-embed'
+		'youtube-embed',
+		'ngStorage'
 	])
 	.config(configBlock)
 	.run(runBlock);

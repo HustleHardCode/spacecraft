@@ -12,6 +12,8 @@ CombatController.$inject = ['$scope',
 							'aceService',
 							'connection',
 							'settings',
+							'$localStorage',
+							resolvesNames.combatUserCode,
 							resolvesNames.combatEnemy];
 
 module.exports = CombatController;
@@ -27,6 +29,8 @@ function CombatController($scope,
 						  aceService,
 						  connection,
 						  settings,
+						  $localStorage,
+						  combatUserCode,
 						  combatEnemy) {
 
 	var VK_GROUP_ID = 105816682;

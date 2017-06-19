@@ -8,6 +8,8 @@
 
 	"combatEnemy": "/combat/enemy",
 
+	"combatUserCode": "user/combat/code",
+
 	"login": "/login",
 	"logout": "/logout",
 	"register": "/register",

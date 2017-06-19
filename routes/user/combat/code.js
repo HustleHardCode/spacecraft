@@ -17,6 +17,74 @@ const router = express.Router();
 
 module.exports = router;
 
+
+/**
+ * ------------------------------------------------
+ * GET
+ * ------------------------------------------------
+ */
+
+router.get('/user/combat/code', checkAuthentication, (req, res) => {
+
+	// TODO При желании, можно определять сообщение.
+	req.checkQuery('idCombat').notEmpty().isInt();
+
+	// TODO yield
+	req.getValidationResult().then(function(result) {
+
+		if (!result.isEmpty()) {
+
+			res.sendStatus(HttpStatus.BAD_REQUEST);
+
+			return;
+
+		}
+
+		let idUser = req.user._id;
+		let idCombat = req.query.idCombat;
+
+		CombatCodeModel.findOne({idCombat})
+					   .where('idUser').equals(idUser)
+					   .exec(onFind);
+
+
+	});
+
+	function onFind(err, document) {
+
+		if (!err) {
+
+			if (lodash.isEmpty(document)) {
+
+				res.sendStatus(HttpStatus.ACCEPTED);
+
+				return;
+
+			}
+
+			const code = document.code;
+
+			if (code) {
+
+				res.status(HttpStatus.OK).send(code);
+
+			} else {
+
+				// Обрабатываем случай, когда поле кода оказалось пустым (по каким-либо причинам).
+				res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY);
+
+			}
+
+			return;
+
+		}
+
+		return res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+
+	}
+
+});
+
 /**
  * ------------------------------------------------
  * POST
@@ -28,7 +96,7 @@ router.post('/user/combat/code', checkAuthentication, (req, res) => {
 	// TODO При желании, можно определять сообщение.
 	req.checkBody('idCombat').notEmpty().isInt();
 	req.checkBody('code').notEmpty();
-	
+
 	// TODO yield
 	req.getValidationResult().then(function(result) {
 
