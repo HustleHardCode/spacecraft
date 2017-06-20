@@ -44,7 +44,7 @@ function EngineBlock({
 	unit.getVelocity = getVelocity;
 	unit.warp = warp.play;
 	unit.stun = stun.start;
-	unit.initPatrolLogic = initPatrolLogic;
+	unit.patrol = patrol;
 
 	t.update = update;
 
@@ -240,7 +240,7 @@ function EngineBlock({
 
 	}
 
-	function initPatrolLogic(points) {
+	function patrol(points) {
 
 		let patrol = Patrol(points);
 

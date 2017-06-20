@@ -2,15 +2,15 @@
 
 module.exports = Patrol;
 
-// Дистанция при которой точка считается пройденной и необходимо лететь к следущеё точке
-const DISTANCE_TO_ACCEPT_POINT = 50;
-
 /**
  * @author Aleksandrov Oleg
  * @since 19.06.17
  * @param points массив, где каждй элемент это new Phaser.Point
+ * @param _distanseToAcceptPoint Дистанция при которой точка считается пройденной и необходимо лететь к следущеё точке
  */
-function Patrol(points) {
+function Patrol(points, _distanseToAcceptPoint) {
+
+	let distanseToAcceptPoint = _distanseToAcceptPoint || 50;
 
 	let pointIndex = 0;
 
@@ -22,7 +22,7 @@ function Patrol(points) {
 
 	function moveToNextPoint(obj) {
 
-		if (obj.distanceTo(points[pointIndex].x, points[pointIndex].y) < DISTANCE_TO_ACCEPT_POINT) {
+		if (obj.distanceTo(points[pointIndex].x, points[pointIndex].y) < distanseToAcceptPoint) {
 
 			pointIndex++;
 

@@ -95,7 +95,7 @@ function StateWrapper(state) {
 			          new Phaser.Point(centerX - 1500, centerY - 1000),
 			          new Phaser.Point(centerX - 1500, centerY - 500)];
 
-		enemy.initPatrolLogic(points);
+		enemy.patrol(points);
 
 	}
 
@@ -134,7 +134,7 @@ function StateWrapper(state) {
 	function createOtherShip(game) {
 
 		// Создаем транспоты 1 и 2
-		let transport1 = EntitiesFactory.createLouse({
+		let transport1 = EntitiesFactory.createMantis({
 			game: game,
 			x: centerX + 800,
 			y: centerY - 800,
@@ -143,7 +143,7 @@ function StateWrapper(state) {
 
 		let points1 = [new Phaser.Point(centerX + 650, centerY - 50), new Phaser.Point(centerX + 800, centerY - 800)];
 
-		transport1.initPatrolLogic(points1);
+		transport1.patrol(points1);
 
 		let transport2 = EntitiesFactory.createLouse({
 			game: game,
@@ -154,7 +154,18 @@ function StateWrapper(state) {
 
 		let points2 = [new Phaser.Point(centerX + 650, centerY - 50), new Phaser.Point(centerX + 800, centerY - 800)];
 
-		transport2.initPatrolLogic(points2);
+		transport2.patrol(points2);
+
+		let transport3 = EntitiesFactory.createScout({
+			game: game,
+			x: centerX + 650,
+			y: centerY - 50,
+			velocity: 30
+		});
+
+		let points3 = [new Phaser.Point(centerX - 1000, centerY), new Phaser.Point(centerX + 650, centerY - 50)];
+
+		transport3.patrol(points3);
 
 	}
 
