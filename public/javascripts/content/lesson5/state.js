@@ -11,8 +11,6 @@ module.exports = StateWrapper;
 
 function StateWrapper(state) {
 
-	// Дистанция при которой точка считается пройденной и необходимо лететь к следущеё точке
-	const DISTANCE_TO_ACCEPT_POINT = 50;
 	const DETECTION_RADIUS = 100;
 
 	let t = state;
@@ -25,11 +23,6 @@ function StateWrapper(state) {
 	let centerX;
 	let centerY;
 
-	// Индекс точки для корабля противника.
-	let pointIndex1 = 0;
-	let pointIndex2 = 0;
-	let pointIndex3 = 0;
-
 	t.entities = entities;
 	t.onContextLoaded = onContextLoaded;
 	t.backgroundObjects = require('../backgrounds/pirate-bay');
@@ -37,12 +30,26 @@ function StateWrapper(state) {
 	return t;
 
 	/**
-	 * Шаблонный метод инфициализации объектов.
+	 * Шаблонный метод инициализации объектов.
 	 */
 	function entities(game) {
 
 		centerX = game.world.centerX;
 		centerY = game.world.centerY;
+
+		createScene(game);
+		createOtherShip(game);
+		createEnemy(game);
+
+		createPlayer(game);
+
+	}
+
+	/**
+	 * Функция создает условно статические объект сцены.
+	 * Такие как метеоритное поле и база пиратов.
+	 */
+	function createScene(game) {
 
 		// cоздаем метеоритное поле
 		MeteorFactory.createMeteorsByFunction({
@@ -51,11 +58,11 @@ function StateWrapper(state) {
 			startX: centerX - 1000,
 			finishX: centerX + 2000,
 			step: 60,
-			count: 3,
+			count: 8,
 			radius: 200
 		});
 
-		const pirateBase = EntitiesFactory.createStructure({
+		EntitiesFactory.createStructure({
 			preload: 'pirateBase',
 			game: game,
 			x: centerX + 750,
@@ -63,6 +70,14 @@ function StateWrapper(state) {
 			velocity: 30,
 			scale: 0.3
 		});
+
+	}
+
+	/**
+	 * Функция создает корабль противника, и задает ему
+	 * стратегию перемещения по определенным точкам.
+	 */
+	function createEnemy(game) {
 
 		// Создать транспорт противника
 		enemy = EntitiesFactory.createHawk({
@@ -73,30 +88,14 @@ function StateWrapper(state) {
 		});
 
 		enemy.bringToTop();
-
 		enemy.angle = 220;
-		enemy.logic = enemyMoving;
 
-		// Создаем транспоты 1 и 2
-		let transport = EntitiesFactory.createLouse({
-			game: game,
-			x: centerX + 800,
-			y: centerY - 800,
-			velocity: 30
-		});
+		let points = [new Phaser.Point(centerX - 500, centerY - 500),
+			          new Phaser.Point(centerX - 500, centerY - 1000),
+			          new Phaser.Point(centerX - 1500, centerY - 1000),
+			          new Phaser.Point(centerX - 1500, centerY - 500)];
 
-		transport.logic = transport1Moving;
-
-		let transport2 = EntitiesFactory.createLouse({
-			game: game,
-			x: centerX + 650,
-			y: centerY + 300,
-			velocity: 30
-		});
-
-		transport2.logic = transport2Moving;
-
-		createPlayer(game);
+		enemy.initPatrolLogic(points);
 
 	}
 
@@ -127,6 +126,37 @@ function StateWrapper(state) {
 		return centerY - (x / 10 - 100);
 	}
 
+	/**
+	 * Функция создает корабли, которые просто участвует
+	 * в сцене для иллюзии бурной жизни вокруг станции.
+	 * Корабли перемещаються по определеным точкам.
+	 */
+	function createOtherShip(game) {
+
+		// Создаем транспоты 1 и 2
+		let transport1 = EntitiesFactory.createLouse({
+			game: game,
+			x: centerX + 800,
+			y: centerY - 800,
+			velocity: 30
+		});
+
+		let points1 = [new Phaser.Point(centerX + 650, centerY - 50), new Phaser.Point(centerX + 800, centerY - 800)];
+
+		transport1.initPatrolLogic(points1);
+
+		let transport2 = EntitiesFactory.createLouse({
+			game: game,
+			x: centerX + 650,
+			y: centerY + 300,
+			velocity: 30
+		});
+
+		let points2 = [new Phaser.Point(centerX + 650, centerY - 50), new Phaser.Point(centerX + 800, centerY - 800)];
+
+		transport2.initPatrolLogic(points2);
+
+	}
 
 	// Метод логики корабля пользователя для 9 подурока.
 	function moveToEnemy (obj) {
@@ -161,64 +191,6 @@ function StateWrapper(state) {
 		}
 	}
 
-	/**
-	 * Метод логики врага для 9 подурока.
-	 * Враг просто курсирует по заданным точкам
-	 */
-	function enemyMoving(obj) {
-
-		let points = [new Phaser.Point(centerX - 500, centerY - 500),
-			          new Phaser.Point(centerX - 500, centerY - 1000),
-		              new Phaser.Point(centerX - 1500, centerY - 1000),
-			          new Phaser.Point(centerX - 1500, centerY - 500)];
-
-		pointIndex1 = moveToNextPoint(obj, points, pointIndex1);
-
-	}
-
-	/**
-	 * Метод логики курсирования для первого транспорта.
-	 */
-	function transport1Moving(obj) {
-
-		let points = [new Phaser.Point(centerX + 650, centerY - 50), new Phaser.Point(centerX + 800, centerY - 800)];
-
-		pointIndex2 = moveToNextPoint(obj, points, pointIndex2);
-
-	}
-
-	/**
-	 * Метод логики курсирования для второго транспорта.
-	 */
-	function transport2Moving(obj) {
-
-		let points = [new Phaser.Point(centerX + 650, centerY - 50), new Phaser.Point(centerX + 650, centerY + 300)];
-
-		pointIndex3 = moveToNextPoint(obj, points, pointIndex3);
-
-	}
-
-	function moveToNextPoint(obj, points, pointIndex) {
-
-		if (obj.distanceTo(points[pointIndex].x, points[pointIndex].y) < DISTANCE_TO_ACCEPT_POINT) {
-
-			pointIndex++;
-
-			if (pointIndex >= points.length) {
-
-				pointIndex = 0;
-
-			}
-
-		} else {
-
-			obj.moveToXY(points[pointIndex].x, points[pointIndex].y);
-
-		}
-
-		return pointIndex;
-
-	}
 
 	/**
 	 * Создание корабля игрока.

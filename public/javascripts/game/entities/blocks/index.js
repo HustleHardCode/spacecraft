@@ -1,12 +1,12 @@
 'use strict';
 
 // Зависимости
-var EngineBlock = require('./engine');
-var ShieldBlock = require('./shield');
-var ScannerBlock = require('./scanner');
-var CargoBlock = require('./cargo');
-var CarrierBlock = require('./carrier');
-var WeaponBlock = require('./weapon');
+const EngineBlock = require('./engine');
+const ShieldBlock = require('./shield');
+const ScannerBlock = require('./scanner');
+const CargoBlock = require('./cargo');
+const CarrierBlock = require('./carrier');
+const WeaponBlock = require('./weapon');
 
 // Экспорт
 module.exports = BlocksFactory();
@@ -20,7 +20,7 @@ module.exports = BlocksFactory();
 function BlocksFactory() {
 
 	// that / this
-	var t = {};
+	let t = {};
 
 	/**
 	 * Добавляем дигатель к юниту.
