@@ -4,12 +4,14 @@ const lodash = require('lodash');
 const Mine = require('./units/mine');
 
 // Экспорт
-module.exports = MineFieldFactory();
+module.exports = MineFieldFactory;
 
 /**
  * Created by vaimer on 16.06.17.
  */
-function MineFieldFactory() {
+function MineFieldFactory({
+	createMine
+}) {
 
 	let t = {};
 
@@ -20,7 +22,7 @@ function MineFieldFactory() {
 	/**
 	 * Создание минного поля.
 	 */
-	function createMineField({game, x, y, createFunction}) {
+	function createMineField({game, x, y}) {
 
 		// Создаем группу из мин
 		let mines = game.add.group();
@@ -37,7 +39,7 @@ function MineFieldFactory() {
 					let deltaY = 20 * i;
 					let deltaX = 20 * j;
 
-					createFunction({
+					createMine({
 						game: game,
 						x: x + deltaX,
 						y: y + deltaY,

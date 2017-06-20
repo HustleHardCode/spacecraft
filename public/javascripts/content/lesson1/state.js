@@ -7,7 +7,6 @@ let CodeLauncher = require('../../game/launcher');
 let Api = require('./api');
 
 let MeteorFactory = EntitiesFactory.MeteorFactory;
-let MineFieldFactory = EntitiesFactory.MineFieldFactory;
 
 module.exports = StateWrapper;
 
@@ -58,7 +57,7 @@ function StateWrapper(state) {
 		// API для урока
 		player.api = Api(player);
 
-		MineFieldFactory.createMineField({
+		EntitiesFactory.MineFieldFactory.createMineField({
 			game: game,
 			x: 1650,
 			y: 1650,

@@ -39,7 +39,7 @@ function Api(player) {
 
 	function isAlive() {
 
-		return player.alive;
+		return player && player.alive;
 
 	}
 

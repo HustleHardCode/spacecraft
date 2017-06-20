@@ -40,7 +40,7 @@ function Unit(args) {
 	// Менеджер блоков
 	let blocksManager = [];
 
-	t.specialLogic = args.specialLogic;
+	t.logic = args.logic;
 
 	/**
 	 * Коллбеки.
@@ -127,9 +127,7 @@ function Unit(args) {
 
 		lodash.forEach(blocksManager, b => b.update && b.update());
 
-		t.logic && t.logic(t);
-
-		t.specialLogic && t.specialLogic(game, World, t);
+		t.logic && t.logic(t, game);
 
 		isRotating && t.rotateLeft();
 
@@ -166,7 +164,7 @@ function Unit(args) {
 		});
 
 		// Удаляем объект из мира.
-		!player && World.removeObject(t);
+		World.removeObject(t);
 
 		// Играем аудио взрыва.
 		t.audio && t.audio.playExplosion();

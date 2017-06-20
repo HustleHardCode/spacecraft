@@ -1,11 +1,13 @@
 'use strict';
 
+const World = require('../world');
+
 module.exports = Mine();
 
 function Mine() {
 
-	let damage = 2;
 	let distance = 100;
+	let damage = 2;
 	let speed = 100;
 
 	return {
@@ -31,19 +33,19 @@ function Mine() {
 				},
 			]
 		},
-		specialLogic: specialLogic
+		logic: logic
 	};
 
-	function specialLogic(game, world, mine) {
+	function logic(mine, game) {
 
 		if(!mine.target) {
 
-			let sprites = world.getObjects();
+			let sprites = World.getObjects();
 
 			for(let target of sprites) {
 
 				if(Phaser.Point.distance(mine, target) <= distance &&
-				   target.faction != mine.faction) {
+				   target.faction !== mine.faction) {
 
 					mine.target = target;
 
