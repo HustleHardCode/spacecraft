@@ -1,17 +1,17 @@
 'use strict';
 
 // Экспорт
-module.exports = WeaponBlock;
+module.exports = Weapon;
 
-var World = require('../world');
-var AnimationFactory = require('../../animations');
+var World = require('../../world');
+var AnimationFactory = require('../../../animations');
 
 /**
  * Блок оружия, который может быть добавлен к кораблю.
  *
  * @param fireRate период одного выстрела
  * @param game игра
- * @param unit юнит
+ * @param sprite спрайт выстрела
  * @param bulletSpeed скорость пули
  * @param quantity кол-во пуль в корабле
  * @param bulletKillDistance дистанция полета пули
@@ -22,24 +22,24 @@ var AnimationFactory = require('../../animations');
  * @author Skurishin Vladislav
  * @since 11.06.16
  */
-function WeaponBlock({
+function Weapon({
 	game,
-	unit,
 	fireRate = 1000,
 	bulletSpeed = 200,
 	damage = 10,
 	quantity = 30,
 	bulletKillDistance = 200,
+	sprite,
 	offsetX,
 	offsetY
 }) {
 
 	// that / this
 	let t = {};
-	let weapon = game.add.weapon(quantity, 'beam1');
+	let weapon = game.add.weapon(quantity, sprite);
 
-	unit.fire = fire;
-	unit.fireAtXY = fireAtXY;
+	t.fire = fire;
+	t.fireAtXY = fireAtXY;
 
 	t.update = update;
 
@@ -83,6 +83,7 @@ function WeaponBlock({
 
 		} else {
 
+			// TODO не забыть продумать данный вариант
 			weapon.fireAngle = unit.angle;
 			weapon.fire();
 

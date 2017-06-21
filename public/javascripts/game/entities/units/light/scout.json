@@ -23,7 +23,18 @@
 		},
 		{
 			"type": "weaponBlock",
-			"bulletKillDistance": 50
+			"weapons": [
+				{
+					"type": "laser",
+					"bulletKillDistance": 50,
+					"sprite": "beam1"
+				},
+				{
+					"type": "laser",
+					"bulletKillDistance": 50,
+					"sprite": "beam1"
+				}
+			]
 		}
 	]
 }

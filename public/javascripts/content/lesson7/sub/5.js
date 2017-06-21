@@ -19,7 +19,7 @@ function ComplexLogicalExpressionAnd() {
 	];
 	return {
 		isRestartDisabled: true,
-		title:             'Две палочки',
+		title:             'Все или ничего',
 		character:         [{
 			audio: 'audio/lesson6/8-1',
 			css:   'astromen-img',
