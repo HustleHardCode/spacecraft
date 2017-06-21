@@ -60,8 +60,7 @@ function StateWrapper(state) {
 		EntitiesFactory.MineFieldFactory.createMineField({
 			game: game,
 			x: 1650,
-			y: 1650,
-			createFunction: EntitiesFactory.createMine
+			y: 1650
 		});
 
 		// Корабль на верх.
