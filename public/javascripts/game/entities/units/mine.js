@@ -2,84 +2,83 @@
 
 const World = require('../world');
 
-module.exports = Mine();
+const distance = 100;
+const damage = 2;
+const speed = 100;
 
-function Mine() {
+let mine =  {
+	needAudio: true,
+	preload: 'mine',
+	scale: 0.1,
+	damage: damage,
+	distance: distance,
+	speed: speed,
+	faction: 0,
+	killOptions: {
+		explosion: [
+			{
+				offsetX:     [
+					0,
+					0
+				],
+				offsetY:     [
+					0,
+					0
+				],
+				randomScale: 0.2
+			},
+		]
+	},
+	logic: logic
+};
 
-	let distance = 100;
-	let damage = 2;
-	let speed = 100;
+module.exports = mine;
 
-	return {
-		needAudio: true,
-		preload: 'mine',
-		scale: 0.1,
-		damage: damage,
-		distance: distance,
-		speed: speed,
-		faction: 0,
-		killOptions: {
-			explosion: [
-				{
-					offsetX:     [
-						0,
-						0
-					],
-					offsetY:     [
-						0,
-						0
-					],
-					randomScale: 0.3
-				},
-			]
-		},
-		logic: logic
-	};
 
-	function logic(mine, game) {
 
-		if(!mine.target) {
+function logic(mine, game) {
 
-			let sprites = World.getObjects();
+	if(!mine.target) {
 
-			for(let target of sprites) {
+		let sprites = World.getObjects();
 
-				if(Phaser.Point.distance(mine, target) <= distance &&
-				   target.faction !== mine.faction) {
+		for(let target of sprites) {
 
-					mine.target = target;
+			if(Phaser.Point.distance(mine, target) <= distance &&
+			   target.faction !== mine.faction) {
 
-					tryToKillTarget(game, mine);
+				mine.target = target;
 
-					break;
-				}
+				tryToKillTarget(game, mine);
+
+				break;
 			}
-
-		} else {
-
-			tryToKillTarget(game, mine);
-
 		}
 
-	}
+	} else {
 
-	/**
-	 * Обработка пересечений.
-	 */
-	function overlapHandler(sprite, mine) {
-
-		// Наносим урон
-		sprite.damage(damage);
-
-		mine.kill();
+		tryToKillTarget(game, mine);
 
 	}
 
-	function tryToKillTarget(game, mine) {
+}
 
-		game.physics.arcade.moveToObject(mine, mine.target, speed);
+/**
+ * Обработка пересечений.
+ */
+function overlapHandler(sprite, mine) {
 
-		game.physics.arcade.overlap(mine.target, mine, overlapHandler);
+	// Наносим урон
+	sprite.damage(damage);
 
-	}
+	mine.kill();
+
+}
+
+function tryToKillTarget(game, mine) {
+
+	game.physics.arcade.moveToObject(mine, mine.target, speed);
+
+	game.physics.arcade.overlap(mine.target, mine, overlapHandler);
+
 }
