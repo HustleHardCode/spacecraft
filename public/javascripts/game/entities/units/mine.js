@@ -2,18 +2,18 @@
 
 const World = require('../world');
 
-const distance = 100;
-const damage = 2;
-const speed = 100;
+const DISTANCE = 100;
+const DAMAGE = 2;
+const SPEED = 100;
 
 let mine =  {
-	needAudio: true,
-	preload: 'mine',
-	scale: 0.1,
-	damage: damage,
-	distance: distance,
-	speed: speed,
-	faction: 0,
+	needAudio:   true,
+	preload:     'mine',
+	scale:       0.1,
+	damage:      DAMAGE,
+	distance:    DISTANCE,
+	speed:       SPEED,
+	faction:     0,
 	killOptions: {
 		explosion: [
 			{
@@ -29,7 +29,7 @@ let mine =  {
 			},
 		]
 	},
-	logic: logic
+	logic:       logic
 };
 
 module.exports = mine;
@@ -44,7 +44,7 @@ function logic(mine, game) {
 
 		for(let target of sprites) {
 
-			if(Phaser.Point.distance(mine, target) <= distance &&
+			if(Phaser.Point.distance(mine, target) <= DISTANCE &&
 			   target.faction !== mine.faction) {
 
 				mine.target = target;
@@ -69,7 +69,7 @@ function logic(mine, game) {
 function overlapHandler(sprite, mine) {
 
 	// Наносим урон
-	sprite.damage(damage);
+	sprite.damage(DAMAGE);
 
 	mine.kill();
 
@@ -77,7 +77,7 @@ function overlapHandler(sprite, mine) {
 
 function tryToKillTarget(game, mine) {
 
-	game.physics.arcade.moveToObject(mine, mine.target, speed);
+	game.physics.arcade.moveToObject(mine, mine.target, SPEED);
 
 	game.physics.arcade.overlap(mine.target, mine, overlapHandler);
 
