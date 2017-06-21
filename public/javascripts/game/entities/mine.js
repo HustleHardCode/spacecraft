@@ -1,7 +1,6 @@
 'use strict';
 
 const lodash = require('lodash');
-const Mine = require('./units/mine');
 
 // Экспорт
 module.exports = MineFieldFactory;
@@ -9,9 +8,7 @@ module.exports = MineFieldFactory;
 /**
  * Created by vaimer on 16.06.17.
  */
-function MineFieldFactory({
-	createMine
-}) {
+function MineFieldFactory(factory) {
 
 	let t = {};
 
@@ -39,11 +36,11 @@ function MineFieldFactory({
 					let deltaY = 20 * i;
 					let deltaX = 20 * j;
 
-					createMine({
-						game: game,
-						x: x + deltaX,
-						y: y + deltaY,
-						group: mines
+					factory.createMine({
+							game: game,
+							x: x + deltaX,
+							y: y + deltaY,
+							group: mines
 					});
 
 				}

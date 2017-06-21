@@ -25,9 +25,7 @@ function EntitiesFactory() {
 	let t = {};
 
 	t.MeteorFactory = MeteorFactory;
-	t.MineFieldFactory = MineFieldFactory({
-		createMine: createByType(require('./units/mine'))
-	});
+	t.MineFieldFactory = MineFieldFactory(t);
 
 	t.create = create;
 
