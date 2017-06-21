@@ -77,7 +77,8 @@ function Alert() {
 
 		// Если транспорт уничтожен,
 		// результат отрицательный.
-		if (!transport.isAlive()) {
+		if (!transport ||
+			!transport.isAlive()) {
 
 			var lessonPoints = lessonStatistics.getLessonContentPoints();
 

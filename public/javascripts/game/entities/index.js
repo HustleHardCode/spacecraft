@@ -1,13 +1,14 @@
 'use strict';
 
 // Библиотеки
-let lodash = require('lodash');
+const lodash = require('lodash');
 
 // Зависимости
-let Unit = require('./units/unit');
+const Unit = require('./units/unit');
 
-let MeteorFactory = require('./meteor');
-let World = require('./world');
+const MeteorFactory = require('./meteor');
+const MineFieldFactory = require('./mine');
+const World = require('./world');
 
 // Экспорт
 module.exports = EntitiesFactory();
@@ -24,6 +25,7 @@ function EntitiesFactory() {
 	let t = {};
 
 	t.MeteorFactory = MeteorFactory;
+	t.MineFieldFactory = MineFieldFactory(t);
 
 	t.create = create;
 
@@ -37,6 +39,7 @@ function EntitiesFactory() {
 	t.createScarab = createByType(require('./units/heavy/scarab'));
 	t.createCombat = createByType(require('./units/heavy/combat'));
 	t.createHawk = createByType(require('./units/light/hawk'));
+	t.createMine = createByType(require('./units/mine'));
 
 	return t;
 
@@ -45,7 +48,7 @@ function EntitiesFactory() {
 	 */
 	function createByType(typeArgs) {
 
-		return function (userArgs) {
+		return (userArgs) => {
 
 			return create(lodash.assign({}, typeArgs, userArgs));
 

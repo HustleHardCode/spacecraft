@@ -92,7 +92,7 @@ function MoreAboutVariables() {
 					value2
 				]);
 
-				createLink(graph, value1, value2);
+				createLink({graph:graph, source: value1, target: value2});
 			},
 			marker: {
 				x1: 12,

@@ -60,7 +60,7 @@ function CombatController($scope,
 	$scope.aceChanged = aceChanged;
 	$scope.aceLoaded = aceLoaded;
 	$scope.toggleCodeRun = toggleCodeRun;
-	$scope.saveButton = saveButton;
+	$scope.clickSaveButton = clickSaveButton;
 	$scope.onError = onError;
 
 	$scope.$watch('$viewContentLoaded', onContentLoaded);
@@ -91,7 +91,7 @@ function CombatController($scope,
 
 	}
 
-	function saveButton() {
+	function clickSaveButton() {
 
 		saveCombatUserCode({
 							   combatUserCode: aceService.getValue(),
@@ -105,9 +105,14 @@ function CombatController($scope,
 
 		if (lastSavedCode !== combatUserCode) {
 
-			spinner.start({message: spinnerMessages.saveButton});
+			spinner.start({message: spinnerMessages.clickSaveButton});
 
 			connection.saveCombatUserCode(idCombat, combatUserCode, codeStatus, onSaveSuccess, onSaveError);
+
+
+		} else {
+
+			success && success();
 
 		}
 

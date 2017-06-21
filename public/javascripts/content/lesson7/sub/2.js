@@ -37,7 +37,7 @@ function IfOperation() {
 				});
 
 				var act1 = block(50, 200, 'Уничтожить', '#152B39');
-				var link = createLink(graph, null, act1, 300, 100);
+				var link = createLink({graph: graph, target: act1, sourceX: 300, sourceY: 100});
 
 				var labelBlock = blockWithSize({
 					x:      150,

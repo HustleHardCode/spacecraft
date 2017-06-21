@@ -1,8 +1,9 @@
 'use strict';
 
-var Trail = require('./trail');
-var Stun = require('./stun');
-var Warp = require('./warp');
+const Trail = require('./trail');
+const Stun = require('./stun');
+const Warp = require('./warp');
+const Patrol = require('./patrol');
 
 // Экспорт
 module.exports = EngineBlock;
@@ -43,6 +44,7 @@ function EngineBlock({
 	unit.getVelocity = getVelocity;
 	unit.warp = warp.play;
 	unit.stun = stun.start;
+	unit.patrol = patrol;
 
 	t.update = update;
 
@@ -104,7 +106,7 @@ function EngineBlock({
 	 */
 	function moveToXY(x, y) {
 
-		var distance = game.math.distance(unit.x, unit.y, x, y);
+		let distance = game.math.distance(unit.x, unit.y, x, y);
 
 		// Если дистанция меньше 10,
 		// то ничего не выполняем.
@@ -119,7 +121,7 @@ function EngineBlock({
 		// Calculate the angle from the missile to the mouse cursor game.input.x
 		// and game.input.y are the mouse position; substitute with whatever
 		// target coordinates you need.
-		var targetAngle = game.math.angleBetween(
+		let targetAngle = game.math.angleBetween(
 			unit.x, unit.y,
 			x, y
 		);
@@ -128,7 +130,7 @@ function EngineBlock({
 		if (unit.rotation !== targetAngle) {
 
 			// Calculate difference between the current angle and targetAngle
-			var delta = targetAngle - unit.rotation;
+			let delta = targetAngle - unit.rotation;
 
 			// Keep it in range from -180 to 180 to make the most efficient turns.
 			if (delta > Math.PI) delta -= Math.PI * 2;
@@ -189,7 +191,7 @@ function EngineBlock({
 
 		}
 
-		trailsArray.forEach(function (trail) {
+		trailsArray.forEach((trail) => {
 
 			trail && trail.start();
 
@@ -204,8 +206,8 @@ function EngineBlock({
 	 */
 	function distanceTo(_x, _y) {
 
-		var deltaX = _x - unit.getX();
-		var deltaY = _y - unit.getY();
+		let deltaX = _x - unit.getX();
+		let deltaY = _y - unit.getY();
 
 		return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
@@ -235,6 +237,14 @@ function EngineBlock({
 	function getVelocity() {
 
 		return velocity;
+
+	}
+
+	function patrol(points) {
+
+		let patrol = Patrol(points);
+
+		unit.logic = patrol.moveToNextPoint;
 
 	}
 

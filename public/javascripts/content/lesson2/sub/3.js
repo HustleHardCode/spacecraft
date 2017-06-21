@@ -63,7 +63,7 @@ function Sensor() {
 					type1
 				]);
 
-				createLink(graph, typeMain, type1);
+				createLink({graph: graph, source: typeMain, target: type1, isArrow: true});
 
 			}
 		}, {
@@ -75,7 +75,7 @@ function Sensor() {
 					type2
 				]);
 
-				createLink(graph, typeMain, type2);
+				createLink({graph: graph, source: typeMain, target: type2, isArrow: true});
 			}
 		}, {
 			audio:   'audio/lesson3/3-6',
@@ -87,8 +87,8 @@ function Sensor() {
 					type22
 				]);
 
-				createLink(graph, type2, type21);
-				createLink(graph, type21, type22);
+				createLink({graph: graph, source: type2, target: type21});
+				createLink({graph: graph, source: type21, target: type22});
 			},
 			marker:  {
 				x1: 5,

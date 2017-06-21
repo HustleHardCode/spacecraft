@@ -26,6 +26,7 @@
 		"base": "images/sprites/entities/structures/base.png",
 		"combatBase": "images/sprites/entities/structures/combatBase.png",
 		"researchCenter": "images/sprites/entities/structures/researchCenter.png",
+		"pirateBase": "images/sprites/entities/structures/pirateBase.png",
 		"starField": "images/sprites/entities/space/starField.png",
 		"violetDust": "images/sprites/entities/space/violetDust.png",
 		"blueDust": "images/sprites/entities/space/blueDust.png",

@@ -11,8 +11,6 @@ module.exports = StateWrapper;
 
 function StateWrapper(state) {
 
-	// Дистанция при которой точка считается пройденной и необходимо лететь к следущеё точке
-	const DISTANCE_TO_ACCEPT_POINT = 50;
 	const DETECTION_RADIUS = 100;
 
 	let t = state;
@@ -25,9 +23,6 @@ function StateWrapper(state) {
 	let centerX;
 	let centerY;
 
-	// Индекс точки для корабля противника.
-	let pointIndex = 0;
-
 	t.entities = entities;
 	t.onContextLoaded = onContextLoaded;
 	t.backgroundObjects = require('../backgrounds/pirate-bay');
@@ -35,43 +30,142 @@ function StateWrapper(state) {
 	return t;
 
 	/**
-	 * Шаблонный метод инфициализации объектов.
+	 * Шаблонный метод инициализации объектов.
 	 */
 	function entities(game) {
-
-		createMeteorField(game);
 
 		centerX = game.world.centerX;
 		centerY = game.world.centerY;
 
-		// Создать транспорт противника
-		enemy = EntitiesFactory.createHawk({
-			game: game,
-			x: centerX + 50,
-			y: centerY - 200,
-			velocity: 30
-		});
-
-		enemy.angle = 220;
-		enemy.logic = enemyMoving;
+		createScene(game);
+		createOtherShips(game);
+		createEnemy(game);
 
 		createPlayer(game);
 
 	}
 
 	/**
-	 * Создаем метеоритное поле по краям.
-	 * @param game
+	 * Функция создает условно статические объект сцены.
+	 * Такие как метеоритное поле и база пиратов.
 	 */
-	function createMeteorField(game) {
+	function createScene(game) {
 
-		MeteorFactory.createMeteorSphere({game: game, x: centerX - 750, y: centerY + 275, radius: 500});
-		MeteorFactory.createMeteorSphere({game: game, x: centerX - 750, y: centerY - 1650, radius: 500});
+		// cоздаем метеоритное поле
+		MeteorFactory.createMeteorsByFunction({
+			game: game,
+			calculateMeteorCoordinateY: calculateMeteorCoordinateY,
+			startX: centerX - 1000,
+			finishX: centerX + 2000,
+			step: 60,
+			count: 8,
+			radius: 200
+		});
 
-		MeteorFactory.createMeteorSphere({game: game, x: centerX - 1250, y: centerY - 1650, radius: 500});
-		MeteorFactory.createMeteorSphere({game: game, x: centerX - 1600, y: centerY + 200, radius: 500});
+		EntitiesFactory.createStructure({
+			preload: 'pirateBase',
+			game: game,
+			x: centerX + 750,
+			y: centerY - 50,
+			velocity: 30,
+			scale: 0.3
+		});
 
-		MeteorFactory.createMeteorSphere({game: game, x: centerX - 2100, y: centerY - 900, radius: 500});
+	}
+
+	/**
+	 * Функция создает корабль противника, и задает ему
+	 * стратегию перемещения по определенным точкам.
+	 */
+	function createEnemy(game) {
+
+		// Создать транспорт противника
+		enemy = EntitiesFactory.createHawk({
+			game: game,
+			x: centerX + 650,
+			y: centerY - 50,
+			velocity: 30
+		});
+
+		enemy.bringToTop();
+		enemy.angle = 220;
+
+		let points = [new Phaser.Point(centerX - 500, centerY - 500),
+			          new Phaser.Point(centerX - 500, centerY - 1000),
+			          new Phaser.Point(centerX - 1500, centerY - 1000),
+			          new Phaser.Point(centerX - 1500, centerY - 500)];
+
+		enemy.patrol(points);
+
+	}
+
+	/**
+	 * Данная функция, определяет, то как должна изменятся значение координаты y, в
+	 * зависимости от значения координаты x, при ортрисовке метеоритного поля.
+	 */
+	function calculateMeteorCoordinateY(x) {
+
+		if(x < centerX + 600) {
+
+			return centerX + 400;
+
+		}
+
+		if(x < centerX + 1100) {
+
+			return centerY + 300;
+
+		}
+
+		if (x < centerX + 1250) {
+
+			return centerY + 200;
+		}
+
+
+		return centerY - (x / 10 - 100);
+	}
+
+	/**
+	 * Функция создает корабли, которые просто участвует
+	 * в сцене для иллюзии бурной жизни вокруг станции.
+	 * Корабли перемещаються по определеным точкам.
+	 */
+	function createOtherShips(game) {
+
+		// Создаем транспоты 1 и 2
+		let transport1 = EntitiesFactory.createMantis({
+			game: game,
+			x: centerX + 800,
+			y: centerY - 800,
+			velocity: 30
+		});
+
+		let points1 = [new Phaser.Point(centerX + 650, centerY - 50), new Phaser.Point(centerX + 800, centerY - 800)];
+
+		transport1.patrol(points1);
+
+		let transport2 = EntitiesFactory.createLouse({
+			game: game,
+			x: centerX + 650,
+			y: centerY + 300,
+			velocity: 30
+		});
+
+		let points2 = [new Phaser.Point(centerX + 650, centerY - 50), new Phaser.Point(centerX + 800, centerY - 800)];
+
+		transport2.patrol(points2);
+
+		let transport3 = EntitiesFactory.createScout({
+			game: game,
+			x: centerX + 650,
+			y: centerY - 50,
+			velocity: 30
+		});
+
+		let points3 = [new Phaser.Point(centerX - 1000, centerY), new Phaser.Point(centerX + 650, centerY - 50)];
+
+		transport3.patrol(points3);
 
 	}
 
@@ -101,42 +195,13 @@ function StateWrapper(state) {
 
 			}
 
-		} else {
+		} else if (inDetectionRadius) {
 
-			if (inDetectionRadius) {
-
-				player.stun();
-
-			}
+			player.stun();
 
 		}
-
 	}
 
-	// Методо лигики врага для 9 подурока.
-	// Враг просто курсирует по заданным точкам
-	function enemyMoving (obj) {
-
-		let x = [centerX - 500, centerX - 500,  centerX - 1500, centerX - 1500];
-		let y = [centerY - 500, centerY - 1000, centerY - 1000, centerY - 500];
-
-		if (obj.distanceTo(x[pointIndex], y[pointIndex]) < DISTANCE_TO_ACCEPT_POINT) {
-
-			if (pointIndex === x.length - 1) {
-
-				pointIndex = 0;
-
-			} else {
-
-				pointIndex++;
-
-			}
-
-		}
-
-		obj.moveToXY(x[pointIndex], y[pointIndex]);
-
-	}
 
 	/**
 	 * Создание корабля игрока.
@@ -159,6 +224,8 @@ function StateWrapper(state) {
 			"type": "shieldBlock",
 			"scale": 0.6
 		});
+
+		player.bringToTop();
 
 		player.angle = 270;
 		player.alpha = 0;

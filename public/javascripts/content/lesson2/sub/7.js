@@ -56,13 +56,13 @@ function UndefinedNull() {
 					type25
 				]);
 
-				createLink(graph, typeMain, type1);
-				createLink(graph, typeMain, type2);
-				createLink(graph, type2, type21);
-				createLink(graph, type21, type22);
-				createLink(graph, type22, type23);
-				createLink(graph, type23, type24);
-				createLink(graph, type24, type25);
+				createLink({graph: graph, source: typeMain, target: type1, isArrow: true});
+				createLink({graph: graph, source: typeMain, target: type2, isArrow: true});
+				createLink({graph: graph, source: type2, target: type21});
+				createLink({graph: graph, source: type21, target: type22});
+				createLink({graph: graph, source: type22, target: type23});
+				createLink({graph: graph, source: type23, target: type24});
+				createLink({graph: graph, source: type24, target: type25});
 			}
 		}, {
 			audio:  'audio/lesson3/7-2',
