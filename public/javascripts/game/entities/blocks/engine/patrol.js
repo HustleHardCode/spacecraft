@@ -10,11 +10,10 @@ module.exports = Patrol;
  */
 function Patrol(points, _distanseToAcceptPoint) {
 
-	let distanseToAcceptPoint = _distanseToAcceptPoint || 50;
-
-	let pointIndex = 0;
-
 	let t = {};
+
+	let distanseToAcceptPoint = _distanseToAcceptPoint || 50;
+	let pointIndex = 0;
 
 	t.moveToNextPoint = moveToNextPoint;
 

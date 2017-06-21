@@ -38,7 +38,7 @@ function StateWrapper(state) {
 		centerY = game.world.centerY;
 
 		createScene(game);
-		createOtherShip(game);
+		createOtherShips(game);
 		createEnemy(game);
 
 		createPlayer(game);
@@ -131,7 +131,7 @@ function StateWrapper(state) {
 	 * в сцене для иллюзии бурной жизни вокруг станции.
 	 * Корабли перемещаються по определеным точкам.
 	 */
-	function createOtherShip(game) {
+	function createOtherShips(game) {
 
 		// Создаем транспоты 1 и 2
 		let transport1 = EntitiesFactory.createMantis({
