@@ -77,8 +77,12 @@ function overlapHandler(sprite, mine) {
 
 function tryToKillTarget(game, mine) {
 
-	game.physics.arcade.moveToObject(mine, mine.target, SPEED);
+	if (mine.target.alive) {
 
-	game.physics.arcade.overlap(mine.target, mine, overlapHandler);
+		game.physics.arcade.moveToObject(mine, mine.target, SPEED);
+
+		game.physics.arcade.overlap(mine.target, mine, overlapHandler);
+
+	}
 
 }

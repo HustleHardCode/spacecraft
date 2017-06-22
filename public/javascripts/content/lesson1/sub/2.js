@@ -14,46 +14,48 @@ let DiagramHelp = require('../../diagram.help');
  */
 function JavaScript() {
 
-	let diagrama = function (graph) {
+	let diagram = function (graph) {
 
 		let cycleCircle = DiagramHelp.createCircle({
-													  x: 0,
-													  y: 100,
-													  width: 150,
-													  height: 50,
-													  text: 'Бесконечный цикл',
-													  colorFill: '#152B39'
-												  });
+			x:         -100,
+			y:         100,
+			width:     175,
+			height:    75,
+			text:      'Раз за разом',
+			colorFill: '#152B39'
+		});
 
 		let runBlock = DiagramHelp.createBlock({
-												   x: 200,
-												   y: 200,
-												   text: 'Код управления',
-												   colorFill: '#fe854f'
-											   });
+			x:         100,
+			y:         200,
+			width:     175,
+			height:    75,
+			text:      'Поворачиваем налево',
+			colorFill: '#fe854f'
+		});
 
 		graph.addCells([
-						   cycleCircle,
-						   runBlock
-					   ]);
+			cycleCircle,
+			runBlock
+		]);
 
 		let linkCycleToRun = DiagramHelp.createLink({
-														graph: graph,
-														source: cycleCircle,
-														target: runBlock,
-														isArrow: true
-													});
+			graph:   graph,
+			source:  cycleCircle,
+			target:  runBlock,
+			isArrow: true
+		});
 
-		linkCycleToRun.set('vertices', [{ x: 200, y: 100 }]);
+		linkCycleToRun.set('vertices', [{x: 100, y: 100}]);
 
 		let linkRunToCycle = DiagramHelp.createLink({
-														graph: graph,
-														source: runBlock,
-														target: cycleCircle,
-														isArrow: true
-													});
+			graph:   graph,
+			source:  runBlock,
+			target:  cycleCircle,
+			isArrow: true
+		});
 
-		linkRunToCycle.set('vertices', [{ x: 0, y: 200 }]);
+		linkRunToCycle.set('vertices', [{x: -100, y: 200}]);
 	};
 
 	return {
@@ -68,17 +70,17 @@ function JavaScript() {
 						'<li>Больше информации о JavaScript: <a href="https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Introduction">клац</a>.</li>' +
 						'</ul>',
 		character:      [{
-			audio:  'audio/lesson2/2-1',
-			css:    'astromen-img',
+			audio: 'audio/lesson2/2-1',
+			css:   'astromen-img',
 			video: {
-				hide: true,
-				url: 'https://www.youtube.com/watch?v=6jkOcZfYvZA',
+				hide:    true,
+				url:     'https://www.youtube.com/watch?v=6jkOcZfYvZA',
 				content: 'Что такое язык программирования? Расскажут мудрейшие из команды <b>Хекслет</b>.'
 			}
 		}, {
-			audio:  'audio/lesson2/2-2',
-			css:    'astrogirl-img',
-			hint:   [
+			audio: 'audio/lesson2/2-2',
+			css:   'astrogirl-img',
+			hint:  [
 				{
 					'next .ace_scroller': 'Пример управления транспортным кораблем',
 					'nextButton':         {text: 'Далее'},
@@ -86,29 +88,29 @@ function JavaScript() {
 				}
 			]
 		}, {
-			diagram: diagrama,
-			audio:  'audio/lesson2/2-3',
-			css:    'astrogirl-img',
-			marker: {
-				x1:   6,
-				y2:   Infinity
+			diagram: diagram,
+			audio:   'audio/lesson2/2-3',
+			css:     'astrogirl-img',
+			marker:  {
+				x1: 6,
+				y2: Infinity
 			}
 		}, {
 			audio:  'audio/lesson2/2-4',
 			css:    'astrogirl-img',
 			marker: {
-				x1:   9,
-				y2:   Infinity
+				x1: 9,
+				y2: Infinity
 			}
 		}, {
-			audio:  'audio/lesson2/2-5',
-			css:    'astrogirl-img',
+			audio:       'audio/lesson2/2-5',
+			css:         'astrogirl-img',
 			waitForHint: true,
-			hint:   [
+			hint:        [
 				{
 					'click .enhoyhint-play': 'Запустите код',
-					'nextButton':             false,
-					'showSkip':               false
+					'nextButton':            false,
+					'showSkip':              false
 				}
 			]
 		}],
