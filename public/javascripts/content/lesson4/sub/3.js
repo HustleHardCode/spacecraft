@@ -14,7 +14,7 @@ function BadBBot() {
 		title:             'Плохой робот',
 		isRestartDisabled: true,
 		question:          {
-			content:                  '<p>Уфф…</p>' +
+			content:                  '<p>Ухх…</p>' +
 									  '<p>Кажется опасность позади, ' +
 									  'но назойливый <strong>BBot</strong> не дает спокойно отдохнуть. ' +
 									  '<p>Его нужно немного проучить.</p>' +
@@ -30,7 +30,7 @@ function BadBBot() {
 									  '<p class="bbot-output">BBot плохой робот!</p>'
 		},
 		character:         [{
-			audio: 'audio/lesson3/1-1',
+			audio: 'audio/lesson5/3',
 			css:   'astromen-img'
 		}]
 	};

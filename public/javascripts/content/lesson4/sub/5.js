@@ -33,7 +33,7 @@ function TypeOf() {
 			correctAnswerDescription: '<p>Ну и пусть гов0рят.</p>'
 		},
 		character:         [{
-			audio: 'audio/lesson3/1-1',
+			audio: 'audio/lesson5/5',
 			css:   'astromen-img'
 		}]
 	};

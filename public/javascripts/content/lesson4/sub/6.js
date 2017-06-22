@@ -30,7 +30,7 @@ function Fuel() {
 			correctAnswerDescription: '<p>Да, я милаха!</p>'
 		},
 		character:         [{
-			audio: 'audio/lesson3/1-1',
+			audio: 'audio/lesson5/6',
 			css:   'astromen-img'
 		}]
 	};
