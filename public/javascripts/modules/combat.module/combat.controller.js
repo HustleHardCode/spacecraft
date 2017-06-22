@@ -109,7 +109,6 @@ function CombatController($scope,
 
 			connection.saveCombatUserCode(idCombat, combatUserCode, codeStatus, onSaveSuccess, onSaveError);
 
-
 		} else {
 
 			success && success();

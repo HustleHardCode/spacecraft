@@ -12,6 +12,7 @@ const lodash = require('lodash');
 const HttpStatus = require('http-status-codes');
 const express = require('express');
 const util = require('util');
+const coWrap = require('co-express');
 
 const router = express.Router();
 
@@ -23,31 +24,27 @@ module.exports = router;
  * ------------------------------------------------
  */
 
-router.get('/combat/enemy', checkAuthentication, (req, res) => {
+router.get('/combat/enemy', checkAuthentication, coWrap(function* (req, res) {
 
 	// TODO При желании, можно определять сообщение.
 	req.checkQuery('idCombat').notEmpty().isInt();
 
-	// TODO yield
-	req.getValidationResult().then(function(result) {
+	const result = yield req.getValidationResult();
 
-		if (!result.isEmpty()) {
+	if (!result.isEmpty()) {
 
-			res.sendStatus(HttpStatus.BAD_REQUEST);
+		res.sendStatus(HttpStatus.BAD_REQUEST);
 
-			return;
+		return;
 
-		}
+	}
 
-		let idUser = req.user._id;
-		let idCombat = req.query.idCombat;
+	let idUser = req.user._id;
+	let idCombat = req.query.idCombat;
 
-		CombatCodeModel.find({idCombat})
-					   .where('idUser').ne(idUser)
-					   .exec(onFind);
-
-
-	});
+	CombatCodeModel.find({idCombat})
+				   .where('idUser').ne(idUser)
+				   .exec(onFind);
 
 	function onFind(err, documents) {
 
@@ -86,4 +83,4 @@ router.get('/combat/enemy', checkAuthentication, (req, res) => {
 
 	}
 
-});
+}));

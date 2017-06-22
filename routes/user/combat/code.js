@@ -12,6 +12,7 @@ const lodash = require('lodash');
 const HttpStatus = require('http-status-codes');
 const express = require('express');
 const util = require('util');
+const coWrap = require('co-express');
 
 const router = express.Router();
 
@@ -24,31 +25,27 @@ module.exports = router;
  * ------------------------------------------------
  */
 
-router.get('/user/combat/code', checkAuthentication, (req, res) => {
+router.get('/user/combat/code', checkAuthentication,  coWrap(function* (req, res) {
 
 	// TODO При желании, можно определять сообщение.
 	req.checkQuery('idCombat').notEmpty().isInt();
 
-	// TODO yield
-	req.getValidationResult().then(function(result) {
+	const result = yield req.getValidationResult();
 
-		if (!result.isEmpty()) {
+	if (!result.isEmpty()) {
 
-			res.sendStatus(HttpStatus.BAD_REQUEST);
+		res.sendStatus(HttpStatus.BAD_REQUEST);
 
-			return;
+		return;
 
-		}
+	}
 
-		let idUser = req.user._id;
-		let idCombat = req.query.idCombat;
+	let idUser = req.user._id;
+	let idCombat = req.query.idCombat;
 
-		CombatCodeModel.findOne({idCombat})
-					   .where('idUser').equals(idUser)
-					   .exec(onFind);
-
-
-	});
+	CombatCodeModel.findOne({idCombat})
+				   .where('idUser').equals(idUser)
+				   .exec(onFind);
 
 	function onFind(err, document) {
 
@@ -83,7 +80,7 @@ router.get('/user/combat/code', checkAuthentication, (req, res) => {
 
 	}
 
-});
+}));
 
 /**
  * ------------------------------------------------
@@ -91,38 +88,35 @@ router.get('/user/combat/code', checkAuthentication, (req, res) => {
  * ------------------------------------------------
  */
 
-router.post('/user/combat/code', checkAuthentication, (req, res) => {
+router.post('/user/combat/code', checkAuthentication, coWrap(function* (req, res) {
 
 	// TODO При желании, можно определять сообщение.
 	req.checkBody('idCombat').notEmpty().isInt();
 	req.checkBody('code').notEmpty();
 	requ.checkBody('status').notEmpty();
 
-	// TODO yield
-	req.getValidationResult().then(function(result) {
+	const result = yield req.getValidationResult();
 
-		if (!result.isEmpty()) {
+	if (!result.isEmpty()) {
 
-			res.sendStatus(HttpStatus.BAD_REQUEST);
+		res.sendStatus(HttpStatus.BAD_REQUEST);
 
-			return;
+		return;
 
-		}
+	}
 
-		const idUser = req.user._id;
-		const idCombat = req.body.idCombat;
-		const code = req.body.code;
-		const status = req.body.status;
+	const idUser = req.user._id;
+	const idCombat = req.body.idCombat;
+	const code = req.body.code;
+	const status = req.body.status;
 
-		CombatCodeModel.update({idUser, idCombat},
-							   {idUser, idCombat, code, status},
-							   {
-								   upsert:        true,
-								   runValidators: true
-							   },
-							   onUpdate);
-
-	});
+	CombatCodeModel.update({idUser, idCombat},
+						   {idUser, idCombat, code, status},
+						   {
+							   upsert:        true,
+							   runValidators: true
+						   },
+						   onUpdate);
 
 	function onUpdate(err) {
 
@@ -146,4 +140,4 @@ router.post('/user/combat/code', checkAuthentication, (req, res) => {
 
 	}
 
-});
+}));
