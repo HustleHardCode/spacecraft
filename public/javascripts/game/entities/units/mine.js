@@ -26,7 +26,7 @@ let mine =  {
 					0
 				],
 				randomScale: 0.2
-			},
+			}
 		]
 	},
 	logic:       logic

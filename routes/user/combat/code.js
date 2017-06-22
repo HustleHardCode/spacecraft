@@ -12,7 +12,7 @@ const lodash = require('lodash');
 const HttpStatus = require('http-status-codes');
 const express = require('express');
 const util = require('util');
-const coWrap = require('co-express');
+const worker = require('co-express');
 
 const router = express.Router();
 
@@ -25,7 +25,7 @@ module.exports = router;
  * ------------------------------------------------
  */
 
-router.get('/user/combat/code', checkAuthentication,  coWrap(function* (req, res) {
+router.get('/user/combat/code', checkAuthentication, worker(function* (req, res) {
 
 	// TODO При желании, можно определять сообщение.
 	req.checkQuery('idCombat').notEmpty().isInt();
@@ -44,7 +44,8 @@ router.get('/user/combat/code', checkAuthentication,  coWrap(function* (req, res
 	let idCombat = req.query.idCombat;
 
 	CombatCodeModel.findOne({idCombat})
-				   .where('idUser').equals(idUser)
+				   .where('idUser')
+				   .equals(idUser)
 				   .exec(onFind);
 
 	function onFind(err, document) {
@@ -88,12 +89,12 @@ router.get('/user/combat/code', checkAuthentication,  coWrap(function* (req, res
  * ------------------------------------------------
  */
 
-router.post('/user/combat/code', checkAuthentication, coWrap(function* (req, res) {
+router.post('/user/combat/code', checkAuthentication, worker(function* (req, res) {
 
 	// TODO При желании, можно определять сообщение.
 	req.checkBody('idCombat').notEmpty().isInt();
 	req.checkBody('code').notEmpty();
-	requ.checkBody('status').notEmpty();
+	req.checkBody('status').notEmpty().isInt();
 
 	const result = yield req.getValidationResult();
 

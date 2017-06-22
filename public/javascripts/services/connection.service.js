@@ -55,19 +55,24 @@ function Connection($http) {
 				  url:    apiUrls.combatUserCode,
 				  method: 'GET',
 				  params:   { idCombat }
-			  }).then(claimHttpDataOnly(success),
-					  error);
+			  }).then(claimHttpDataOnly(success), error);
 
 	}
-
-	function saveCombatUserCode(idCombat, code, status, success, error) {
+	
+	/**
+	 * Метод реализации отправки POST запроса на сохранение программного кода сражения пользователя.
+	 *
+	 * @param args параметры, которые будут включены в тело запроса.
+	 * @param success коллбэк вызываемый в случае успешного сохранения.
+	 * @param error коллбэк обработки ошибочно ситуации.
+	 */
+	function saveCombatUserCode(args, success, error) {
 
 		$http({
 				  url:    apiUrls.combatUserCode,
 				  method: 'POST',
-				  data:   { idCombat, code, status }
-			  }).then(success,
-					  error);
+				  data:   args
+			  }).then(success, error);
 
 	}
 
@@ -77,8 +82,7 @@ function Connection($http) {
 				  url:    apiUrls.combatEnemy,
 				  method: 'GET',
 				  params:   { idCombat }
-			  }).then(claimHttpDataOnly(success),
-					  error);
+			  }).then(claimHttpDataOnly(success), error);
 
 	}
 

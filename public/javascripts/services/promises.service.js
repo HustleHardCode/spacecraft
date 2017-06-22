@@ -67,9 +67,9 @@ function Promises($q, authentication, connection, statisticsStorage) {
      */
 	function getCombatUserCode(idCombat) {
 
-		return $q(function(resolve, reject) {
+		return $q((resolve, reject) => {
 
-			connection.getCombatUserCode(idCombat, function(code) {
+			connection.getCombatUserCode(idCombat, code => {
 
 				if (code) {
 

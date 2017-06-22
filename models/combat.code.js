@@ -34,7 +34,7 @@ var schema = new Schema({
 	status:   {
 		index:    true,
 		sparse:   true,
-		type:     Schema.Types.Boolean,
+		type:     Schema.Types.Number,
 		required: [true, 'Не указан статуст программного кода']
 	}
 });

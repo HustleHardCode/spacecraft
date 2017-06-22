@@ -344,7 +344,7 @@ function LessonService(connection,
 		Game.pushContextParameters({subIndex: scope.subIndex, prepare: prepare});
 
 		// Отправка запроса на получение кода следующего урока
-		connection.getLessonCodeFromJs(lessonId, scope.subIndex, function (code) {
+		connection.getLessonCodeFromJs(lessonId, scope.subIndex, code => {
 
 			// Сохранение в Ace.
 			editorSession.setValue(code);

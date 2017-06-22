@@ -12,7 +12,7 @@ const lodash = require('lodash');
 const HttpStatus = require('http-status-codes');
 const express = require('express');
 const util = require('util');
-const coWrap = require('co-express');
+const worker = require('co-express');
 
 const router = express.Router();
 
@@ -24,7 +24,7 @@ module.exports = router;
  * ------------------------------------------------
  */
 
-router.get('/combat/enemy', checkAuthentication, coWrap(function* (req, res) {
+router.get('/combat/enemy', checkAuthentication, worker(function* (req, res) {
 
 	// TODO При желании, можно определять сообщение.
 	req.checkQuery('idCombat').notEmpty().isInt();
@@ -43,7 +43,8 @@ router.get('/combat/enemy', checkAuthentication, coWrap(function* (req, res) {
 	let idCombat = req.query.idCombat;
 
 	CombatCodeModel.find({idCombat})
-				   .where('idUser').ne(idUser)
+				   .where('idUser')
+				   .ne(idUser)
 				   .exec(onFind);
 
 	function onFind(err, documents) {
