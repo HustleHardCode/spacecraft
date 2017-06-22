@@ -1,9 +1,9 @@
 'use strict';
 
-// Зависимости
 const CodeLauncher = require('../../game/launcher');
 const TabHandler = require('../../emitters/tab-handler');
 const resolvesNames = require('./combat.resolve').names;
+const Game = require('./../../game');
 
 const lodash = require('lodash');
 
@@ -53,6 +53,8 @@ function CombatController($scope,
 
 	initVk();
 
+	initCombat();
+
 	// ==================================================
 
 	function initVk() {
@@ -71,6 +73,12 @@ function CombatController($scope,
 			$scope.vkWidgetEnable = false;
 
 		}
+
+	}
+
+	function initCombat() {
+
+		console.log(Game.world.getEnemies());
 
 	}
 

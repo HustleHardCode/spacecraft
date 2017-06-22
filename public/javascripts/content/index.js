@@ -1,18 +1,19 @@
 'use strict';
 
-let contentArray = [];	// Хранит контент
-const combatContent = require('./combat');
+// CРАЖЕНИЕ
+const combatsContent = [];
+combatsContent.push(require('./combat'));
 
-// Зависимотси
-contentArray.push(require('./lesson0'));
-contentArray.push(require('./lesson1'));
-contentArray.push(require('./lesson2'));
-contentArray.push(require('./lesson3'));
-contentArray.push(require('./lesson4'));
-contentArray.push(require('./lesson5'));
-contentArray.push(require('./lesson6'));
-contentArray.push(require('./lesson7'));
-
+// УРОКИ
+const lessonsContent = [];
+lessonsContent.push(require('./lesson0'));
+lessonsContent.push(require('./lesson1'));
+lessonsContent.push(require('./lesson2'));
+lessonsContent.push(require('./lesson3'));
+lessonsContent.push(require('./lesson4'));
+lessonsContent.push(require('./lesson5'));
+lessonsContent.push(require('./lesson6'));
+lessonsContent.push(require('./lesson7'));
 
 // Экспорт
 module.exports = ContentFactory();
@@ -27,17 +28,24 @@ function ContentFactory() {
 	// that / this
 	let t = {};
 
-	t.content = content;		// Метод получения контента по идентификатору
+	t.content = lessonContent;		// Метод получения контента по идентификатору
+	t.getCombatContent = getCombatContent;
 
 	return t;
 
 	/**
 	 * Возвращает урок под заданным номером.
 	 */
-	function content(id) {
+	function lessonContent(id) {
 
 		// Если id не задан, то игра.
-		return id ? contentArray[id] : combatContent;
+		return id ? lessonContent[id] : combatsContent;
+
+	}
+
+	function getCombatContent(id) {
+
+		return combatsContent[id];
 
 	}
 }
