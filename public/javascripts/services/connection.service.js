@@ -49,16 +49,15 @@ function Connection($http) {
 
 	return that;
 
-	function getCombatUserCode(idCombat, success, error) {
+	function getCombatUserCode(success, error) {
 
 		$http({
 				  url:    apiUrls.combatUserCode,
-				  method: 'GET',
-				  params:   { idCombat }
+				  method: 'GET'
 			  }).then(claimHttpDataOnly(success), error);
 
 	}
-	
+
 	/**
 	 * Метод реализации отправки POST запроса на сохранение программного кода сражения пользователя.
 	 *
@@ -76,12 +75,11 @@ function Connection($http) {
 
 	}
 
-	function getCombatEnemy(idCombat, success, error) {
+	function getCombatEnemy(success, error) {
 
 		$http({
 				  url:    apiUrls.combatEnemy,
 				  method: 'GET',
-				  params:   { idCombat }
 			  }).then(claimHttpDataOnly(success), error);
 
 	}

@@ -91,55 +91,61 @@ function CombatController($scope,
 
 	function clickSaveButton() {
 
-		saveCombatUserCode({
-							   code:     aceService.getValue(),
-							   idCombat: 1,
-							   status:   CODE_STATUS_INACTIVE
-						   });
+		tryToSaveCombatUserCode({
+									code:   aceService.getValue(),
+									status: CODE_STATUS_INACTIVE
+								});
 
 	}
 
 	/**
-	 * Метод сохранения программного кода пользователя на сервере.
-	 * Метод осуществляет отправку запроса на сохранение только в случае, если
-	 * текущий код в редакторе НЕ совпадает с последним сохраненным.
+	 * Метод пытается сохраненить программный код пользователя на сервере.
+	 * Метод осуществляет отправку запроса на сохранение только в случае, если:
+	 * 1) текущий код в редакторе синтаксически корректен;
+	 * 2 )текущий код в редакторе НЕ совпадает с последним сохраненным.
 	 * Также, метод берет на себя обязанность отображения спиннера, в случае
 	 * продолжительности отбработки запроса на сохранение более чем на 500мс.
 	 *
 	 * @param args агрументами метода являются:
-	 *             combatUserCode - программный код;
-	 *             idCombat - идентификатор сражения;
+	 *             code - программный код;
 	 *             codeStatus - статус кода;
 	 *             success - коллбэк для вызова в случае успешного сохранения;
 	 *             error - коллбэк для вызова с случае неуспешного сохранения.
 	 */
-	function saveCombatUserCode(args) {
+	function tryToSaveCombatUserCode(args) {
 
 		let {
 				code,
-				idCombat,
 				status,
 				success,
-				error			
+				error
 			} = args;
 
-		if (lastSavedCode !== code) {
+		if (isCodeSyntacticallyCorrect()) {
 
-			spinner.start({message: spinnerMessages.clickSaveButton, delay: 500});
+			if (lastSavedCode !== code) {
 
-			connection.saveCombatUserCode({idCombat, code, status},
-										  onSaveSuccess,
-										  onSaveError);
+				spinner.start({message: spinnerMessages.clickSaveButton, delay: 500});
+
+				connection.saveCombatUserCode({code, status},
+											  onSaveSuccess,
+											  onSaveError);
+
+			} else {
+
+				success && success();
+
+			}
 
 		} else {
 
-			success && success();
+			error && error();
 
 		}
 
 		function onSaveSuccess() {
 
-			lastSavedCode = combatUserCode;
+			lastSavedCode = code;
 
 			spinner.stop();
 
@@ -154,6 +160,21 @@ function CombatController($scope,
 			error && error();
 
 		}
+
+	}
+
+	/**
+	 * Метод позволяет выяснить - имеются ли в коде редактора
+	 *
+	 * @returns {boolean} логическое значение о наличии синтаксических ошибок в коде.
+	 */
+	function isCodeSyntacticallyCorrect() {
+
+		const editorSession = aceService.getSession();
+		// Выделяем аннотации об ошибках в программном коде.
+		const errors = lodash.filter(editorSession.getAnnotations(), {type: 'error'});
+
+		return lodash.isEmpty(errors);
 
 	}
 
@@ -357,38 +378,16 @@ function CombatController($scope,
 
 		} else {
 
-			tryToSaveAndThenRunCode();
-
-		}
-
-	}
-
-	/**
-	 * Метод пытается сохранить и затем (и только затем) запустить код
-	 * на исполнение.
-	 */
-	function tryToSaveAndThenRunCode() {
-
-		const editorSession = aceService.getSession();
-		// Выделяем аннотации об ошибках в программном коде.
-		const errors = lodash.filter(editorSession.getAnnotations(), {type: 'error'});
-		const isCodeSyntaxCorrect = lodash.isEmpty(errors);
-
-		if (isCodeSyntaxCorrect) {
-
 			const code = aceService.getValue();
-
-			// При запуске кода
+			// При попытке запуске кода
 			// выключаем окно настроек.
 			$scope.settingsEnable = false;
 
-			// При запуске - также осуществляем сохранение ВСЕГО кода но со статусом CODE_STATUS_ACTIVE.
-			saveCombatUserCode({
-								   code:     code,
-								   idCombat: 1,
-								   status:   CODE_STATUS_ACTIVE,
-								   success:  CodeLauncher.run.bind(CodeLauncher, code)
-							   });
+			tryToSaveCombatUserCode({
+										code:    code,
+										status:  CODE_STATUS_ACTIVE,
+										success: CodeLauncher.run.bind(CodeLauncher, code)
+									});
 
 		}
 

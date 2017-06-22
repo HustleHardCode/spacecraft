@@ -11,8 +11,6 @@ const CombatCodeModel = require('./../../models/combat.code');
 const lodash = require('lodash');
 const HttpStatus = require('http-status-codes');
 const express = require('express');
-const util = require('util');
-const worker = require('co-express');
 
 const router = express.Router();
 
@@ -24,25 +22,11 @@ module.exports = router;
  * ------------------------------------------------
  */
 
-router.get('/combat/enemy', checkAuthentication, worker(function* (req, res) {
-
-	// TODO При желании, можно определять сообщение.
-	req.checkQuery('idCombat').notEmpty().isInt();
-
-	const result = yield req.getValidationResult();
-
-	if (!result.isEmpty()) {
-
-		res.sendStatus(HttpStatus.BAD_REQUEST);
-
-		return;
-
-	}
+router.get('/combat/enemy', checkAuthentication, (req, res) => {
 
 	let idUser = req.user._id;
-	let idCombat = req.query.idCombat;
 
-	CombatCodeModel.find({idCombat})
+	CombatCodeModel.find({})
 				   .where('idUser')
 				   .ne(idUser)
 				   .exec(onFind);
@@ -53,17 +37,13 @@ router.get('/combat/enemy', checkAuthentication, worker(function* (req, res) {
 
 			if (lodash.isEmpty(documents)) {
 
-				res.sendStatus(HttpStatus.ACCEPTED);
+				res.sendStatus(HttpStatus.NO_CONTENT);
 
 				return;
 
 			}
 
-			// Логика взятия случайной записи.
-			const randomIndex = lodash.random(0, documents.length);
-			const document = documents[randomIndex];
-
-			const code = document.code;
+			const code = getCodeFromRandomDocument(documents);
 
 			if (code) {
 
@@ -82,6 +62,23 @@ router.get('/combat/enemy', checkAuthentication, worker(function* (req, res) {
 
 		return res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
+		/**
+		 * Логика взятия программного кода у случайного документа среди всех имеющихся на входе функции.
+		 *
+		 * @param {Array} documents массив документов среди которых будет выбран случайных документ
+		 * у которого и будет взят программный код.
+         * @returns {String} программный код документа, который был выбран случайным образом.
+         */
+		function getCodeFromRandomDocument(documents) {
+
+			// Логика взятия случайной записи.
+			const randomIndex = lodash.random(0, documents.length);
+			const document = documents[randomIndex];
+
+			return document.code;
+
+		}
+
 	}
 
-}));
+});

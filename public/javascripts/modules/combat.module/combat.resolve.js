@@ -55,7 +55,7 @@ function CombatResolve() {
 
 		spinner.start({message: spinnerMessages.combatUserCode});
 
-		return promises.getCombatUserCode(1);
+		return promises.getCombatUserCode();
 
 	}
 
@@ -63,7 +63,7 @@ function CombatResolve() {
 
 		spinner.start({message: spinnerMessages.combatEnemy});
 
-		return promises.getCombatEnemy(1);
+		return promises.getCombatEnemy();
 
 	}
 

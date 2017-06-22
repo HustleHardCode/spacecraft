@@ -17,11 +17,6 @@ var schema = new Schema({
 		ref:      'User',
 		required: [true, 'Не указан пользователь']
 	},
-	idCombat: {
-		type:     Schema.Types.Number,
-		sparse:   true,
-		required: [true, 'Не указан номер сражения']
-	},
 	code:     {
 		index:    true,
 		type:     Schema.Types.String,

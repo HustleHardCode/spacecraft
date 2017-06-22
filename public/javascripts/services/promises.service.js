@@ -63,13 +63,12 @@ function Promises($q, authentication, connection, statisticsStorage) {
 	 * этап №1 - пытаемся выгрузить код из сервиса, который пользователь сохранял в последний раз;
 	 * этап №2 (дополнительный) - если на первом этапе нам не удалось выгрузить код (пользователь не сохранял
 	 * 							  до сего момента), ты просим у сервиса код по умолчанию.
-	 * @param idCombat номер сражения, для которого пользователю требуется код.
      */
-	function getCombatUserCode(idCombat) {
+	function getCombatUserCode() {
 
 		return $q((resolve, reject) => {
 
-			connection.getCombatUserCode(idCombat, code => {
+			connection.getCombatUserCode(code => {
 
 				if (code) {
 
@@ -87,9 +86,9 @@ function Promises($q, authentication, connection, statisticsStorage) {
 
 	}
 
-	function getCombatEnemy(idCombat) {
+	function getCombatEnemy() {
 
-		return $q(connection.getCombatEnemy.bind(connection, idCombat));
+		return $q(connection.getCombatEnemy.bind(connection));
 
 	}
 

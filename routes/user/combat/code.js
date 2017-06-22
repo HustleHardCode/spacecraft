@@ -25,25 +25,11 @@ module.exports = router;
  * ------------------------------------------------
  */
 
-router.get('/user/combat/code', checkAuthentication, worker(function* (req, res) {
-
-	// TODO При желании, можно определять сообщение.
-	req.checkQuery('idCombat').notEmpty().isInt();
-
-	const result = yield req.getValidationResult();
-
-	if (!result.isEmpty()) {
-
-		res.sendStatus(HttpStatus.BAD_REQUEST);
-
-		return;
-
-	}
+router.get('/user/combat/code', checkAuthentication, (req, res) => {
 
 	let idUser = req.user._id;
-	let idCombat = req.query.idCombat;
 
-	CombatCodeModel.findOne({idCombat})
+	CombatCodeModel.findOne({})
 				   .where('idUser')
 				   .equals(idUser)
 				   .exec(onFind);
@@ -54,7 +40,7 @@ router.get('/user/combat/code', checkAuthentication, worker(function* (req, res)
 
 			if (lodash.isEmpty(document)) {
 
-				res.status(HttpStatus.ACCEPTED).send();
+				res.sendStatus(HttpStatus.NO_CONTENT);
 
 				return;
 
@@ -81,7 +67,7 @@ router.get('/user/combat/code', checkAuthentication, worker(function* (req, res)
 
 	}
 
-}));
+});
 
 /**
  * ------------------------------------------------
@@ -92,7 +78,6 @@ router.get('/user/combat/code', checkAuthentication, worker(function* (req, res)
 router.post('/user/combat/code', checkAuthentication, worker(function* (req, res) {
 
 	// TODO При желании, можно определять сообщение.
-	req.checkBody('idCombat').notEmpty().isInt();
 	req.checkBody('code').notEmpty();
 	req.checkBody('status').notEmpty().isInt();
 
@@ -107,12 +92,11 @@ router.post('/user/combat/code', checkAuthentication, worker(function* (req, res
 	}
 
 	const idUser = req.user._id;
-	const idCombat = req.body.idCombat;
 	const code = req.body.code;
 	const status = req.body.status;
 
-	CombatCodeModel.update({idUser, idCombat},
-						   {idUser, idCombat, code, status},
+	CombatCodeModel.update({idUser},
+						   {idUser, code, status},
 						   {
 							   upsert:        true,
 							   runValidators: true
@@ -137,7 +121,7 @@ router.post('/user/combat/code', checkAuthentication, worker(function* (req, res
 
 		}
 
-		return res.sendStatus(HttpStatus.ACCEPTED);
+		return res.sendStatus(HttpStatus.NO_CONTENT);
 
 	}
 
