@@ -1621,6 +1621,10 @@ div.helper {
 	position: absolute;
 }
 
+.diagram > svg {
+	padding-left: 50%;
+}
+
 .login-vertical-center {
 	width: 80%;
 	margin: auto;

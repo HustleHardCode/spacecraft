@@ -7,6 +7,9 @@ module.exports = DiagramHelp();
 
 function DiagramHelp () {
 
+	const DEFAULT_BLOCK_WIDTH = 150;
+	const DEFAULT_BLOCK_HEIGHT = 50;
+
 	let t = {};
 
 	t.createLink = createLink;
@@ -117,10 +120,13 @@ function DiagramHelp () {
 
 		return {
 			size: {
-				width: args.width || 150,
-				height: args.height || 50
+				width: args.width || DEFAULT_BLOCK_WIDTH,
+				height: args.height || DEFAULT_BLOCK_HEIGHT
 			},
-			position: {x: args.x, y: args.y},
+			position: {
+				x: args.x - (args.width || DEFAULT_BLOCK_WIDTH) / 2,
+				y: args.y - (args.height || DEFAULT_BLOCK_HEIGHT) / 2
+			},
 			attrs:    {
 				text:             {
 					fill:             '#ffffff',

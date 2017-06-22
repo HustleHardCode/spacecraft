@@ -26,9 +26,9 @@ function IfOperation() {
 			audio:   'audio/lesson2/1-1',
 			css:     'astromen-img',
 			diagram: function (graph) {
-				var condition = rhombus({
-					x:           225,
-					y:           50,
+				let condition = rhombus({
+					x:           0,
+					y:           100,
 					width:       150,
 					height:      100,
 					text:        '2 === 2 ?',
@@ -36,12 +36,12 @@ function IfOperation() {
 					colorStroke: '#152b39'
 				});
 
-				var act1 = block(50, 200, 'Уничтожить', '#152B39');
-				var link = createLink({graph: graph, target: act1, sourceX: 300, sourceY: 100});
+				let act1 = block(150, 200, 'Уничтожить', '#152B39');
+				let link = createLink({graph: graph, target: act1, sourceX: 0, sourceY: 100});
 
-				var labelBlock = blockWithSize({
+				let labelBlock = blockWithSize({
 					x:      150,
-					y:      70,
+					y:      85,
 					width:  30,
 					height: 30,
 					text:   'Да'
@@ -56,7 +56,7 @@ function IfOperation() {
 				link.addTo(graph);
 				link.toBack();
 
-				link.set('vertices', [{x: 125, y: 100}]);
+				link.set('vertices', [{x: 150, y: 100}]);
 			},
 			video:   {
 				url:   'https://www.youtube.com/watch?v=kPe8Fojxh6k&index=4&list=PLJOe7BmEsRtLXM3UnEhvEWDU3ZBe-Us9r',

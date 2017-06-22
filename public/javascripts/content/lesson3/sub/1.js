@@ -26,9 +26,9 @@ function FirstContactWithVariables() {
 			css:     'astromen-img',
 			diagram: function (graph) {
 
-				var variables = block({
-					x:           200,
-					y:           50,
+				let variables = block({
+					x:           0,
+					y:           100,
 					width:       200,
 					height:      150,
 					text:        'container1',
@@ -36,8 +36,8 @@ function FirstContactWithVariables() {
 					colorStroke: '#152b39'
 				});
 
-				var value = block({
-					x:           250,
+				let value = block({
+					x:           0,
 					y:           150,
 					width:       100,
 					height:      50,

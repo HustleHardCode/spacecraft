@@ -26,9 +26,9 @@ function ElseOperation() {
 			css:   'astromen-img',
 			diagram: function (graph) {
 
-				var condition = rhombus({
-					x:           225, // Центр 300
-					y:           50,
+				let condition = rhombus({
+					x:           0,
+					y:           100,
 					width:       150,
 					height:      100,
 					text:        '3 <= 3 ?',
@@ -36,22 +36,22 @@ function ElseOperation() {
 					colorStroke: '#152b39'
 				});
 
-				var act1 = block(50, 200, 'Управляет - BBot', '#152B39');
-				var act2 = block(400, 200, 'Управляет - Кадет', '#152B39');
-				var link1 = createLink({graph: graph, target: act1, sourceX: 300, sourceY: 100});
-				var link2 = createLink({graph: graph, target: act2, sourceX: 300, sourceY: 100});
+				let act1 = block(-150, 200, 'Управляет - BBot', '#152B39');
+				let act2 = block(150, 200, 'Управляет - Кадет', '#152B39');
+				let link1 = createLink({graph: graph, target: act1, sourceX: 150, sourceY: 100});
+				let link2 = createLink({graph: graph, target: act2, sourceX: 150, sourceY: 100});
 
-				var labelBlock1 = blockWithSize({
-					x: 150,
-					y: 70,
+				let labelBlock1 = blockWithSize({
+					x: -150,
+					y: 85,
 					width: 30,
 					height: 30,
 					text: 'Да'
 				});
 
-				var labelBlock2 = blockWithSize({
-					x: 410,
-					y: 70,
+				let labelBlock2 = blockWithSize({
+					x: 150,
+					y: 85,
 					width: 30,
 					height: 30,
 					text: 'Нет'
@@ -70,8 +70,7 @@ function ElseOperation() {
 				link2.addTo(graph);
 				link2.toBack();
 
-				link1.set('vertices', [{ x: 125, y: 100 }]);
-				link2.set('vertices', [{ x: 475, y: 100 }]);
+				link1.set('vertices', [{ x: -150, y: 100 }]);
 			}
 		}],
 

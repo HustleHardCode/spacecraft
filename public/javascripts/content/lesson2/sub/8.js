@@ -35,18 +35,18 @@ function ObjectType() {
 			],
 			diagram: function (graph) {
 
-				var typeMain = block(225, 50, 'Типы данных', '#152B39');
-				var type1 = block(400, 50, 'Объекты', '#152B39');
-				var type2 = block(50, 50, 'Простые типы', '#152B39');
+				let typeMain = block(0, 50, 'Типы данных', '#152B39');
+				let type1 = block(175, 50, 'Объекты', '#152B39');
+				let type2 = block(-175, 50, 'Простые типы', '#152B39');
 
-				var type21 = block(50, 135, 'Строки', '#fe854f');
-				var type22 = block(50, 220, 'Числа', '#fe854f');
-				var type23 = block(50, 305, 'Логический тип', '#fe854f');
-				var type24 = block(50, 390, 'null', '#fe854f');
-				var type25 = block(50, 475, 'undefined', '#fe854f');
+				let type21 = block(-175, 135, 'Строки', '#fe854f');
+				let type22 = block(-175, 220, 'Числа', '#fe854f');
+				let type23 = block(-175, 305, 'Логический тип', '#fe854f');
+				let type24 = block(-175, 390, 'null', '#fe854f');
+				let type25 = block(-175, 475, 'undefined', '#fe854f');
 
-				var type11 = block(400, 135, 'Специальные', '#fe854f');
-				var type12 = block(400, 220, 'Обычные', '#fe854f');
+				let type11 = block(175, 135, 'Специальные', '#fe854f');
+				let type12 = block(175, 220, 'Обычные', '#fe854f');
 
 				graph.addCells([
 					typeMain,

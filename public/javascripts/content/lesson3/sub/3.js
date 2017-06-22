@@ -42,9 +42,9 @@ function MoreAboutVariables() {
 			css:     'astromen-img',
 			diagram: function (graph) {
 
-				var variables1 = block({
-					x:           50,
-					y:           50,
+				let variables1 = block({
+					x:           -100,
+					y:           100,
 					width:       200,
 					height:      150,
 					text:        'container',
@@ -52,8 +52,8 @@ function MoreAboutVariables() {
 					colorStroke: '#152b39'
 				});
 
-				var value1 = block({
-					x:           100,
+				let value1 = block({
+					x:           -100,
 					y:           150,
 					width:       100,
 					height:      50,
@@ -62,9 +62,9 @@ function MoreAboutVariables() {
 					colorStroke: '#152b39'
 				});
 
-				var variables2 = block({
-					x:           350,
-					y:           50,
+				let variables2 = block({
+					x:           200,
+					y:           100,
 					width:       200,
 					height:      150,
 					text:        'Container',
@@ -73,7 +73,7 @@ function MoreAboutVariables() {
 				});
 
 				var value2 = block({
-					x:           400,
+					x:           200,
 					y:           150,
 					width:       100,
 					height:      50,
