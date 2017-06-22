@@ -24,6 +24,7 @@ var AnimationFactory = require('../../../animations');
  */
 function Weapon({
 	game,
+	unit,
 	fireRate = 1000,
 	bulletSpeed = 200,
 	damage = 10,
@@ -83,7 +84,6 @@ function Weapon({
 
 		} else {
 
-			// TODO не забыть продумать данный вариант
 			weapon.fireAngle = unit.angle;
 			weapon.fire();
 

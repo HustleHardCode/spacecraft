@@ -21,6 +21,7 @@ function Api(player) {
 	api.log = log;
 	api.destroy = destroy;
 	api.fireAtXY = fireAtXY;
+	api.fire = fire;
 	api.setSensorKilled = setSensorKilled;
 	api.isSensorKilled = isSensorKilled;
 
@@ -71,8 +72,14 @@ function Api(player) {
 
 	function fireAtXY(x, y) {
 
-		player.fireAtXY(x, y);
+		player.weaponBlock.fireAtXY(x, y);
 
 	}
 
+
+	function fire(obj) {
+
+		player.getBlock('weaponBlock').fire('laser', obj);
+
+	}
 }

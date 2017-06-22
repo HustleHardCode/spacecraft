@@ -49,6 +49,7 @@ function Unit(args) {
 	t.health = health;
 	t.maxHealth = maxHealth;
 	t.addBlock = addBlock;
+	t.getBlock = getBlock;
 	t.getX = getX;
 	t.getY = getY;
 
@@ -82,6 +83,15 @@ function Unit(args) {
 
 		blockInitialization();
 
+	}
+
+	function getBlock(blockName) {
+
+		if(blockName) {
+
+			return blocksManager[blockName];
+
+		}
 	}
 
 	/**

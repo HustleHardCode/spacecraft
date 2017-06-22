@@ -2,6 +2,8 @@
 
 const lodash = require('lodash');
 
+const Weapon = require('./weapon');
+
 module.exports = WeaponBlock;
 
 /**
@@ -10,8 +12,6 @@ module.exports = WeaponBlock;
 
 function WeaponBlock(args) {
 
-	console.log(args);
-
 	let t = {};
 
 	let weapons = {};
@@ -19,11 +19,35 @@ function WeaponBlock(args) {
 	t.fire = fire;
 	t.fireAtXY = fireAtXY;
 
+	initialize();
+
 	return t;
+
+	function initialize() {
+
+		lodash.forEach(args.weapons, weapon => {
+
+			let type = weapon.type;
+
+			let newWeapon = Weapon(lodash.assign({}, {game: args.game, unit: args.unit}, weapon));
+
+			if(!weapons[type] ||
+			   lodash.isEmpty(weapons[type])) {
+
+				weapons[type] = [newWeapon];
+
+			} else {
+
+				weapons[type].push(newWeapon);
+
+			}
+		});
+	}
 
 	function fire(weaponType, obj) {
 
-		if(weapons[weaponType]) {
+		if(weaponType &&
+		   weapons[weaponType]) {
 
 			lodash.forEach(weapons[weaponType], weapon => weapon.fire(obj));
 
@@ -32,7 +56,8 @@ function WeaponBlock(args) {
 
 	function fireAtXY(weaponType, x, y) {
 
-		if(weapons[weaponType]) {
+		if(weaponType &&
+		   weapons[weaponType]) {
 
 			lodash.forEach(weapons[weaponType], weapon => weapon.fireAtXY(x, y));
 
