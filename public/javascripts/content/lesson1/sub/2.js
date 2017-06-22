@@ -5,12 +5,56 @@ var LessonResults = require('../../lesson-results');
 
 module.exports = JavaScript();
 
+let DiagramHelp = require('../../diagram.help');
+
 /**
  * Урок - 'JavaScript'.
  *
  * Created by vladthelittleone on 02.12.15.
  */
 function JavaScript() {
+
+	let diagrama = function (graph) {
+
+		let cycleCircle = DiagramHelp.createCircle({
+													  x: 0,
+													  y: 100,
+													  width: 150,
+													  height: 50,
+													  text: 'Бесконечный цикл',
+													  colorFill: '#152B39'
+												  });
+
+		let runBlock = DiagramHelp.createBlock({
+												   x: 200,
+												   y: 200,
+												   text: 'Код управления',
+												   colorFill: '#fe854f'
+											   });
+
+		graph.addCells([
+						   cycleCircle,
+						   runBlock
+					   ]);
+
+		let linkCycleToRun = DiagramHelp.createLink({
+														graph: graph,
+														source: cycleCircle,
+														target: runBlock,
+														isArrow: true
+													});
+
+		linkCycleToRun.set('vertices', [{ x: 200, y: 100 }]);
+
+		let linkRunToCycle = DiagramHelp.createLink({
+														graph: graph,
+														source: runBlock,
+														target: cycleCircle,
+														isArrow: true
+													});
+
+		linkRunToCycle.set('vertices', [{ x: 0, y: 200 }]);
+	};
 
 	return {
 		title:          'JavaScript',
@@ -42,6 +86,7 @@ function JavaScript() {
 				}
 			]
 		}, {
+			diagram: diagrama,
 			audio:  'audio/lesson2/2-3',
 			css:    'astrogirl-img',
 			marker: {
