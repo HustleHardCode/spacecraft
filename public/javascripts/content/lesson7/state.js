@@ -4,10 +4,12 @@
 var moment = require('moment');
 
 // Зависимости
-var EntitiesFactory = require('../../game/entities');
-var CodeLauncher = require('../../game/launcher');
-var Random = require('../../utils/random');
-let MeteorFactory = EntitiesFactory.MeteorFactory;
+const EntitiesFactory = require('../../game/entities');
+const CodeLauncher = require('../../game/launcher');
+const Random = require('../../utils/random');
+const MeteorFactory = EntitiesFactory.MeteorFactory;
+
+const World = require('../../game/entities/world');
 
 var Api = require('./api');
 
@@ -22,7 +24,7 @@ function StateWrapper(state) {
 	let t = state;
 
 	let player;
-	let carrier;    // Авианосец
+	let locust;    // Авианосец
 	let explosions;	// Группа анимации взрывов
 	let updateTime = moment().valueOf();
 	let sensor;
@@ -36,7 +38,7 @@ function StateWrapper(state) {
 	function createNewPlayer() {
 
 		// Создать шаттл
-		player = carrier.create(corvetteLogic, true);
+		player = locust.create(corvetteLogic, true);
 
 		// API для урока
 		player.api = Api(player);
@@ -46,7 +48,7 @@ function StateWrapper(state) {
 
 		// Корабль на верх.
 		player.bringToTop();
-		carrier.bringToTop();
+		locust.bringToTop();
 
 		player.events.onKilled.add(onKillCallback, this);
 
@@ -76,14 +78,14 @@ function StateWrapper(state) {
 		});
 
 
-		carrier = EntitiesFactory.createLocust({
+		locust = EntitiesFactory.createLocust({
 			game: game,
 			x: worldCenterX,
 			y: worldCenterY,
 			faction: 1
 		});
 
-		carrier.rotation = 3 * Math.PI / 2;
+		locust.rotation = 3 * Math.PI / 2;
 
 		createNewPlayer();
 
@@ -132,7 +134,7 @@ function StateWrapper(state) {
 
 		}
 
-		carrier.bringToTop();
+		locust.bringToTop();
 		player.destroy();
 
 		setTimeout(createNewPlayer, LESSON_TIMEOUT);
@@ -208,7 +210,23 @@ function StateWrapper(state) {
 
 		}
 
-		player.logic = corvetteLogic.bind(player, player, carrier);
+		// Для 5 сабурока происходит смена корабля для управления
+		if(index === 4) {
+
+			World.changePlayer(locust.id);
+
+			player.api = null;
+
+			// API для урока
+			locust.api = Api(locust);
+
+			// Фокус на на центре
+			t.followFor(locust);
+
+			CodeLauncher.setArguments(locust.api);
+		}
+
+		player.logic = corvetteLogic.bind(player, player, locust);
 
 	}
 }

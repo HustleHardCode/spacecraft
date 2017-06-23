@@ -67,6 +67,8 @@ function EntitiesFactory() {
 		let unit = Unit(args);
 		let id = World.pushObject(unit);
 
+		unit.id = id;
+
 		// Задаем как объект игрока, если этот корабль юзера.
 		args.player && World.setPlayer(id);
 

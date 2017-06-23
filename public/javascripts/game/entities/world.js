@@ -29,6 +29,7 @@ function World() {
 	t.update = update;
 	t.getPlayer = getPlayer;
 	t.setPlayer = setPlayer;
+	t.changePlayer = changePlayer;
 	t.getEnemies = getEnemies;
 
 	return t;
@@ -115,6 +116,16 @@ function World() {
 
 		playerId = id;
 
+	}
+
+	/**
+	 * Меняем в мире игрока.
+	 */
+	function changePlayer(id) {
+
+		objects[playerId].isPlayer = false;
+
+		setPlayer(id);
 	}
 
 	/**

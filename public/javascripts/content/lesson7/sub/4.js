@@ -66,11 +66,11 @@ function ComplexLogicalExpressionOr() {
 
 		instructions: '<ul>' +
 					  '<li>Изучите комментарии к коду.</li>' +
-					  '<li>Сделайте так, чтобы условие на <strong>13</strong> строчке было истинным.</li>' +
+					  '<li>Сделайте так, чтобы условие на <strong>20</strong> строчке было истинным.</li>' +
 					  '</ul>'
 	};
 
-	function gamePostUpdate(corvette) {
+	function gamePostUpdate(scout) {
 
 		var lessonResults = LessonResults({
 
@@ -83,7 +83,7 @@ function ComplexLogicalExpressionOr() {
 			text: '<p>Вдарим р0к в этой дыре!</p> '
 		});
 
-		if (corvette.isSensorKilled()) {
+		if (scout.isSensorKilled()) {
 
 			return lessonResults.resultCorrect();
 
