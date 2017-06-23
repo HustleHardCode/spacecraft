@@ -2,7 +2,7 @@
 	"needAudio": true,
 	"preload": "cricketEmpty",
 	"hullPreload": "cricketHull",
-	"maxHealth": 10,
+	"maxHealth": 300,
 	"blocks": [
 		{
 			"type": "weaponBlock"

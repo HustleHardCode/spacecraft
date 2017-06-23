@@ -22,9 +22,12 @@ function Connection($http) {
 	that.getCodeFromJs = getCodeFromJs;
 
 	that.getLessonCodeFromJs = getLessonCodeFromJs;
-	that.getCombatCodeFromJs = getCombatCodeFromJs;
+	that.getCombatDefaultUserCode = getCombatDefaultUserCode;
 
 	that.getCombatEnemy = getCombatEnemy;
+
+	that.getCombatUserCode = getCombatUserCode;
+	that.saveCombatUserCode = saveCombatUserCode;
 
 	that.saveLessonsStatistics = saveLessonsStatistics;
 	that.getLessonsStatistics = getLessonsStatistics;
@@ -46,14 +49,38 @@ function Connection($http) {
 
 	return that;
 
-	function getCombatEnemy(idCombat, success, error) {
+	function getCombatUserCode(success, error) {
+
+		$http({
+				  url:    apiUrls.combatUserCode,
+				  method: 'GET'
+			  }).then(claimHttpDataOnly(success), error);
+
+	}
+
+	/**
+	 * Метод реализации отправки POST запроса на сохранение программного кода сражения пользователя.
+	 *
+	 * @param args параметры, которые будут включены в тело запроса.
+	 * @param success коллбэк вызываемый в случае успешного сохранения.
+	 * @param error коллбэк обработки ошибочно ситуации.
+	 */
+	function saveCombatUserCode(args, success, error) {
+
+		$http({
+				  url:    apiUrls.combatUserCode,
+				  method: 'POST',
+				  data:   args
+			  }).then(success, error);
+
+	}
+
+	function getCombatEnemy(success, error) {
 
 		$http({
 				  url:    apiUrls.combatEnemy,
 				  method: 'GET',
-				  params:   { idCombat }
-			  }).then(claimHttpDataOnly(success),
-					  error);
+			  }).then(claimHttpDataOnly(success), error);
 
 	}
 
@@ -131,12 +158,12 @@ function Connection($http) {
 	/**
 	 * Получить код из .js файла.
 	 */
-	function getCodeFromJs(source, callback) {
+	function getCodeFromJs(source, success, error) {
 
 		$http({
 				  method: 'GET',
 				  url:    source
-			  }).then(callback);
+			  }).then(claimHttpDataOnly(success), error);
 
 	}
 
@@ -154,11 +181,11 @@ function Connection($http) {
 	/**
 	 * Получить код для сражений из .js файла.
 	 */
-	function getCombatCodeFromJs(code, callback) {
+	function getCombatDefaultUserCode(code, success, error) {
 
 		var source = resourcesUrls.combatUserCode + '/' + code + '.code';
 
-		getCodeFromJs(source, callback)
+		getCodeFromJs(source, success, error)
 
 	}
 

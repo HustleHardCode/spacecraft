@@ -3,7 +3,7 @@
 	"preload": "scoutEmpty",
 	"hullPreload": "scoutHull",
 	"scale": 0.5,
-	"maxHealth": 4,
+	"maxHealth": 10,
 	"blocks": [
 		{
 			"type": "engineBlock",

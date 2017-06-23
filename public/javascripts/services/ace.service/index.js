@@ -39,6 +39,7 @@ function AceService() {
 	that.getMarkerService = getMarkerService;
 	that.getSession = getSession;
 	that.getBeautifyOptions = getBeautifyOptions;
+	that.getValue = getValue;
 
 	return that;
 
@@ -172,4 +173,11 @@ function AceService() {
 		return editor.getSession();
 
 	}
+
+	function getValue() {
+
+		return editor && editor.getValue();
+
+	}
+
 }

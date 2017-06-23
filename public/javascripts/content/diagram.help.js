@@ -15,9 +15,16 @@ function DiagramHelp () {
 	t.createLink = createLink;
 	t.createBlock = createBlock;
 	t.createRhombus = createRhombus;
+	t.createCircle = createCircle;
 	t.block = block;
 
 	return t;
+
+	function createCircle (args) {
+
+		return new joint.shapes.erd.Normal(createOptionsBlock(args));
+
+	}
 
 	function createRhombus(args) {
 

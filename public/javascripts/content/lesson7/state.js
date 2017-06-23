@@ -83,12 +83,6 @@ function StateWrapper(state) {
 			faction: 1
 		});
 
-		carrier.logic = function (c) {
-
-			c.moveForward();
-
-		};
-
 		carrier.rotation = 3 * Math.PI / 2;
 
 		createNewPlayer();

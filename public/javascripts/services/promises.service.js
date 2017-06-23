@@ -17,7 +17,6 @@ module.exports = Promises;
  * @since 11.02.17
  * @author greezlock
  */
-
 function Promises($q, authentication, connection, statisticsStorage) {
 
 	var t = {};
@@ -25,6 +24,7 @@ function Promises($q, authentication, connection, statisticsStorage) {
 	t.getAuthenticationStatus = getAuthenticationStatus;
 
 	t.getLessonStatisticsData = getLessonStatisticsData;
+	t.getCombatUserCode = getCombatUserCode;
 	t.getCombatEnemy = getCombatEnemy;
 	t.getLeaderBoardData = getLeaderBoardData;
 	t.getUserProgressData = getUserProgressData;
@@ -54,13 +54,41 @@ function Promises($q, authentication, connection, statisticsStorage) {
 
 		}
 
-		return $q(authentication.getAuthenticationStatus.bind(null, args.ignoreAuthModule));
+		return $q(authentication.getAuthenticationStatus.bind(authentication, args.ignoreAuthModule));
 
 	}
 
-	function getCombatEnemy(idCombat) {
+	/**
+	 * Получение программного кода пользователя для сражения включает 2 этапа:
+	 * этап №1 - пытаемся выгрузить код из сервиса, который пользователь сохранял в последний раз;
+	 * этап №2 (дополнительный) - если на первом этапе нам не удалось выгрузить код (пользователь не сохранял
+	 * 							  до сего момента), ты просим у сервиса код по умолчанию.
+     */
+	function getCombatUserCode() {
 
-		return $q(connection.getCombatEnemy.bind(connection, idCombat));
+		return $q((resolve, reject) => {
+
+			connection.getCombatUserCode(code => {
+
+				if (code) {
+
+					resolve(code);
+
+					return;
+
+				}
+
+				connection.getCombatDefaultUserCode('start', resolve, reject);
+
+			}, reject);
+
+		});
+
+	}
+
+	function getCombatEnemy() {
+
+		return $q(connection.getCombatEnemy.bind(connection));
 
 	}
 
@@ -90,7 +118,7 @@ function Promises($q, authentication, connection, statisticsStorage) {
 
 	function getGame(id) {
 
-		return $q(Game.initialization.bind(null, id));
+		return $q(Game.initialization.bind(Game, id));
 
 	}
 

@@ -12,6 +12,14 @@
 			"angularVelocity": 0.05,
 			"trails": [
 				{
+					"lifespan": 75,
+					"maxParticleSpeedX": -150,
+					"minParticleSpeedX": -50,
+					"maxParticleSpeedY": 50,
+					"minParticleSpeedY": -50,
+					"rotationX": -100,
+					"rotationY": 100,
+					"count": 100,
 					"trailScale": 1
 				}
 			]

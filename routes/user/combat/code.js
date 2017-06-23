@@ -12,10 +12,62 @@ const lodash = require('lodash');
 const HttpStatus = require('http-status-codes');
 const express = require('express');
 const util = require('util');
+const worker = require('co-express');
 
 const router = express.Router();
 
 module.exports = router;
+
+
+/**
+ * ------------------------------------------------
+ * GET
+ * ------------------------------------------------
+ */
+
+router.get('/user/combat/code', checkAuthentication, (req, res) => {
+
+	let idUser = req.user._id;
+
+	CombatCodeModel.findOne({})
+				   .where('idUser')
+				   .equals(idUser)
+				   .exec(onFind);
+
+	function onFind(err, document) {
+
+		if (!err) {
+
+			if (lodash.isEmpty(document)) {
+
+				res.sendStatus(HttpStatus.NO_CONTENT);
+
+				return;
+
+			}
+
+			const code = document.code;
+
+			if (code) {
+
+				res.status(HttpStatus.OK).send(code);
+
+			} else {
+
+				// Обрабатываем случай, когда поле кода оказалось пустым (по каким-либо причинам).
+				res.sendStatus(HttpStatus.UNPROCESSABLE_ENTITY);
+
+			}
+
+			return;
+
+		}
+
+		return res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+
+	}
+
+});
 
 /**
  * ------------------------------------------------
@@ -23,36 +75,33 @@ module.exports = router;
  * ------------------------------------------------
  */
 
-router.post('/user/combat/code', checkAuthentication, (req, res) => {
+router.post('/user/combat/code', checkAuthentication, worker(function* (req, res) {
 
 	// TODO При желании, можно определять сообщение.
-	req.checkBody('idCombat').notEmpty().isInt();
 	req.checkBody('code').notEmpty();
-	
-	// TODO yield
-	req.getValidationResult().then(function(result) {
+	req.checkBody('status').notEmpty().isInt();
 
-		if (!result.isEmpty()) {
+	const result = yield req.getValidationResult();
 
-			res.sendStatus(HttpStatus.BAD_REQUEST);
+	if (!result.isEmpty()) {
 
-			return;
+		res.sendStatus(HttpStatus.BAD_REQUEST);
 
-		}
+		return;
 
-		let idUser = req.user._id;
-		let idCombat = req.body.idCombat;
-		let code = req.body.code;
+	}
 
-		CombatCodeModel.update({idUser, idCombat},
-							   {idUser, idCombat, code},
-							   {
-								   upsert:        true,
-								   runValidators: true
-							   },
-							   onUpdate);
+	const idUser = req.user._id;
+	const code = req.body.code;
+	const status = req.body.status;
 
-	});
+	CombatCodeModel.update({idUser},
+						   {idUser, code, status},
+						   {
+							   upsert:        true,
+							   runValidators: true
+						   },
+						   onUpdate);
 
 	function onUpdate(err) {
 
@@ -72,8 +121,8 @@ router.post('/user/combat/code', checkAuthentication, (req, res) => {
 
 		}
 
-		return res.sendStatus(HttpStatus.ACCEPTED);
+		return res.sendStatus(HttpStatus.NO_CONTENT);
 
 	}
 
-});
+}));

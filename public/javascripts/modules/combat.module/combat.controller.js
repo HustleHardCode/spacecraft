@@ -2,6 +2,7 @@
 
 const CodeLauncher = require('../../game/launcher');
 const TabHandler = require('../../emitters/tab-handler');
+const spinnerMessages = require('../../utils/json/messages/spinner.json');
 const resolvesNames = require('./combat.resolve').names;
 const Game = require('./../../game');
 
@@ -12,6 +13,8 @@ CombatController.$inject = ['$scope',
 							'aceService',
 							'connection',
 							'settings',
+							'spinner',
+							resolvesNames.combatUserCode,
 							resolvesNames.combatEnemy];
 
 module.exports = CombatController;
@@ -27,13 +30,24 @@ function CombatController($scope,
 						  aceService,
 						  connection,
 						  settings,
+						  spinner,
+						  combatUserCode,
 						  combatEnemy) {
 
-	var VK_GROUP_ID = 105816682;
+	const VK_GROUP_ID = 105816682;
 
-	var markerService;
-	var soundtrack;
-	var markerId;
+	// Статус НЕГОТОВНОСТИ программного кода участвовать в боях с другими игроками.
+	const CODE_STATUS_INACTIVE = 0;
+	// Статус ГОТОВНОСТИ программного кода участвовать в боях с другими игроками.
+	const CODE_STATUS_ACTIVE = 1;
+
+	// Храним последнее значение прогр. кода, которое сохранили на стороне сервиса, во избежание
+	// отправки избыточных запросов на сохранение.
+	let lastSavedCode;
+
+	let markerService;
+	let soundtrack;
+	let markerId;
 
 	CodeLauncher.onError = onError;
 
@@ -46,6 +60,7 @@ function CombatController($scope,
 	$scope.aceChanged = aceChanged;
 	$scope.aceLoaded = aceLoaded;
 	$scope.toggleCodeRun = toggleCodeRun;
+	$scope.clickSaveButton = clickSaveButton;
 	$scope.onError = onError;
 
 	$scope.$watch('$viewContentLoaded', onContentLoaded);
@@ -79,6 +94,95 @@ function CombatController($scope,
 	function initCombat() {
 
 		console.log(Game.world.getEnemies());
+
+	}
+
+	function clickSaveButton() {
+
+		tryToSaveCombatUserCode({
+									code:   aceService.getValue(),
+									status: CODE_STATUS_INACTIVE
+								});
+
+	}
+
+	/**
+	 * Метод пытается сохраненить программный код пользователя на сервере.
+	 * Метод осуществляет отправку запроса на сохранение только в случае, если:
+	 * 1) текущий код в редакторе синтаксически корректен;
+	 * 2 )текущий код в редакторе НЕ совпадает с последним сохраненным.
+	 * Также, метод берет на себя обязанность отображения спиннера, в случае
+	 * продолжительности отбработки запроса на сохранение более чем на 500мс.
+	 *
+	 * @param args агрументами метода являются:
+	 *             code - программный код;
+	 *             codeStatus - статус кода;
+	 *             success - коллбэк для вызова в случае успешного сохранения;
+	 *             error - коллбэк для вызова с случае неуспешного сохранения.
+	 */
+	function tryToSaveCombatUserCode(args) {
+
+		let {
+				code,
+				status,
+				success,
+				error
+			} = args;
+
+		if (isCodeSyntacticallyCorrect()) {
+
+			if (lastSavedCode !== code) {
+
+				spinner.start({message: spinnerMessages.clickSaveButton, delay: 500});
+
+				connection.saveCombatUserCode({code, status},
+											  onSaveSuccess,
+											  onSaveError);
+
+			} else {
+
+				success && success();
+
+			}
+
+		} else {
+
+			error && error();
+
+		}
+
+		function onSaveSuccess() {
+
+			lastSavedCode = code;
+
+			spinner.stop();
+
+			success && success();
+
+		}
+
+		function onSaveError() {
+
+			spinner.stop();
+
+			error && error();
+
+		}
+
+	}
+
+	/**
+	 * Метод позволяет выяснить - имеются ли в коде редактора
+	 *
+	 * @returns {boolean} логическое значение о наличии синтаксических ошибок в коде.
+	 */
+	function isCodeSyntacticallyCorrect() {
+
+		const editorSession = aceService.getSession();
+		// Выделяем аннотации об ошибках в программном коде.
+		const errors = lodash.filter(editorSession.getAnnotations(), {type: 'error'});
+
+		return lodash.isEmpty(errors);
 
 	}
 
@@ -152,15 +256,7 @@ function CombatController($scope,
 
 		var editorSession = aceService.getSession();
 
-		// Отправка запроса на получение кода следующего уркоа
-		connection.getCombatCodeFromJs('start', function (res) {
-
-			var code = res.data;
-
-			// Сохранение в Ace.
-			editorSession.setValue(code);
-
-		});
+		editorSession.setValue(combatUserCode);
 
 	}
 
@@ -284,21 +380,22 @@ function CombatController($scope,
 
 		}
 
-		if (!CodeLauncher.isCodeRunning) {
+		if (CodeLauncher.isCodeRunning) {
 
-			var editorSession = aceService.getSession();
-			var code = editorSession.getDocument().getValue();
+			CodeLauncher.stop();
 
-			CodeLauncher.run(code);
+		} else {
 
-			// При запуске кода
+			const code = aceService.getValue();
+			// При попытке запуске кода
 			// выключаем окно настроек.
 			$scope.settingsEnable = false;
 
-		}
-		else {
-
-			CodeLauncher.stop();
+			tryToSaveCombatUserCode({
+										code:    code,
+										status:  CODE_STATUS_ACTIVE,
+										success: CodeLauncher.run.bind(CodeLauncher, code)
+									});
 
 		}
 
@@ -313,9 +410,9 @@ function CombatController($scope,
 	function errorWrapper(value) {
 
 		return '<p>Неисправность!! EГГ0Г!!</p> ' +
-			'<p>Дроид BBot не может понятb к0д 4еловека.</p>' +
-			'<p class="red-label">0шибка: ' + value + '</p>' +
-			'<p>Пожалуйста, исправьте ситуацию.</p>';
+			   '<p>Дроид BBot не может понятb к0д 4еловека.</p>' +
+			   '<p class="red-label">0шибка: ' + value + '</p>' +
+			   '<p>Пожалуйста, исправьте ситуацию.</p>';
 
 	}
 }

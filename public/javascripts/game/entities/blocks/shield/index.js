@@ -62,7 +62,6 @@ function ShieldBlock({
 	sprite.health = health;
 
 	unit.emp = emp.start;
-	unit.shield = health;
 	unit.damage = damage;
 
 	initialization();
@@ -153,6 +152,8 @@ function ShieldBlock({
 
 		sprite.alpha = (alpha / sprite.maxHealth) * sprite.health;
 		unit.shield = sprite.health;
+		unit.maxShield = sprite.maxHealth;
+
 		emp.update();
 
 	}

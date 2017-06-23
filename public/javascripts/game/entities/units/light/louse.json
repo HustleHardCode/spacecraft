@@ -2,7 +2,7 @@
 	"needAudio": true,
 	"preload": "louseEmpty",
 	"hullPreload": "louseHull",
-	"maxHealth": 20,
+	"maxHealth": 30,
 	"blocks": [
 		{
 			"type": "engineBlock",
@@ -22,7 +22,7 @@
 		{
 			"type": "shieldBlock",
 			"scale": 0.5,
-			"health": 10,
+			"health": 15,
 			"maxHealth": 10
 		}
 	]

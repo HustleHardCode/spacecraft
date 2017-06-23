@@ -79,9 +79,9 @@
 		<span class="green">{{spaceCraft.weapon.getDamage()}}</span>
 	</div>
 
-	<div class="params-bar" ng-if="spaceCraft.protection">
+	<div class="params-bar" ng-if="world.getPlayer().shield">
 		<span class="fa fa-adjust blue"></span>
-		<span class="blue">{{spaceCraft.protection.getShield()}} / {{spaceCraft.protection.getMaxShield()}}</span>
+		<span class="blue">{{world.getPlayer().shield}} / {{world.getPlayer().maxShield}}</span>
 	</div>
 
 	<div class="params-bar" ng-if="world.getPlayer().health">

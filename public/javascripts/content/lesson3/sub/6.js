@@ -72,6 +72,14 @@ function goToResearchCenter() {
 				x1: 11,
 				y2: Infinity
 			}
+		}, {
+			audio: 'audio/lesson4/6-8',
+			css:   'astrogirl-img',
+			hint:        [{
+				'next .video-content-hint': 'Видеоурок',
+				'nextButton':         {text: 'Далее'},
+				'showSkip':           false
+			}]
 		}],
 
 		gamePostUpdate: gamePostUpdate,

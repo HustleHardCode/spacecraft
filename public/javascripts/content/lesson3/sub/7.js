@@ -31,6 +31,13 @@ function goToResearchCenter() {
 		},{
 			audio:  'audio/lesson4/7-4',
 			css:    'astromen-img'
+		}, {
+			audio: 'audio/lesson4/7-5',
+			css:   'astrogirl-img',
+			marker: {
+				x1:   11,
+				y2:   Infinity
+			}
 		}],
 
 		gamePostUpdate: gamePostUpdate,

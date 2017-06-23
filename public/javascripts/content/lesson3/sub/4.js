@@ -16,6 +16,13 @@ function TaskWithVariables() {
 		character:         [{
 			audio: 'audio/lesson4/4-1',
 			css:   'astromen-img'
+		},{
+			audio: 'audio/lesson4/4-2',
+			css:   'astrogirl-img',
+			marker: {
+				x1:   3,
+				y2:   Infinity
+			}
 		}],
 
 		interpreterHandler: interpreterHandler,
