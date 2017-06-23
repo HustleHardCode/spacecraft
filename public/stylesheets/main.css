@@ -2104,3 +2104,15 @@ fieldset, label {
 	border: 0;
 	margin-top: 15px;
 }
+
+.next-button-blinking {
+	animation: next-button-blinking 3s infinite;
+	border: 1px solid rgb(202, 45, 35) !important;
+}
+
+@keyframes next-button-blinking {
+	0%{ box-shadow: 0 0 10px #ca2d23; }
+	40%{ box-shadow: 0 0 30px #ffffff; }
+	60%{ box-shadow: 0 0 30px #ffffff; }
+	100%{ box-shadow: 0 0 10px #ca2d23; }
+}
