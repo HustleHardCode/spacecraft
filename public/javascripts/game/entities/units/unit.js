@@ -38,7 +38,7 @@ function Unit(args) {
 	let t = Prefab(args);
 
 	// Менеджер блоков
-	let blocksManager = [];
+	let blocksManager = {};
 
 	/**
 	 * Коллбеки.
@@ -124,7 +124,7 @@ function Unit(args) {
 		}
 
 		// Добавляем блок
-		blocksManager.push(addBlockFunction(params));
+		blocksManager[blockParams.type] = addBlockFunction(params);
 
 	}
 

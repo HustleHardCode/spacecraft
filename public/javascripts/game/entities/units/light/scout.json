@@ -27,12 +27,14 @@
 				{
 					"type": "laser",
 					"bulletKillDistance": 50,
-					"sprite": "beam1"
+					"sprite": "beam1",
+					"offsetX": 8
 				},
 				{
 					"type": "laser",
 					"bulletKillDistance": 50,
-					"sprite": "beam1"
+					"sprite": "beam1",
+					"offsetX": -8
 				}
 			]
 		}

@@ -11,6 +11,7 @@ var AnimationFactory = require('../../../animations');
  *
  * @param fireRate период одного выстрела
  * @param game игра
+ * @param unit юнит
  * @param sprite спрайт выстрела
  * @param bulletSpeed скорость пули
  * @param quantity кол-во пуль в корабле

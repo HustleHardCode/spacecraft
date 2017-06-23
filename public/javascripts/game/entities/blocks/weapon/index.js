@@ -18,6 +18,7 @@ function WeaponBlock(args) {
 
 	t.fire = fire;
 	t.fireAtXY = fireAtXY;
+	t.update = update;
 
 	initialize();
 
@@ -62,5 +63,11 @@ function WeaponBlock(args) {
 			lodash.forEach(weapons[weaponType], weapon => weapon.fireAtXY(x, y));
 
 		}
+	}
+
+	function update() {
+
+		lodash.forEach(weapons, w => w.update && w.update());
+
 	}
 }
