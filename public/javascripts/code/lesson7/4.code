@@ -1,15 +1,12 @@
 // Координаты датчика.
-const X_COORD = 1200;
-const Y_COORD = 1200;
+const X_COORD = 2000;
+const Y_COORD = 1700;
 
 /**
  * Код управления.
  */
 this.run = function(locust)
 {
-	// Передвижение к датчику.
-	locust.moveToXY(X_COORD, Y_COORD);
-
 	// Готовность первого лазерного оружия.
 	var isLaser1Ready = true;
 
@@ -20,7 +17,7 @@ this.run = function(locust)
 	if (isLaser1Ready && isLaser2Ready)
 	{
 		// ТО выполняем выстрел.
-		locust.fire();
+		locust.fireAtXY(X_COORD, Y_COORD);
 	}
 
 }

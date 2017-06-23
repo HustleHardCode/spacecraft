@@ -8,10 +8,10 @@ module.exports = Api;
  */
 function Api(player) {
 
-	var api = {};
+	let api = {};
 
-	var trueCaptain = false;
-	var sensorKilled = false;
+	let trueCaptain = false;
+	let sensorKilled = false;
 
 	api.moveToXY = player.moveToXY;
 	api.fire = player.fire;
@@ -75,4 +75,10 @@ function Api(player) {
 
 	}
 
+	function fire() {
+
+
+		player.fire();
+
+	}
 }

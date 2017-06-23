@@ -33,6 +33,20 @@
 			"maxHealth": 100,
 			"health": 100,
 			"scale": 1.8
-		}
+		},
+		{
+			"type": "weaponBlock",
+			"item": "basicLaser",
+			"offsets": [
+				{
+					"offsetX": -55,
+					"offsetY": 70
+				},
+				{
+					"offsetX": -55,
+					"offsetY": -70
+				}
+			]
+		},
 	]
 }

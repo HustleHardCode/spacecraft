@@ -27,7 +27,8 @@ function StateWrapper(state) {
 	let locust;    // Авианосец
 	let explosions;	// Группа анимации взрывов
 	let updateTime = moment().valueOf();
-	let sensor;
+	let scoutSensor;
+	let locustSensor;
 
 	t.entities = entities;
 	t.onContextLoaded = onContextLoaded;
@@ -87,9 +88,12 @@ function StateWrapper(state) {
 
 		locust.rotation = 3 * Math.PI / 2;
 
+		// API для урока
+		locust.api = Api(locust);
+
 		createNewPlayer();
 
-		sensor = EntitiesFactory.create({
+		scoutSensor = EntitiesFactory.create({
 			game: game,
 			x: worldCenterX - 500,
 			y: worldCenterY - 500,
@@ -99,9 +103,24 @@ function StateWrapper(state) {
 			needAudio: true
 		});
 
-		sensor.visible = false;
-		sensor.bringToTop();
-		sensor.events.onKilled.add(() => player.api.setSensorKilled(true), this);
+		locustSensor = EntitiesFactory.create({
+			game: game,
+			x: worldCenterX,
+			y: worldCenterY - 300,
+			preload: 'sensor',
+			faction: 2,
+			maxHealth: 1,
+			needAudio: true
+		});
+
+		scoutSensor.visible = false;
+		scoutSensor.bringToTop();
+
+		locustSensor.visible = false;
+		locustSensor.bringToTop();
+
+		scoutSensor.events.onKilled.add(() => player.api.setSensorKilled(true), this);
+		locustSensor.events.onKilled.add(() => locust.api.setSensorKilled(true), this);
 
 		// Группа анимации взрыва
 		explosions = game.add.group();
@@ -206,19 +225,17 @@ function StateWrapper(state) {
 
 		if(index === 3) {
 
-			sensor.visible = true;
+			scoutSensor.visible = true;
 
 		}
 
 		// Для 5 сабурока происходит смена корабля для управления
 		if(index === 4) {
 
+			locustSensor.visible = true;
+			player.visible = false;
+
 			World.changePlayer(locust.id);
-
-			player.api = null;
-
-			// API для урока
-			locust.api = Api(locust);
 
 			// Фокус на на центре
 			t.followFor(locust);
