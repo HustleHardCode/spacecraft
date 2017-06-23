@@ -15,7 +15,7 @@ CombatController.$inject = ['$scope',
 							'settings',
 							'spinner',
 							resolvesNames.combatUserCode,
-							resolvesNames.combatEnemy];
+							resolvesNames.combatEnemyCode];
 
 module.exports = CombatController;
 
@@ -32,7 +32,7 @@ function CombatController($scope,
 						  settings,
 						  spinner,
 						  combatUserCode,
-						  combatEnemy) {
+						  combatEnemyCode) {
 
 	const VK_GROUP_ID = 105816682;
 
@@ -68,7 +68,7 @@ function CombatController($scope,
 
 	initVk();
 
-	initCombat();
+	initialize();
 
 	// ==================================================
 
@@ -91,9 +91,11 @@ function CombatController($scope,
 
 	}
 
-	function initCombat() {
+	function initialize() {
 
-		console.log(Game.world.getEnemies());
+		// Передаем контекстные параметры в текущий стейт игры.
+		// Смотреть: content/state.js, метод onContextLoaded.
+		Game.pushContextParameters({combatEnemyCode});
 
 	}
 

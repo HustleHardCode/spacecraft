@@ -70,7 +70,7 @@ function Emp({
 
 		isEmpActivated = true;
 
-		let units = World.getEnemies();
+		let units = World.getEnemies(unit.faction);
 
 		lodash.forEach(units, u => {
 
@@ -86,7 +86,7 @@ function Emp({
 	}
 
 	/**
-	 * Фильтрация по диапозону.
+	 * Фильтрация по диапазону.
 	 *
 	 * @return {boolean}
 	 */

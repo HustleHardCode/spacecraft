@@ -73,7 +73,7 @@ function ScannerBlock({
 
 		isScanActivated = true;
 
-		let units = enemies ? World.getEnemies() : World.getObjects();
+		let units = enemies ? World.getEnemies(unit.faction) : World.getObjects();
 
 		return lodash.filter(units, u => scanFilter(u, callback));
 	}
