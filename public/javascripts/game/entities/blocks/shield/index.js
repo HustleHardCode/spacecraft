@@ -131,17 +131,14 @@ function ShieldBlock({
 	function damage(amount) {
 
 		// Если щит существует.
-		if (sprite.alive) {
-
-			// Наносим урон щиту.
-			sprite.damage(amount);
-
-		} else {
+		if (!sprite.alive || sprite.health < amount) {
 
 			// Иначе наносим урон кораблю.
 			_damage.call(unit, amount);
 
 		}
+
+		sprite.damage(amount);
 
 	}
 

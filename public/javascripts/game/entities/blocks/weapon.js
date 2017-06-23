@@ -3,8 +3,10 @@
 // Экспорт
 module.exports = WeaponBlock;
 
-var World = require('../world');
-var AnimationFactory = require('../../animations');
+const lodash = require('lodash');
+
+const World = require('../world');
+const AnimationFactory = require('../../animations');
 
 /**
  * Блок оружия, который может быть добавлен к кораблю.
@@ -15,9 +17,10 @@ var AnimationFactory = require('../../animations');
  * @param bulletSpeed скорость пули
  * @param quantity кол-во пуль в корабле
  * @param bulletKillDistance дистанция полета пули
- * @param offsetX офсет относительно корабля по X
- * @param offsetY офсет относительно корабля по Y
+ * @param offsets описание оффсета всех пуль
  * @param damage урон оружия
+ * @param preload имя спрайта
+ * @param name имя айтема
  *
  * @author Skurishin Vladislav
  * @since 11.06.16
@@ -25,21 +28,34 @@ var AnimationFactory = require('../../animations');
 function WeaponBlock({
 	game,
 	unit,
+	name, 						// Имя блока
+	preload = 'beam1',			// Имя спрайта
 	fireRate = 1000,
 	bulletSpeed = 200,
 	damage = 10,
 	quantity = 30,
 	bulletKillDistance = 200,
-	offsetX,
-	offsetY
+	offsets						// Описание оффсета всех пуль
 }) {
 
 	// that / this
 	let t = {};
-	let weapon = game.add.weapon(quantity, 'beam1');
+	let weapon = [];
 
+	// Добавляем как основное оружие.
 	unit.fire = fire;
 	unit.fireAtXY = fireAtXY;
+
+	// Если определено имя.
+	if (name) {
+
+		// То определяем объект оружия
+		// и добавляем необходимые методы
+		unit[name] = {};
+		unit[name].fire = fire;
+		unit[name].fireAtXY = fireAtXY;
+
+	}
 
 	t.update = update;
 
@@ -48,24 +64,38 @@ function WeaponBlock({
 	return t;
 
 	/**
+	 * Создаем оружие с заданным оффсетом.
+	 * @param o оффсет
+	 */
+	function createWeapon(o) {
+
+		let w = game.add.weapon(quantity, preload);
+
+		weapon.push(w);
+
+		//  The bullet will be automatically killed when it leaves the camera bounds
+		w.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
+
+		// Дистанция, при которой пуля будет уничтожена.
+		w.bulletKillDistance = bulletKillDistance;
+
+		//  The speed at which the bullet is fired
+		w.bulletSpeed = bulletSpeed;
+
+		//  Speed-up the rate of fire, allowing them to shoot 1 bullet every 60ms
+		w.fireRate = fireRate;
+
+		//  Tell the Weapon to track the 'player' Sprite, offset by 14px horizontally, 0 vertically
+		w.trackSprite(unit, o.offsetX, o.offsetY, true);
+
+	}
+
+	/**
 	 * Инициализация оружия у корабля.
 	 */
 	function initialization() {
 
-		//  The bullet will be automatically killed when it leaves the camera bounds
-		weapon.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
-
-		// Дистанция, при которой пуля будет уничтожена.
-		weapon.bulletKillDistance = bulletKillDistance;
-
-		//  The speed at which the bullet is fired
-		weapon.bulletSpeed = bulletSpeed;
-
-		//  Speed-up the rate of fire, allowing them to shoot 1 bullet every 60ms
-		weapon.fireRate = fireRate;
-
-		//  Tell the Weapon to track the 'player' Sprite, offset by 14px horizontally, 0 vertically
-		weapon.trackSprite(unit, offsetX, offsetY);
+		lodash.forEach(offsets, o => createWeapon(o));
 
 		unit.bringToTop();
 
@@ -83,8 +113,8 @@ function WeaponBlock({
 
 		} else {
 
-			weapon.fireAngle = unit.angle;
-			weapon.fire();
+			lodash.forEach(weapon, w => w.fireAngle = unit.angle);
+			lodash.forEach(weapon, w => w.fire());
 
 		}
 
@@ -101,16 +131,19 @@ function WeaponBlock({
 
 		}
 
-		weapon.fireAngle = game.physics.arcade.angleToXY(unit, x, y);
-		weapon.fireAtXY(x, y);
+		lodash.forEach(weapon, w => w.fireAngle = game.physics.arcade.angleToXY(unit, x, y));
+		lodash.forEach(weapon, w => w.fireAtXY(x, y));
 
 	}
 
 	function update() {
 
-		var sprites = World.getObjects();
+		let sprites = World.getObjects();
+		let bullets = [];
 
-		game.physics.arcade.overlap(weapon.bullets, sprites, hitEnemy, null, t);
+		lodash.forEach(weapon, w => bullets = lodash.concat(bullets, w.bullets));
+
+		game.physics.arcade.overlap(bullets, sprites, hitEnemy, null, t);
 
 	}
 
