@@ -5,6 +5,7 @@ let lodash = require('lodash');
 
 // Зависимости
 let BlocksFactory = require('../blocks');
+let ItemsFactory = require('../items');
 let AnimationFactory = require('../../animations');
 let Random = require('../../../utils/random');
 let World = require('../world');
@@ -104,8 +105,14 @@ function Unit(args) {
 	 */
 	function addBlock(blockParams) {
 
+		// Спец настройки. Добавление определенного айтем.
+		let item = ItemsFactory[blockParams.item] || {};
 		let addBlockFunction = BlocksFactory[blockParams.type];
-		let params = lodash.assign({}, args, blockParams, {unit: t});
+
+		// Объеденяем аргументы юнита, аргументы блока с аргументами конкретной
+		// шмотки. Получается: unit -> block -> item.
+		// Например: scout -> weapon -> basicLaser.
+		let params = lodash.assign({}, args, blockParams, item, {unit: t});
 
 		// Если функции созадния блока не существует,
 		// то continue.

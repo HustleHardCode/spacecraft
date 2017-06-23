@@ -5,7 +5,18 @@
 	"maxHealth": 300,
 	"blocks": [
 		{
-			"type": "weaponBlock"
+			"type": "weaponBlock",
+			"item": "basicLaser",
+			"offsets": [
+				{
+					"offsetX": 80,
+					"offsetY": 11
+				},
+				{
+					"offsetX": 80,
+					"offsetY": -10
+				}
+			]
 		},
 		{
 			"type": "engineBlock",

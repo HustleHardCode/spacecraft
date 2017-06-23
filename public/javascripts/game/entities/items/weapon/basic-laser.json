@@ -1,0 +1,10 @@
+{
+	"name": "basicLaser",
+	"type": "mark I",
+	"preload": "beam1",
+	"bulletKillDistance": 300,
+	"fireRate": 1000,
+	"bulletSpeed": 200,
+	"damage": 10,
+	"quantity": 30
+}

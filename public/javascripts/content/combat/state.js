@@ -54,21 +54,21 @@ function StateWrapper(state) {
 		});
 
 		// Создать корабль игрока
+		EntitiesFactory.createCricket({
+			game: game,
+			x: 1000,
+			y: 900,
+			faction: 2,
+			preload: 'combat1'
+		});
+
+		// Создать корабль игрока
 		var player = EntitiesFactory.createCricket({
 			game: game,
 			x: 1000,
 			y: 1000,
 			player: true,
 			faction: 1,
-			preload: 'combat1'
-		});
-
-		// Создать корабль игрока
-		EntitiesFactory.createCricket({
-			game: game,
-			x: 1000,
-			y: 900,
-			faction: 2,
 			preload: 'combat1'
 		});
 

@@ -23,7 +23,13 @@
 		},
 		{
 			"type": "weaponBlock",
-			"bulletKillDistance": 50
+			"item": "basicLaser",
+			"offsets": [
+				{
+					"offsetX": 0,
+					"offsetY": 0
+				}
+			]
 		}
 	]
 }
