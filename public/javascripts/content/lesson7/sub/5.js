@@ -23,33 +23,31 @@ function ComplexLogicalExpressionAnd() {
 		character:         [{
 			audio: 'audio/lesson6/8-1',
 			css:   'astromen-img',
-			// lessonTable: {
-			// 	columns: lessonTableColumns,
-			// 	rows: lessonTableRows
-			// }
-		},
-		// 	{
-		// 	audio: 'audio/lesson6/8-1',
-		// 	css:   'astromen-img',
-		// 	// Рассмотрим другой логический оператор && (и), который возвращает «true», если оба
-		// 	lessonTable: {
-		// 		columns: lessonTableColumns,
-		// 		rows: lessonTableRows,
-		// 		hintColumns: [1],
-		// 		hintRows: [0]
-		// 	}
-		// }, {
-		// 	audio: 'audio/lesson6/8-1',
-		// 	css:   'astromen-img',
-		// 	//  возвращают «true», иначе возвращает «false»
-		// 	lessonTable: {
-		// 		columns: lessonTableColumns,
-		// 		rows: lessonTableRows,
-		// 		hintColumns: [1, 2],
-		// 		hintRows: [1]
-		// 	}
-		// }
-		],
+			lessonTable: {
+				columns: lessonTableColumns,
+				rows: lessonTableRows
+			}
+		}, {
+			audio: 'audio/lesson6/8-1',
+			css:   'astromen-img',
+			// Рассмотрим другой логический оператор && (и), который возвращает «true», если оба
+			lessonTable: {
+				columns: lessonTableColumns,
+				rows: lessonTableRows,
+				hintColumns: [1],
+				hintRows: [0]
+			}
+		}, {
+			audio: 'audio/lesson6/8-1',
+			css:   'astromen-img',
+			//  возвращают «true», иначе возвращает «false»
+			lessonTable: {
+				columns: lessonTableColumns,
+				rows: lessonTableRows,
+				hintColumns: [1, 2],
+				hintRows: [1]
+			}
+		}],
 
 		gamePostUpdate: gamePostUpdate,
 
