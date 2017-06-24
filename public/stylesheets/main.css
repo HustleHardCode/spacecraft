@@ -1621,8 +1621,22 @@ div.helper {
 	position: absolute;
 }
 
-.diagram > svg {
-	padding-left: 50%;
+/*
+	Хак для Chrome
+	Стиль ".diagram > svg > .viewport" не применяется в Chrome,
+	поэтому именно для chrome применяем padding-left
+	Аналогичная история с FireFox в нём если делать padding-left,
+	то часть svg уходящая в отрицательные координаты не отрисовывается,
+	поэтому там применяется translate.
+*/
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
+	.diagram > svg {
+		padding-left: 50%;
+	}
+}
+
+.diagram > svg > .viewport {
+	transform: translate(50%, 0);
 }
 
 .login-vertical-center {
