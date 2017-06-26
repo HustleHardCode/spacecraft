@@ -1,5 +1,7 @@
 'use strict';
 
+const lodash = require('lodash');
+
 LoginController.$inject = ['$scope', '$state', '$window', 'authentication', 'spinner'];
 
 module.exports = LoginController;
@@ -144,6 +146,34 @@ function LoginController($scope, $state, $window, authentication, spinner) {
 	}
 
 	/**
+	 *  Метод возвращает имя следующего состояния для перехода после окончания авторизации.
+	 *  Метод опирается на наличие истории state'ов в сервисе $state.
+	 *  По умолчанию для перехода считается состояние 'welcome'.
+     */
+	function getNextStateName() {
+
+		let nextStateName = 'welcome';
+
+		if (!lodash.isEmpty($state.history)) {
+
+			const previousStateIndex = $state.history.length - 2;
+			const nextStateNameFromHistory = $state.history[previousStateIndex];
+
+			// Во избежание 'зацикливания' перехода, текущее состояние НЕ рассматриваем :)
+			if (nextStateNameFromHistory && nextStateNameFromHistory.name !== $state.current.name) {
+
+				nextStateName = nextStateNameFromHistory.name;
+
+			}
+
+
+		}
+
+		return nextStateName;
+
+	}
+
+	/**
 	 * Вход в систему.
 	 * Метод позволяет задать конкретное поведение в случае успешного логирования.
 	 * По умолчанию, производится вызов метода prepareSuccessfulLogin.
@@ -162,7 +192,9 @@ function LoginController($scope, $state, $window, authentication, spinner) {
 
 										 stopLoginSpinner();
 
-										 onSuccess ? onSuccess() : $state.go('welcome');
+										 const nextState = getNextStateName();
+
+										 onSuccess ? onSuccess() : $state.go(nextState);
 
 									 },
 									 error:    controllerErrorHandler

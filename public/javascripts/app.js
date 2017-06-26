@@ -49,7 +49,7 @@ angular.module('spacecraft', [
 require('./services');
 require('./directives');
 
-runBlock.$inject = ['authentication', '$rootScope', '$state'];
+runBlock.$inject = ['$rootScope', '$state'];
 configBlock.$inject = ['$urlRouterProvider', '$locationProvider'];
 
 angular.module('spacecraft').config(configBlock);
@@ -76,8 +76,29 @@ function configBlock($urlRouterProvider, $locationProvider) {
 /**
  * Запуск скрипта на старте приложения.
  */
-function runBlock(authentication, $rootScope, $state) {
+function runBlock($rootScope, $state) {
 
-	// Оставим определение метода пустым на случай необходимости.
+	const STATE_HISTORY_LENGTH = 5;
+	$state.history = [];
+
+	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
+
+		let lastElementFromHistory = lodash.last($state.history);
+		let lastStateNameFromHistory = lastElementFromHistory && lastElementFromHistory.name;
+
+		if (lastStateNameFromHistory !== toState.name) {
+
+			$state.history.push(toState);
+
+		}
+
+		// Если размер истории превышает заданный размер, то удаляем первый элемент массива.
+		if ($state.history.length === STATE_HISTORY_LENGTH) {
+
+			$state.history.shift();
+
+		}
+
+	});
 
 }
