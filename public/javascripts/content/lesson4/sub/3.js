@@ -31,7 +31,7 @@ function BadBBot() {
 		},
 		character:         [{
 			audio: 'audio/lesson5/3',
-			css:   'astromen-img'
+			css:   'wonk-img'
 		}]
 	};
 

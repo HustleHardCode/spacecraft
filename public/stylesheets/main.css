@@ -1027,6 +1027,16 @@ pre {
 	overflow: hidden;
 }
 
+.wonk-img {
+	height: 400px;
+	width: 140px;
+	background-image: url(../images/pages/wonk.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 50% 50%;
+	overflow: hidden;
+}
+
 .blackout {
 	position: fixed;
 	background-color: rgba(0, 0, 0, 0.8);

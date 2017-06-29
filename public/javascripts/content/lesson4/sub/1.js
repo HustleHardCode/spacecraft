@@ -27,7 +27,7 @@ function Testing() {
 		},
 		character:         [{
 			audio: 'audio/lesson5/1',
-			css:   'astromen-img'
+			css:   'wonk-img'
 		}]
 	};
 

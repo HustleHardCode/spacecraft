@@ -31,7 +31,7 @@ function RotateLeft() {
 		},
 		character:         [{
 			audio: 'audio/lesson5/2',
-			css:   'astromen-img'
+			css:   'wonk-img'
 		}]
 	};
 

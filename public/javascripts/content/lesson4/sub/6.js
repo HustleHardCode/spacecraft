@@ -31,7 +31,7 @@ function Fuel() {
 		},
 		character:         [{
 			audio: 'audio/lesson5/6',
-			css:   'astromen-img'
+			css:   'wonk-img'
 		}]
 	};
 

@@ -26,7 +26,7 @@ function Analytics() {
 		var lessonRating = {};
 		lessonRating['Урок ' + lessonId] = rating;
 
-		yaCounter43763714.params({'Оценки уроков' : lessonRating});
+		yaCounter43763714 && yaCounter43763714.params({'Оценки уроков' : lessonRating});
 
 	}
 

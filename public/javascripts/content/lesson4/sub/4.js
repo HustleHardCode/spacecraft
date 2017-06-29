@@ -30,7 +30,7 @@ function TheTruth() {
 		},
 		character:         [{
 			audio: 'audio/lesson5/4',
-			css:   'astromen-img'
+			css:   'wonk-img'
 		}]
 	};
 

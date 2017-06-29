@@ -35,7 +35,7 @@ function HHC() {
 		},
 		character:         [{
 			audio: 'audio/lesson5/7',
-			css:   'astromen-img'
+			css:   'wonk-img'
 		}]
 	};
 

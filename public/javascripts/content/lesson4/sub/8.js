@@ -24,7 +24,7 @@ function TheEnd() {
 		},
 		character:         [{
 			audio: 'audio/lesson5/8',
-			css:   'astromen-img'
+			css:   'wonk-img'
 		}]
 	};
 

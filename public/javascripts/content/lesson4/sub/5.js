@@ -34,7 +34,7 @@ function TypeOf() {
 		},
 		character:         [{
 			audio: 'audio/lesson5/5',
-			css:   'astromen-img'
+			css:   'wonk-img'
 		}]
 	};
 
