@@ -1029,11 +1029,11 @@ pre {
 
 .wonk-img {
 	height: 400px;
-	width: 140px;
+	width: 350px;
 	background-image: url(../images/pages/wonk.png);
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-position: 50% 50%;
+	background-position: 130% 50%;
 	overflow: hidden;
 }
 
