@@ -1,7 +1,8 @@
 'use strict';
 
-var angular = require('angular');
-var lodash = require('lodash');
+const StateHistory = require('./utils/state.history');
+
+const angular = require('angular');
 
 require('angular-ui-router');
 require('angular-ui-layout');
@@ -49,7 +50,7 @@ angular.module('spacecraft', [
 require('./services');
 require('./directives');
 
-runBlock.$inject = ['authentication', '$rootScope', '$state'];
+runBlock.$inject = ['$rootScope', '$state'];
 configBlock.$inject = ['$urlRouterProvider', '$locationProvider'];
 
 angular.module('spacecraft').config(configBlock);
@@ -76,8 +77,14 @@ function configBlock($urlRouterProvider, $locationProvider) {
 /**
  * Запуск скрипта на старте приложения.
  */
-function runBlock(authentication, $rootScope, $state) {
+function runBlock($rootScope, $state) {
 
-	// Оставим определение метода пустым на случай необходимости.
+	StateHistory.initialize($state);
+
+	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
+
+		$state.history.push({toState, toParams});
+
+	});
 
 }

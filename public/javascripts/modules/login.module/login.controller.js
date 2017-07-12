@@ -162,7 +162,12 @@ function LoginController($scope, $state, $window, authentication, spinner) {
 
 										 stopLoginSpinner();
 
-										 onSuccess ? onSuccess() : $state.go('welcome');
+										 const previous = $state.history.getPrevious();
+
+										 let toState = previous && previous.toState || {name: 'welcome'};
+										 let toParams = previous && previous.toParams;
+
+										 onSuccess ? onSuccess() : $state.go(toState.name, toParams);
 
 									 },
 									 error:    controllerErrorHandler
