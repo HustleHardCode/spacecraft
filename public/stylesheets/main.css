@@ -1028,8 +1028,8 @@ pre {
 }
 
 .wonk-img {
-	height: 400px;
-	width: 350px;
+	height: 300px;
+	width: 250px;
 	background-image: url(../images/pages/wonk.png);
 	background-repeat: no-repeat;
 	background-size: cover;
