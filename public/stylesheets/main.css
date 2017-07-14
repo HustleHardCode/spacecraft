@@ -1632,16 +1632,20 @@ div.helper {
 }
 
 /*
-	Хак для Chrome
+	Хак для Chrome и Safari
 	Стиль ".diagram > svg > .viewport" не применяется в Chrome,
 	поэтому именно для chrome применяем padding-left
 	Аналогичная история с FireFox в нём если делать padding-left,
 	то часть svg уходящая в отрицательные координаты не отрисовывается,
 	поэтому там применяется translate.
 */
-@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
+@media all and (-webkit-min-device-pixel-ratio:0) {
 	.diagram > svg {
 		padding-left: 50%;
+	}
+
+	.diagram > svg > .viewport {
+		transform: translate(0%, 0) !important;
 	}
 }
 
