@@ -1027,6 +1027,16 @@ pre {
 	overflow: hidden;
 }
 
+.wonk-img {
+	height: 300px;
+	width: 250px;
+	background-image: url(../images/pages/wonk.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 130% 50%;
+	overflow: hidden;
+}
+
 .blackout {
 	position: fixed;
 	background-color: rgba(0, 0, 0, 0.8);
@@ -1621,8 +1631,26 @@ div.helper {
 	position: absolute;
 }
 
-.diagram > svg {
-	padding-left: 50%;
+/*
+	Хак для Chrome и Safari
+	Стиль ".diagram > svg > .viewport" не применяется в Chrome,
+	поэтому именно для chrome применяем padding-left
+	Аналогичная история с FireFox в нём если делать padding-left,
+	то часть svg уходящая в отрицательные координаты не отрисовывается,
+	поэтому там применяется translate.
+*/
+@media all and (-webkit-min-device-pixel-ratio:0) {
+	.diagram > svg {
+		padding-left: 50%;
+	}
+
+	.diagram > svg > .viewport {
+		transform: translate(0%, 0) !important;
+	}
+}
+
+.diagram > svg > .viewport {
+	transform: translate(50%, 0);
 }
 
 .login-vertical-center {

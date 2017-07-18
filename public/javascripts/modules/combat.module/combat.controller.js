@@ -1,10 +1,10 @@
 'use strict';
 
-// Зависимости
 const CodeLauncher = require('../../game/launcher');
 const TabHandler = require('../../emitters/tab-handler');
 const spinnerMessages = require('../../utils/json/messages/spinner.json');
 const resolvesNames = require('./combat.resolve').names;
+const Game = require('./../../game');
 
 const lodash = require('lodash');
 
@@ -15,7 +15,7 @@ CombatController.$inject = ['$scope',
 							'settings',
 							'spinner',
 							resolvesNames.combatUserCode,
-							resolvesNames.combatEnemy];
+							resolvesNames.combatEnemyCode];
 
 module.exports = CombatController;
 
@@ -32,7 +32,7 @@ function CombatController($scope,
 						  settings,
 						  spinner,
 						  combatUserCode,
-						  combatEnemy) {
+						  combatEnemyCode) {
 
 	const VK_GROUP_ID = 105816682;
 
@@ -68,6 +68,8 @@ function CombatController($scope,
 
 	initVk();
 
+	initialize();
+
 	// ==================================================
 
 	function initVk() {
@@ -86,6 +88,14 @@ function CombatController($scope,
 			$scope.vkWidgetEnable = false;
 
 		}
+
+	}
+
+	function initialize() {
+
+		// Передаем контекстные параметры в текущий стейт игры.
+		// Смотреть: content/state.js, метод onContextLoaded.
+		Game.pushContextParameters({combatEnemyCode});
 
 	}
 

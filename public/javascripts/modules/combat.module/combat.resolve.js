@@ -23,7 +23,7 @@ function CombatResolve() {
 	const names = {
 		authentication: 'authenticationStatus',
 		combatUserCode: 'combatUserCode',
-		combatEnemy:    'combatEnemy',
+		combatEnemyCode:'combatEnemyCode',
 		game:           'game'
 	};
 
@@ -32,8 +32,8 @@ function CombatResolve() {
 
 	resolves[names.authentication] = ['promises', 'spinner', onAuthenticationStatus];
 	resolves[names.combatUserCode] = ['promises', 'spinner', names.authentication, onCombatUserCode];
-	resolves[names.combatEnemy] = ['promises', 'spinner', names.combatUserCode, onCombatEnemy];
-	resolves[names.game] = ['$stateParams', 'promises', 'spinner', names.combatEnemy, onGame];
+	resolves[names.combatEnemyCode] = ['promises', 'spinner', names.combatUserCode, onCombatEnemy];
+	resolves[names.game] = ['$stateParams', 'promises', 'spinner', names.combatEnemyCode, onGame];
 
 	// В качестве экспорта из модуля:
 	let t = {};

@@ -23,8 +23,8 @@ function TheEnd() {
 			correctAnswerDescription: '<p>Как жаль, что вы наконец-то уходите...</p>'
 		},
 		character:         [{
-			audio: 'audio/lesson3/1-1',
-			css:   'astromen-img'
+			audio: 'audio/lesson5/8',
+			css:   'wonk-img'
 		}]
 	};
 
