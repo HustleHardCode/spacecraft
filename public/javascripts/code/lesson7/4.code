@@ -13,7 +13,7 @@ this.run = function(locust)
 	// Готовность второго лазерного оружия.
 	var isLaser2Ready = false;
 
-	// ЕСЛИ один из лазеров готов к атаке.
+	// ЕСЛИ оба лазера готовы к атаке.
 	if (isLaser1Ready && isLaser2Ready)
 	{
 		// ТО выполняем выстрел.

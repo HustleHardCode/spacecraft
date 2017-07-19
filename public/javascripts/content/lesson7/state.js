@@ -106,7 +106,7 @@ function StateWrapper(state) {
 		locustSensor = EntitiesFactory.create({
 			game: game,
 			x: worldCenterX,
-			y: worldCenterY - 300,
+			y: worldCenterY - 250,
 			preload: 'sensor',
 			faction: 2,
 			maxHealth: 1,
@@ -235,7 +235,7 @@ function StateWrapper(state) {
 			locustSensor.visible = true;
 			player.visible = false;
 
-			World.changePlayer(locust.id);
+			World.setPlayer(locust.id);
 
 			// Фокус на на центре
 			t.followFor(locust);

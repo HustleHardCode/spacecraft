@@ -29,7 +29,6 @@ function World() {
 	t.update = update;
 	t.getPlayer = getPlayer;
 	t.setPlayer = setPlayer;
-	t.changePlayer = changePlayer;
 	t.getEnemies = getEnemies;
 
 	return t;
@@ -111,21 +110,19 @@ function World() {
 	 */
 	function setPlayer(id) {
 
+		// В случае, если игрок уже был задан
+		if(objects[playerId]) {
+
+			// Объект перестает быть игроком
+			objects[playerId].isPlayer = false;
+
+		}
+
 		// Устанавливаем параметр игрока
 		objects[id].isPlayer = true;
 
 		playerId = id;
 
-	}
-
-	/**
-	 * Меняем в мире игрока.
-	 */
-	function changePlayer(id) {
-
-		objects[playerId].isPlayer = false;
-
-		setPlayer(id);
 	}
 
 	/**
