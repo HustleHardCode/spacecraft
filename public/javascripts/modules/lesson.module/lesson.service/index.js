@@ -353,7 +353,7 @@ function LessonService(connection,
 			scope.textBot = current.defaultBBot && current.defaultBBot();
 
 			// Добавление кнопки 'Далее'
-			scope.nextSubLesson = nextSubLesson;
+			scope.nextSubLesson = current.defaultBBot ? nextSubLesson : false;
 
 			initNextLessonContent();
 

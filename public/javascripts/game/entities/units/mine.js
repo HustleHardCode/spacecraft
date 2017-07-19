@@ -3,7 +3,7 @@
 const World = require('../world');
 
 const DISTANCE = 100;
-const DAMAGE = 2;
+const DAMAGE = 10;
 const SPEED = 100;
 
 let mine =  {

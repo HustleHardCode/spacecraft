@@ -39,12 +39,12 @@
 			"item": "basicLaser",
 			"offsets": [
 				{
-					"offsetX": -40,
-					"offsetY": 75
+					"offsetX": -35,
+					"offsetY": 80
 				},
 				{
-					"offsetX": -40,
-					"offsetY": -75
+					"offsetX": -35,
+					"offsetY": -80
 				}
 			]
 		}

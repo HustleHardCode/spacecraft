@@ -72,7 +72,7 @@ router.get('/combat/enemy', checkAuthentication, (req, res) => {
 		function getCodeFromRandomDocument(documents) {
 
 			// Логика взятия случайной записи.
-			const randomIndex = lodash.random(0, documents.length);
+			const randomIndex = lodash.random(0, documents.length - 1);
 			const document = documents[randomIndex];
 
 			return document.code;

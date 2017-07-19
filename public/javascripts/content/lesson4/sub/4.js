@@ -29,8 +29,8 @@ function TheTruth() {
 			correctAnswerDescription: '<p>А вот нечего над роботами глумитbся!</p>'
 		},
 		character:         [{
-			audio: 'audio/lesson3/1-1',
-			css:   'astromen-img'
+			audio: 'audio/lesson5/4',
+			css:   'wonk-img'
 		}]
 	};
 

@@ -176,7 +176,7 @@ function LoginController($scope, $state, $window, authentication, spinner) {
 
 		startLoginSpinner('Заходим через ВКонтакте...');
 
-		$window.location.href = '/vk';
+		$window.location.href = '/vk/';
 
 	}
 

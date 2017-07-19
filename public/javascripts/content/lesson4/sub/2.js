@@ -30,8 +30,8 @@ function RotateLeft() {
 			correctAnswerDescription: '<p>Лееевоо руля!</p>'
 		},
 		character:         [{
-			audio: 'audio/lesson3/1-1',
-			css:   'astromen-img'
+			audio: 'audio/lesson5/2',
+			css:   'wonk-img'
 		}]
 	};
 

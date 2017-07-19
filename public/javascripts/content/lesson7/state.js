@@ -106,7 +106,7 @@ function StateWrapper(state) {
 		locustSensor = EntitiesFactory.create({
 			game: game,
 			x: worldCenterX,
-			y: worldCenterY - 250,
+			y: worldCenterY - 260,
 			preload: 'sensor',
 			faction: 2,
 			maxHealth: 1,
